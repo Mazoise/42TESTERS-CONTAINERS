@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/10/19 17:58:33 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/10/20 15:02:53 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ namespace ft
 
 			public:
 				List(const allocator_type& alloc = allocator_type());
-				List(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
+				List(size_type n, const value_type& val = value_type(),
+						const allocator_type& alloc = allocator_type());
 				List(const List&);
 				~List();
 				List&	operator=(const List&);
