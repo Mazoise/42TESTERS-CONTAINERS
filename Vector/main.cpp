@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/02 18:17:09 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/03 17:58:04 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ int main()
 {
 	ft::vector<int> empty;
 	ft::vector<int> fill(5, 8);
+	std::cout << "fill(5, 8) : ";
+	for (size_t i = 0; i < fill.size(); i++)
+		std::cout << fill[i] << ' ';
+	std::cout << '\n';
 	ft::vector<int> copy(fill);
 	std::vector<int> test;
 
@@ -65,7 +69,7 @@ int main()
 	std::cout << "\nRESERVE\n";
 	empty.reserve(5);
 	fill.reserve(3);
-	copy.reserve(42);
+	copy.reserve(83);
 	std::cout << "Size of empty " << empty.size() << std::endl;
 	std::cout << "Capacity of empty " << empty.capacity() << std::endl;
 	std::cout << "Size of fill " << fill.size() << std::endl;
@@ -107,6 +111,20 @@ int main()
 	fill.pop_back();
 	std::cout << "last elem of fill : " << fill.back() << '\n';
 
+	//INSERT
+	std::cout << "\nINSERT\n";
+	ft::vector<int>	insert_in_me;
+	for (int i = 0; i < 15; i++)
+		insert_in_me.push_back(i);
+	for (size_t i = 0; i < insert_in_me.size(); i++)
+		std::cout << insert_in_me.at(i) << ' ';
+	std::cout << '\n';
+
+	insert_in_me.insert(insert_in_me.begin() + 4, 8, 42);
+	for (size_t i = 0; i < insert_in_me.size(); i++)
+		std::cout << insert_in_me.at(i) << ' ';
+	std::cout << '\n';
+
 	//SWAP
 	std::cout << "\nSWAP\n";
 	fill.swap(copy);
@@ -138,7 +156,30 @@ int main()
 	for (size_t i = 0; i < copy.size(); i++)
 		std::cout << copy[i] << ' ';
 	std::cout << std::endl;
+
+	//NON MEMBER Functions
+	std::cout << "\nNON MEMBER functions\n";
+	ft::swap(fill, copy);
+	std::cout << "Size of fill " << fill.size() << std::endl;
+	std::cout << "Capacity of fill " << fill.capacity() << std::endl;
+	std::cout << "Size of copy " << copy.size() << std::endl;
+	std::cout << "Capacity of copy " << copy.capacity() << std::endl;
+	for (size_t i = 0; i < copy.size(); i++)
+		std::cout << copy[i] << ' ';
+	std::cout << std::endl;
 	
+	//RELATIONAL OPERATORS
+	std::cout << "\nRELATIONAL OPERATORS\n";
+	ft::vector<int> copy_2(copy);
+	std::cout << "copy and fill are equal ? " << (copy == fill) << '\n';
+	std::cout << "copy and copy_2 are equal ? " << (copy == copy_2) << '\n';
+
+	std::cout << "\nReal Vector\n";
+	std::vector<int> real;
+	real.assign(5, 7);
+	for (std::vector<int>::iterator it = real.begin(); it != real.end(); it++)
+		std::cout << *it << " ";
+	std::cout << '\n';
 
 	std::cout << std::endl;
 	return (0);
