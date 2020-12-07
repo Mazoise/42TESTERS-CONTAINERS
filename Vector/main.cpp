@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/07 15:49:33 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/07 17:08:02 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,13 @@ int main()
 /*
 	//ASSIGN RANGE
 	std::cout << "\nASSIGN RANGE\n";
+	ft::vector<int>	assign_range;
+	assign_range.assign(8, 5);
+	assign_range.assign(fill.begin(), fill.end());
 */
 
+	//EMPTY
+	std::cout << "\nEMPTY\n";
 	std::cout << "fill is empty ? " << fill.empty() << '\n';
 	std::cout << "fill at(41) : " << fill.at(41) << '\n';
 
@@ -133,6 +138,8 @@ int main()
 	std::cout << '\n';
 
 
+	//INSERT RANGE
+	std::cout << "\nINSERT RANGE\n";
 	ft::vector<int>	insert_bis;
 	for (int i = 0; i < 7; i++)
 		insert_bis.push_back(3 * i);
@@ -146,16 +153,36 @@ int main()
 	std::cout << '\n';
 
 
-/*
 	//ERASE
 	std::cout << "\nERASE\n";
 	ft::vector<int>	erase_in_me;
 	for (int i = 0; i < 15; i++)
 		erase_in_me.push_back(2 * i);
 	for (size_t i = 0; i < erase_in_me.size(); i++)
+	{
+		if (erase_in_me[i] < 10)
+			std::cout << ' ';
 		std::cout << erase_in_me.at(i) << ' ';
+	}
 	std::cout << '\n';
-*/
+
+	erase_in_me.erase(erase_in_me.begin() + 7);
+	for (size_t i = 0; i < erase_in_me.size(); i++)
+	{
+		if (erase_in_me[i] < 10)
+			std::cout << ' ';
+		std::cout << erase_in_me.at(i) << ' ';
+	}
+	std::cout << '\n';
+
+	erase_in_me.erase(erase_in_me.begin() + 2, erase_in_me.begin() + 6);
+	for (size_t i = 0; i < erase_in_me.size(); i++)
+	{
+		if (erase_in_me[i] < 10)
+			std::cout << ' ';
+		std::cout << erase_in_me.at(i) << ' ';
+	}
+	std::cout << '\n';
 
 	//SWAP
 	std::cout << "\nSWAP\n";

@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/07 16:07:02 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/07 16:52:06 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -488,8 +488,12 @@ namespace ft
 
 				iterator	insert(iterator position, const value_type& val)
 				{
+					difference_type	tmp;
+
+					tmp = position - this->begin();
 					this->insert(position, 1, val);
-					return position;
+
+					return this->begin() + tmp;
 				}
 
 				void		insert(iterator position, size_type n, const value_type& val)
@@ -519,7 +523,7 @@ namespace ft
 						tmp = position - this->begin();
 						this->reserve(this->_size + n);
 						position = this->begin() + tmp;
-
+						this->_size += n;
 						for (iterator it = this->end() - 1; it != (position + n  - 1); it--)
 						{
 							*it = *(it - n);
@@ -532,16 +536,50 @@ namespace ft
 						}
 					}
 
-				/*
 				iterator	erase(iterator position)
 				{
+					iterator	ret;
 
+					ret = position;
+					(*position).value_type::~value_type();
+					while (position != this->end() - 1)
+					{
+						*position = *(position + 1);
+						position++;
+					}
+					this->_size--;
+					return ret;
 				}
+
 				iterator	erase(iterator first, iterator last)
 				{
+					iterator		ret;
+					difference_type	i;
 
+					ret = first;
+					i = 0;
+					while (first != last)
+					{
+						(*first).value_type::~value_type();
+						if (last + i < this->end())
+							*first = *(last + i);
+						first++;
+						i++;
+					}
+					while (first != this->end() - i)
+					{
+						(*first).value_type::~value_type();
+						*first = *(first + i);
+						first++;
+					}
+					while (first != this->end())
+					{
+						(*first).value_type::~value_type();
+						first++;
+					}
+					this->_size -= i;
+					return ret;
 				}
-				*/
 
 				void	swap(vector& vec)
 				{
