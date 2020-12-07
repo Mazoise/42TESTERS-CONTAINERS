@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/03 18:31:54 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/07 12:41:08 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,19 @@ namespace ft
 				
 				VectorIterator(): _ptr(NULL) {}
 				VectorIterator(pointer ptr) : _ptr(ptr) {}
+				VectorIterator(VectorIterator<T>& vec): _ptr(&(*vec)) {}
 				VectorIterator(const VectorIterator<T>& vec): _ptr(&(*vec)) {}
 				~VectorIterator() {}
 				VectorIterator& operator=(const VectorIterator& vec)
 				{
 					this->_ptr = &(*vec);
+					return *this;
+				}
+
+				VectorIterator& operator=(VectorIterator& vec)
+				{
+					this->_ptr = &(*vec);
+					return *this;
 				}
 
 				reference		operator*()
@@ -174,6 +182,7 @@ namespace ft
 		{
 			return !(lhs == rhs);
 		}
+	
 
 	template < class T>
 	bool VectorIterator<T>::input_iter = true;

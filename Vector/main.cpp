@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/03 17:58:04 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/07 12:42:49 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,11 @@ int main()
 		std::cout << insert_in_me.at(i) << ' ';
 	std::cout << '\n';
 
-	insert_in_me.insert(insert_in_me.begin() + 4, 8, 42);
-	for (size_t i = 0; i < insert_in_me.size(); i++)
-		std::cout << insert_in_me.at(i) << ' ';
-	std::cout << '\n';
+	ft::VectorIterator<int>	tmp(insert_in_me.begin());
+//	insert_in_me.insert(insert_in_me.begin() + 4, 8, 42);
+//	for (size_t i = 0; i < insert_in_me.size(); i++)
+//		std::cout << insert_in_me.at(i) << ' ';
+//	std::cout << '\n';
 
 	//SWAP
 	std::cout << "\nSWAP\n";
