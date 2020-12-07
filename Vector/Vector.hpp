@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/07 12:41:08 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/07 16:07:02 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,21 @@ namespace ft
 				
 				VectorIterator(): _ptr(NULL) {}
 				VectorIterator(pointer ptr) : _ptr(ptr) {}
-				VectorIterator(VectorIterator<T>& vec): _ptr(&(*vec)) {}
-				VectorIterator(const VectorIterator<T>& vec): _ptr(&(*vec)) {}
+				VectorIterator(const VectorIterator<T>& vec): _ptr(vec.getPointer()) {}
 				~VectorIterator() {}
-				VectorIterator& operator=(const VectorIterator& vec)
+				VectorIterator& operator=(const VectorIterator<T>& vec)
 				{
-					this->_ptr = &(*vec);
+					this->_ptr = vec.getPointer();
 					return *this;
 				}
 
-				VectorIterator& operator=(VectorIterator& vec)
+/*
+				VectorIterator& operator=(VectorIterator vec)
 				{
 					this->_ptr = &(*vec);
 					return *this;
 				}
+*/
 
 				reference		operator*()
 				{
@@ -133,9 +134,9 @@ namespace ft
 					return *this;
 				}
 
-				difference_type	operator-(VectorIterator& vec)
+				difference_type	operator-(const VectorIterator& vec) const
 				{
-					return (this->_ptr - vec._ptr);
+					return (this->_ptr - vec.getPointer());
 				}
 
 				reference		operator[](difference_type i)
@@ -145,7 +146,7 @@ namespace ft
 
 				bool operator==(const VectorIterator& right) const 
 				{
-					return (this->_ptr == right._ptr);
+					return (this->_ptr == right.getPointer());
 				}
 
 				bool operator!=(const VectorIterator& right) const 
@@ -173,6 +174,11 @@ namespace ft
 					return !(*this < right);
 				}
 
+				pointer		getPointer() const
+				{
+					return this->_ptr;
+				}
+
 			protected:
 				pointer		_ptr;
 		};
@@ -188,27 +194,25 @@ namespace ft
 	bool VectorIterator<T>::input_iter = true;
 
 	// VECTOR
-	template < class T, class Alloc = std::allocator<T> >
+	template < class T>
 		class vector
 		{
 			public:
 				// Typedefs
 				typedef	T											value_type;
-				typedef	Alloc										allocator_type; 
-				typedef typename allocator_type::reference			reference;
-				typedef typename allocator_type::const_reference	const_reference;
-				typedef typename allocator_type::pointer			pointer;
-				typedef typename allocator_type::const_pointer		const_pointer;
+				typedef value_type&									reference;
+				typedef const value_type&							const_reference;
+				typedef T*											pointer;
+				typedef const T*									const_pointer;
 				typedef VectorIterator<value_type>					iterator;
 				typedef VectorIterator<const value_type>			const_iterator;
 				typedef ReverseIterator<iterator>					reverse_iterator;
 				typedef ReverseIterator<const_iterator>				const_reverse_iterator;
-				typedef ptrdiff_t									difference_type;
+				typedef std::ptrdiff_t									difference_type;
 				typedef size_t										size_type;
 
 				// MEMBER
-				explicit vector(const allocator_type& alloc = allocator_type()):
-					_alloc(alloc), _size(0), _capacity(0)
+				explicit vector(): _size(0), _capacity(0)
 				{
 					if (PRINT)
 						std::cout << "Default constructor called\n";
@@ -216,9 +220,8 @@ namespace ft
 					this->_tab = new value_type[0];
 				}
 
-				explicit vector(size_type n, const value_type& val = value_type(),
-					const allocator_type& alloc = allocator_type()):
-						_alloc(alloc), _size(n), _capacity(n)
+				explicit vector(size_type n,const value_type& val = value_type()):
+					_size(n), _capacity(n)
 				{
 					if (PRINT)
 						std::cout << "Fill constructor called\n";
@@ -230,9 +233,8 @@ namespace ft
 				
 				template < class InputIter>
 				vector(typename enable_if<InputIter::input_iter, InputIter>::type first,
-						typename enable_if<InputIter::input_iter, InputIter>::type last,
-					const allocator_type& alloc = allocator_type()):
-						_tab(NULL), _alloc(alloc), _size(0), _capacity(0)
+						typename enable_if<InputIter::input_iter, InputIter>::type last):
+							_tab(NULL), _size(0), _capacity(0)
 				{
 					if (PRINT)
 						std::cout << "Range constructor called\n";
@@ -241,7 +243,7 @@ namespace ft
 				}
 
 				vector(const vector& obj):
-					_tab(NULL), _alloc(allocator_type()), _size(0), _capacity(0)
+					_tab(NULL), _size(0), _capacity(0)
 				{
 					if (PRINT)
 						std::cout << "Copy Constructor called\n";
@@ -340,8 +342,8 @@ namespace ft
 
 				size_type	max_size() const // WITHOUT STL ?!
 				{
-					return this->_alloc.max_size();
-//					return (std::numeric_limits<size_type>::max());
+//					return value_type::value_type.max_size();
+					return (std::numeric_limits<size_type>::max());
 				}
 
 				void		resize(size_type n, value_type val = value_type())
@@ -422,7 +424,7 @@ namespace ft
 				const_reference	at(const size_type i) const
 				{
 					if (i >= this->_size)
-						throw std::out_of_range("vector::at() | Out of range access)\n");
+						throw std::out_of_range("vector::at() | Out of range access\n");
 					return this->_tab[i];
 				}
 
@@ -492,22 +494,43 @@ namespace ft
 
 				void		insert(iterator position, size_type n, const value_type& val)
 				{
+					difference_type tmp;
+
+					tmp = position - this->begin();
+
 					this->reserve(this->_size + n);
+					position = this->begin() + tmp;
+
+					this->_size += n;
 					for (iterator it = this->end() - 1; it != position + n - 1; it--)
-					{
 						*it = *(it - n);
-					}
 					for (iterator it = position; it != position + n; it++)
 						*it = val;
 				}
 
-/*
-				template < class InputIterator>
-					void		insert(iterator position, InputIterator first, InputIterator last)
+				template < class InputIter>
+				void	insert(iterator position,
+					typename enable_if<InputIter::input_iter, InputIter>::type first,
+					typename enable_if<InputIter::input_iter, InputIter>::type last)
 					{
-	
+						difference_type	n, tmp;
+						
+						n = last - first;
+						tmp = position - this->begin();
+						this->reserve(this->_size + n);
+						position = this->begin() + tmp;
+
+						for (iterator it = this->end() - 1; it != (position + n  - 1); it--)
+						{
+							*it = *(it - n);
+						}
+						while (first != last)
+						{
+							*position = *first;
+							position++;
+							first++;
+						}
 					}
-*/
 
 				/*
 				iterator	erase(iterator position)
@@ -544,47 +567,46 @@ namespace ft
 			private:
 
 				pointer					_tab;
-				const allocator_type	_alloc;
 				size_type				_size;
 				size_type				_capacity;
 		};
 
 // NON MEMBER functions
 
-	template <class T, class Alloc = std::allocator<T> >
-		void	swap(vector<T, Alloc>& x, vector<T, Alloc>& y)
+	template <class T>
+		void	swap(vector<T>& x, vector<T>& y)
 		{
 			x.swap(y);
 		}
 	
-	template <class T, class Alloc = std::allocator<T> >
-		bool operator==(const vector<T, Alloc>& left, const vector<T, Alloc>& right)
+	template <class T>
+		bool operator==(const vector<T>& left, const vector<T>& right)
 		{
 			if (left.size() != right.size())
 				return false;
-			for (typename ft::vector<T, Alloc>::size_type i = 0; i < left.size(); i++)
+			for (typename ft::vector<T>::size_type i = 0; i < left.size(); i++)
 				if (left[i] != right[i])
 					return false;
 
 			return true;
 		}
 	
-	template <class T, class Alloc = std::allocator<T> >
-		bool operator==(vector<T, Alloc>& left, vector<T, Alloc>& right)
+	template <class T>
+		bool operator==(vector<T>& left, vector<T>& right)
 		{
 			if (left.size() != right.size())
 				return false;
-			for (typename ft::vector<T, Alloc>::size_type i = 0; i < left.size(); i++)
+			for (typename ft::vector<T>::size_type i = 0; i < left.size(); i++)
 				if (left[i] != right[i])
 					return false;
 
 			return true;
 		}
 	
-	template <class T, class Alloc = std::allocator<T> >
-		bool operator<(vector<T, Alloc>& left, vector<T, Alloc>& right)
+	template <class T>
+		bool operator<(vector<T>& left, vector<T>& right)
 		{
-			typename ft::vector<T, Alloc>::size_type	i = 0;
+			typename ft::vector<T>::size_type	i = 0;
 
 			while (i < left.size() && i < right.size() && left[i] == right[i])
 				i++;
@@ -595,26 +617,26 @@ namespace ft
 			return (left[i] < right[i]);
 		}
 
-	template <class T, class Alloc = std::allocator<T> >
-		bool operator!=(vector<T, Alloc>& left, vector<T, Alloc>& right)
+	template <class T>
+		bool operator!=(vector<T>& left, vector<T>& right)
 		{
 			return (!(left == right));
 		}
 
-	template <class T, class Alloc = std::allocator<T> >
-		bool operator>(vector<T, Alloc>& left, vector<T, Alloc>& right)
+	template <class T>
+		bool operator>(vector<T>& left, vector<T>& right)
 		{
 			return (right < left);
 		}
 
-	template <class T, class Alloc = std::allocator<T> >
-		bool operator<=(vector<T, Alloc>& left, vector<T, Alloc>& right)
+	template <class T>
+		bool operator<=(vector<T>& left, vector<T>& right)
 		{
 			return (!(right < left));
 		}
 
-	template <class T, class Alloc = std::allocator<T> >
-		bool operator>=(vector<T, Alloc>& left, vector<T, Alloc>& right)
+	template <class T>
+		bool operator>=(vector<T>& left, vector<T>& right)
 		{
 			return (!(left < right));
 		}
