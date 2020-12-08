@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/08 15:18:58 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/08 16:13:40 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ namespace ft
 				
 				VectorIterator(): _ptr(NULL) {}
 				VectorIterator(pointer ptr) : _ptr(ptr) {}
-				VectorIterator(const VectorIterator<T>& vec): _ptr(vec.getPointer()) {}
+				VectorIterator(const VectorIterator& vec): _ptr(vec.getPointer()) {}
 				~VectorIterator() {}
 				VectorIterator& operator=(const VectorIterator& vec)
 				{

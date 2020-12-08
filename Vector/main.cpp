@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/08 14:33:27 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/08 16:16:43 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,13 +128,47 @@ int main()
 		std::cout << insert_in_me.at(i) << ' ';
 	std::cout << '\n';
 
-	ft::VectorIterator<int>	tmp;
+	ft::vector<int>::iterator	tmp;
 	tmp = insert_in_me.begin() + 4;
 	insert_in_me.insert(tmp, 8, 42);
 	for (size_t i = 0; i < insert_in_me.size(); i++)
 		std::cout << insert_in_me.at(i) << ' ';
 	std::cout << '\n';
 
+	ft::vector<int>::const_iterator const_it(insert_in_me.begin());
+
+	const int	i = 42;
+	int			j = 14;
+
+	const int* p = &i;
+
+	std::cout << *p << '\n';
+
+	p = &j;
+	std::cout << *p << '\n';
+
+	j = 15;
+	std::cout << *p << '\n';
+
+	//STD::INSERT
+	std::cout << "\nSTD::INSERT\n";
+	std::vector<int>	std_insert_in_me;
+	for (int i = 0; i < 15; i++)
+		std_insert_in_me.push_back(i);
+	for (size_t i = 0; i < std_insert_in_me.size(); i++)
+		std::cout << std_insert_in_me.at(i) << ' ';
+	std::cout << '\n';
+
+	std::vector<int>::iterator	std_tmp;
+	std_tmp = std_insert_in_me.begin() + 4;
+	std_insert_in_me.insert(std_tmp, 8, 42);
+	for (size_t i = 0; i < std_insert_in_me.size(); i++)
+		std::cout << std_insert_in_me.at(i) << ' ';
+	std::cout << '\n';
+
+	std::vector<int>::const_iterator std_const_it(std_insert_in_me.begin());
+	std::cout << "std::const it : " << *std_const_it << '\n';
+//	*std_const_it = 48; // does not compile
 
 	//INSERT RANGE
 	std::cout << "\nINSERT RANGE\n";
