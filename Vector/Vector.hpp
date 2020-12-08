@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/08 16:51:08 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/08 16:58:21 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,17 @@ namespace ft
 					return this->_ptr;
 				}
 
-				reference		operator*()
+				virtual reference		operator*()
 				{
+					if (PRINT)
+						std::cout << "Operator*\n";
 					return (*(this->_ptr));
 				}
 
-				const_reference	operator*() const
+				virtual const_reference	operator*() const
 				{
+					if (PRINT)
+						std::cout << "Const operator*\n";
 					return (*(this->_ptr));
 				}
 
@@ -196,6 +200,10 @@ namespace ft
 				const_VectorIterator(): _ptr(NULL) {}
 				const_VectorIterator(const VectorIterator<T>& vec): _ptr(vec.getPointer()) {}
 				const_VectorIterator(const_VectorIterator& vec): _ptr(vec.getPointer()) {}
+				const T&	operator*() const
+				{
+					return *this->_ptr;
+				}
 		};
 
 	// VECTOR
