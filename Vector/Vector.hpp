@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/08 16:13:40 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/08 16:51:08 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,6 @@ namespace ft
 				{
 					return this->_ptr;
 				}
-
-/*
-				const_pointer	getPointer() const
-				{
-					return this->_ptr;
-				}
-*/
 
 				reference		operator*()
 				{
@@ -178,7 +171,7 @@ namespace ft
 					return !(*this < right);
 				}
 
-			protected:
+			private:
 				pointer		_ptr;
 		};
 
@@ -193,6 +186,18 @@ namespace ft
 	const bool VectorIterator<T>::input_iter = true;
 
 
+	template < class T>
+		class const_VectorIterator : public VectorIterator<T>
+		{
+			private:
+				const T*	_ptr;
+			
+			public:
+				const_VectorIterator(): _ptr(NULL) {}
+				const_VectorIterator(const VectorIterator<T>& vec): _ptr(vec.getPointer()) {}
+				const_VectorIterator(const_VectorIterator& vec): _ptr(vec.getPointer()) {}
+		};
+
 	// VECTOR
 	template < class T>
 		class vector
@@ -205,7 +210,7 @@ namespace ft
 				typedef T*											pointer;
 				typedef const T*									const_pointer;
 				typedef VectorIterator<value_type>					iterator;
-				typedef VectorIterator<const value_type>			const_iterator;
+				typedef const_VectorIterator<value_type>			const_iterator;
 				typedef ReverseIterator<iterator>					reverse_iterator;
 				typedef ReverseIterator<const_iterator>				const_reverse_iterator;
 				typedef std::ptrdiff_t								difference_type;
