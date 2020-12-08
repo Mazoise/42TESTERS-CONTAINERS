@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   const_main.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/08 14:33:27 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/08 14:44:25 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,9 @@ int main()
 	std::cout << "\nASSIGN RANGE\n";
 	ft::vector<int>	assign_range;
 	assign_range.assign(8, 5);
-	assign_range.assign(fill.begin() + 1, fill.end() - 2);
+	ft::vector<int>::const_iterator const_beg = fill.begin() + 1;
+	ft::vector<int>::const_iterator const_end = fill.end() - 2;;
+	assign_range.assign(const_beg, 2);const_end
 
 	//EMPTY
 	std::cout << "\nEMPTY\n";
@@ -128,7 +130,7 @@ int main()
 		std::cout << insert_in_me.at(i) << ' ';
 	std::cout << '\n';
 
-	ft::VectorIterator<int>	tmp;
+	ft::vector<int>::const_iterator	tmp;
 	tmp = insert_in_me.begin() + 4;
 	insert_in_me.insert(tmp, 8, 42);
 	for (size_t i = 0; i < insert_in_me.size(); i++)
@@ -234,7 +236,7 @@ int main()
 	std::cout << "\nReal Vector\n";
 	std::vector<int> real;
 	real.assign(5, 7);
-	for (std::vector<int>::iterator it = real.begin(); it != real.end(); it++)
+	for (std::vector<int>::const_iterator it = real.begin(); it != real.end(); it++)
 		std::cout << *it << " ";
 	std::cout << '\n';
 

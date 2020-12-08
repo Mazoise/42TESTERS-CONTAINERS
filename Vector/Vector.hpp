@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/07 16:52:06 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/08 15:18:58 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,27 @@ namespace ft
 				typedef const value_type&	const_reference;
 				typedef	std::ptrdiff_t		difference_type;
 
-				static bool					input_iter;
+				static const bool			input_iter;
 				
 				VectorIterator(): _ptr(NULL) {}
 				VectorIterator(pointer ptr) : _ptr(ptr) {}
 				VectorIterator(const VectorIterator<T>& vec): _ptr(vec.getPointer()) {}
 				~VectorIterator() {}
-				VectorIterator& operator=(const VectorIterator<T>& vec)
+				VectorIterator& operator=(const VectorIterator& vec)
 				{
 					this->_ptr = vec.getPointer();
 					return *this;
 				}
 
-/*
-				VectorIterator& operator=(VectorIterator vec)
+				pointer			getPointer() const
 				{
-					this->_ptr = &(*vec);
-					return *this;
+					return this->_ptr;
+				}
+
+/*
+				const_pointer	getPointer() const
+				{
+					return this->_ptr;
 				}
 */
 
@@ -174,11 +178,6 @@ namespace ft
 					return !(*this < right);
 				}
 
-				pointer		getPointer() const
-				{
-					return this->_ptr;
-				}
-
 			protected:
 				pointer		_ptr;
 		};
@@ -191,7 +190,8 @@ namespace ft
 	
 
 	template < class T>
-	bool VectorIterator<T>::input_iter = true;
+	const bool VectorIterator<T>::input_iter = true;
+
 
 	// VECTOR
 	template < class T>
@@ -208,7 +208,7 @@ namespace ft
 				typedef VectorIterator<const value_type>			const_iterator;
 				typedef ReverseIterator<iterator>					reverse_iterator;
 				typedef ReverseIterator<const_iterator>				const_reverse_iterator;
-				typedef std::ptrdiff_t									difference_type;
+				typedef std::ptrdiff_t								difference_type;
 				typedef size_t										size_type;
 
 				// MEMBER
@@ -232,9 +232,9 @@ namespace ft
 				}
 				
 				template < class InputIter>
-				vector(typename enable_if<InputIter::input_iter, InputIter>::type first,
-						typename enable_if<InputIter::input_iter, InputIter>::type last):
-							_tab(NULL), _size(0), _capacity(0)
+					vector(InputIter first,
+					typename enable_if<InputIter::input_iter, InputIter>::type last):
+						_tab(NULL), _size(0), _capacity(0)
 				{
 					if (PRINT)
 						std::cout << "Range constructor called\n";
@@ -265,14 +265,10 @@ namespace ft
 						std::cout << "Assignation operator called\n";
 					if (*this == obj)
 						return *this;
-					for (size_type i = 0; i < this->_size; i++)
-						this->_tab[i].value_type::~value_type();
-					delete[] this->_tab;
-					this->_size = obj.size();
-					this->_tab = new value_type[this->_size];
-					this->_capacity = this->_size;
-					for (size_t i = 0; i < this->_size; i++)
-						this->_tab[i] = obj[i];
+					
+					this->clear();
+					this->assign(obj.begin(), obj.end());
+
 					return *this;
 				}
 
@@ -287,9 +283,7 @@ namespace ft
 
 				const_iterator begin() const
 				{
-					const_iterator ret(this->_tab);
-
-					return ret;
+					return const_iterator(this->_tab);
 				}
 
 				iterator end()
@@ -301,9 +295,7 @@ namespace ft
 
 				const_iterator end() const
 				{
-					const_iterator ret(this->_tab + this->_size);
-
-					return ret;
+					return const_iterator(this->_tab + this->_size);
 				}
 
 				reverse_iterator	rbegin()
@@ -315,9 +307,7 @@ namespace ft
 
 				const_reverse_iterator	rbegin() const
 				{
-					const_reverse_iterator	ret(this->end() - 1);
-
-					return ret;
+					return const_reverse_iterator(this->end() - 1);
 				}
 
 				reverse_iterator	rend()
@@ -329,9 +319,7 @@ namespace ft
 
 				const_reverse_iterator	rend() const
 				{
-					const_reverse_iterator	ret(this->end() - 1);
-
-					return ret;
+					return const_reverse_iterator(this->end() - 1);
 				}
 
 				// Capacity
@@ -450,16 +438,11 @@ namespace ft
 
 				// MODIFIERS
 				template < class InputIter>
-				void	assign
-					(typename enable_if<InputIter::input_iter, InputIter>::type first,
-						typename enable_if<InputIter::input_iter, InputIter>::type last)
+				void	assign(InputIter first,
+					typename enable_if<InputIter::input_iter, InputIter>::type last)
 				{
-					this->reserve(last - first);
 					this->clear();
-					while (first < last)
-					{
-						this->push_back(*first++);
-					}
+					this->insert(this->begin(), first, last);
 				}
 
 				void	assign(size_type n, const value_type& val)
@@ -513,8 +496,7 @@ namespace ft
 				}
 
 				template < class InputIter>
-				void	insert(iterator position,
-					typename enable_if<InputIter::input_iter, InputIter>::type first,
+				void	insert(iterator position, InputIter first,
 					typename enable_if<InputIter::input_iter, InputIter>::type last)
 					{
 						difference_type	n, tmp;
