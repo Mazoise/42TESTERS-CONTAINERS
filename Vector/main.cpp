@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/08 16:16:43 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/08 16:20:33 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,18 +137,12 @@ int main()
 
 	ft::vector<int>::const_iterator const_it(insert_in_me.begin());
 
-	const int	i = 42;
 	int			j = 14;
 
-	const int* p = &i;
+	int*		ptr = &j;
+	const int*	p(ptr);
 
-	std::cout << *p << '\n';
-
-	p = &j;
-	std::cout << *p << '\n';
-
-	j = 15;
-	std::cout << *p << '\n';
+	std::cout << "test : " << *p << '\n';
 
 	//STD::INSERT
 	std::cout << "\nSTD::INSERT\n";
