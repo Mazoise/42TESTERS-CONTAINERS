@@ -6,14 +6,15 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/08 16:58:21 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/09 11:23:32 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
 #include <limits>
-#include "ReverseIterator.hpp"
+#include "../ReverseIterator.hpp"
+#include "../enable_if.hpp"
 
 #ifdef DEBUG
 # define PRINT 1
@@ -24,12 +25,6 @@
 
 namespace ft 
 {
-
-	template<bool B, class T = void>
-		struct enable_if {};
-
-	template<class T>
-		struct enable_if<true, T> { typedef T type; };
 
 	// ITERATOR
 	template < class T>
@@ -215,8 +210,8 @@ namespace ft
 				typedef	T											value_type;
 				typedef value_type&									reference;
 				typedef const value_type&							const_reference;
-				typedef T*											pointer;
-				typedef const T*									const_pointer;
+				typedef value_type*									pointer;
+				typedef const value_type*							const_pointer;
 				typedef VectorIterator<value_type>					iterator;
 				typedef const_VectorIterator<value_type>			const_iterator;
 				typedef ReverseIterator<iterator>					reverse_iterator;
