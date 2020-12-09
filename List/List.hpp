@@ -6,14 +6,15 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/10/21 23:16:46 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/09 15:09:53 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include "elem.hpp"
-#include "iterator.hpp"
-// #include "reverse_iterator.hpp"
+#include "Node.hpp"
+#include "NodeIterator.hpp"
+#include "../ReverseIterator.hpp"
+#include "../enable_if.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -28,217 +29,496 @@ namespace ft
 {
 	static std::ostream& cout = std::cout;
 	
+/*
 	template<class T>
-	class elem;
+	class node;
 	
 	template<class T>
 	class iterator;
 	
 	template<class T>
 	class reverse_iterator;
+*/
 
-	template <class T, class Alloc = std::allocator<T> >
+	template <class T>
 	class list
 	{
 		public:
-			// TYPEDEFS	//
+			//		TYPEDEFS		//
 
-			typedef T											value_type;
-			typedef Alloc										allocator_type;
-			typedef typename allocator_type::reference			reference;
-			typedef typename allocator_type::const_reference	const_reference;
-			typedef typename allocator_type::pointer			pointer;
-			typedef typename allocator_type::const_pointer		const_pointer;
-			typedef typename ft::iterator< elem<T> >			iterator;
-			typedef const ft::iterator< elem<T> >				const_iterator;
-			typedef typename ft::reverse_iterator< elem<T> >	reverse_iterator;
-			typedef const ft::reverse_iterator< elem<T> >		const_reverse_iterator;
-			typedef ptrdiff_t									difference_type;
-			typedef size_t										size_type;
+			typedef T										value_type;
+			typedef value_type&								reference;
+			typedef const value_type&						const_reference;
+			typedef value_type*								pointer;
+			typedef const value_type*						const_pointer;
+			typedef NodeIterator< node<value_type> >		iterator;
+			typedef const_NodeIterator< node<value_type> >	const_iterator;
+			typedef ReverseIterator< iterator>				reverse_iterator;
+			typedef ReverseIterator< const_iterator>		const_reverse_iterator;
+			typedef std::ptrdiff_t							difference_type;
+			typedef std::size_t								size_type;
+			typedef node<value_type>						node_type;
 
-			//**********//
+			node_type		_head;
+			node_type		_tail;
 
-			list(const allocator_type& alloc = allocator_type());
-			list(size_type n, const value_type& val = value_type(),
-					const allocator_type& alloc = allocator_type());
-			list(iterator first, iterator last,
-				const allocator_type& alloc = allocator_type());
-			list(const list&);
-			~list();
-			list&	operator=(const list&);
+			//	MEMBER FUNCTIONS	//
+
+			explicit list(): _n(0)
+			{
+				if (PRINT)
+					std::cout << "Default Constructor called\n";
+				this->_head->next = this->_tail;
+				this->_tail->prev = this->_head;
+			}
+			explicit list(size_type n, const value_type& val = value_type()): _n(0)
+			{
+				if (PRINT)
+					std::cout << "Fill Constructor called\n";
+				
+				this->_head->next = this->_tail;
+				this->_tail->prev = this->_head;
+				this->insert(0, n, val);
+			}
+
+			template < class InputIter>
+				list(InputIter first,
+					typename enable_if<InputIter::input_iter, InputIter>::type last): _n(0)
+				{
+					if (PRINT)
+						std::cout << "Range Constructor called\n";
+					this->_head->next = this->_tail;
+					this->_tail->prev = this->_head;
+					this->insert(this->begin(), first, last);
+				}
+
+			list(const list& lst)
+			{
+				if (PRINT)
+					std::cout << "Copy Constructor called";
+				*this = lst;
+			}
+
+			~list()
+			{
+				this->clear();
+			}
+
+			list&	operator=(const list& obj)
+			{
+				if (PRINT)
+					std::cout << "Assignation operator called";
+				if (*this == obj)
+					return *this;
+				this->clear();
+				this->_head->next = this->_tail;
+				this->_tail->prev = this->_head;
+				this->insert(this->begin(), lst.begin(), lst.end());
+				return *this;
+			}
 
 			//	Iterators	//
-			iterator		begin();
-			const_iterator	begin() const;
-			iterator		end();
-			const_iterator	end() const;
-//			iterator		rbegin();
-//			const_iterator	rbegin() const;
-//			iterator		rend();
-//			const_iterator	rend() const;
+			iterator		begin()
+			{
+				return this->_head->next;
+			}
+			const_iterator	begin() const
+			{
+				return this->_head->next;
+			}
+			iterator		end()
+			{
+				return this->_tail;
+			}
+
+			const_iterator	end() const
+			{
+				return this->_tail;
+			}
+			//			iterator		rbegin();
+			//			const_iterator	rbegin() const;
+			//			iterator		rend();
+			//			const_iterator	rend() const;
 
 			//	Capacity	//
-			bool			empty() const;
-			size_type		size() const;
+			bool			empty() const
+			{
+				return (this->_n == 0);
+			}
+
+			size_type		size() const
+			{
+				return this->_n;
+			}
+			
+			size_type	max_size() const
+			{
+				return std::allocator<value_type>().max_size();
+			}
+
+			//	ELEMENT ACCES	//
+			reference front()
+			{
+				return this->_head->next->getMember();
+			}
+
+			const_reference front() const
+			{
+				return this->_head->next->getMember();
+			}
+
+			reference back()
+			{
+				return this->_tail->prev->getMember();
+			}
+
+			const_reference back() const
+			{
+				return this->_tail->prev->getMember();
+			}
+
+			//	MODIFIERS	//
+			template <class InputIter>
+  				void	assign(InputIter first, enable_if<InpuIter last::input_iter, InputIter>::type last)
+				{
+					this->clear();
+					this->insert(this->begin(), first, last);
+				}
+			
+			void		assign(size_type n, const value_type& val)
+			{
+				this->clear();
+				this->insert(this->begin(), n, val);
+			}
+
+			void		push_front(const value_type& val)
+			{
+				this->insert(this->begin(), val);
+			}
+
+			void		pop_front()
+			{
+				this->erase(this->begin());
+			}
+			void		push_back(const value_type& val)
+			{
+				this->insert(this->end(), val);
+			}
+
+			void		pop_back()
+			{
+				this->erase(--(this->end()));
+			}
+
+			iterator 	insert(iterator position, const value_type& val)
+			{
+				node_type*	node = new node_type(val, position.getPointer(), position.getPointer()->prev);
+
+				if (node)
+				{
+					node->prev->next = node;
+					node->next->prev = node;
+
+					this->_n++;
+					return iterator(node);
+				}
+				throw std::bad_alloc("INSERT_BAD_ALLOC");
+			}
+
+    		void 		insert(iterator position, size_type n, const value_type& val)
+			{
+				while (n++ > 0)
+					position = insert(position, val);
+			}
+
+			template <class InputIter>
+    			void	insert(iterator position, InputIter first, enable_if<InputIter::input_iter, InputIter>::type last)
+				{
+					while (first != last)
+					{
+						position = insert(position, *last);
+						last--;
+					}
+				}
+
+			iterator	erase(iterator position)
+			{
+				iterator	ret(position.getPointer()->next);
+
+				position.getPointer()->prev->next = position.getPointer()->next;
+				position.getPointer()->next->prev = position.getPointer()->prev;
+
+				delete(position.getPointer());
+				this->_n--;
+
+				return ret;
+			}
+
+			iterator	erase(iterator first, iterator last)
+			{
+				while(first != last)
+					first = erase(first);
+					
+				return first;
+			}
+
+			void		swap(const list& lst)
+			{
+				iterator	beg;
+				iterator	end;
+
+				beg = lst.begin();
+				end = iterator(lst._tail->prev);
+
+				if (this->size())
+				{
+					lst._head->next = this->_head->next;
+					lst.begin().getPointer()->prev = lst._head;
+					lst._tail->prev = this->_tail->prev;
+					lst._tail->prev->next = lst._tail;
+				}
+				else
+					lst.reset();
+				if (lst.size())
+				{
+					this->_head->next = beg.getPointer();
+					beg.getPointer()->prev = this->_head;
+					this->_tail->prev = end.getPointer();
+					this->_tail->prev->next = this->_tail;
+				}
+				else
+					this->reset();
+				this->resetSize();
+				lst.resetSize();
+			}
+
+			void		resize(size_type n, value_type val = value_type())
+			{
+				if (n >= this->size())
+				{
+					while (n != this->size())
+						push_back(val);
+				}
+				else
+				{
+					while( n! this->size())
+						this->pop_back();
+				}
+			}
+
+			void		clear()
+			{
+				this->erase(this->begin(), this->end());
+			}
+
+			//	OPERATIONS	//
+			void	splice(iterator position, list& x)
+			{
+				iterator	tmp(position.getPointer()->prev);
+
+				tmp->next = x.begin().getPointer();
+				tmp->next->prev = tmp.getPointer();
+				position.getPointer()->prev = x._tail->prev;
+				position.getPointer()->prev->next = position.getPointer()
+				x.reset();
+				x.resetSize();
+				this->resetSize();
+			}
+
+			void	splice(iterator position, list& x, iterator i)
+			{
+				if (x == *this && i == position)
+					return ;
+
+				i.getPointer()->prev->next = i.getPointer()->next;
+				i.getPointer()->next->prev = i.getPointer()->prev;
+				x.resetSize();
+
+				i.getPointer()->prev = position.getPointer()->prev;
+				i.getPointer()->prev->next = i.getPointer();
+				i.getPointer()->next = position.getPointer();
+				position.getPointer()->prev = i.getPointer();
+				this->resetSize();
+			}
+
+			void	splice(iterator position, list& x, iterator first, iterator last)
+			{
+				while(first != last)
+					splice(position, x, first++);
+			}
+
+			void	remove(const value_type& val)
+			{
+				iterator it = this->begin();
+
+				while (it != this->end())
+					if (*it == val)
+						it = erase(it);
+					else
+						it++;
+			}
+
+			template <class Predicate>
+				void	remove_if(Predicate pred)
+				{
+					iterator it = this->begin();
+
+					while (it != this->end())
+						if (pred(*it))
+							it = erase(it);
+						else
+							it++;
+				}
+
+			void		unique()
+			{
+				iterator	it = this->begin();
+				iterator	it2 = it;
+
+				++it2;
+				while (it2 != this->end())
+				{
+					if (*it2 == *it)
+						it2 = erase(it2);
+					else
+					{
+						it2++;
+						it++;
+					}
+				}
+			}
+
+			template <class BinaryPredicate>
+				void	unique(BinaryPredicate binary_pred)
+				{
+					iterator	it = this->begin();
+					iterator	it2 = it;
+
+					++it2;
+					while (it2 != this->end())
+					{
+						if (binary_pred(*it2, *it))
+							it2 = erase(it2);
+						else
+						{
+							it2++;
+							it++;
+						}
+					}
+				}
+
+			void	merge(list& x)
+			{
+				iterator	tmp;
+
+				if (x == *this)
+					return ;
+				
+				tmp = this->begin();
+				while(x.size())
+				{
+					if (*x.begin() < tmp)
+						this->splice(tmp, x, x.begin());
+					else
+						tmp++;
+				}
+			}
+
+			template <class Compare>
+				void	merge(list& x, Compare comp)
+				{
+					iterator	tmp;
+
+					if (x == *this)
+						return ;
+
+					tmp = this->begin();
+					while(x.size())
+					{
+						if (comp(x.begin(), tmp))
+							this->splice(tmp, x, x.begin());
+						else
+							tmp++;
+					}
+				}
+
+			void		sort()
+			{
+				iterator	it = this->begin();
+				iterator	it2 = it;
+
+				++it2;
+				while (it2 != this->end())
+				{
+					if (*it >= *it2)
+					{
+						splice(it, *this, it2);
+						it = this->begin();
+						it2 = this->bein();
+						it2++;
+					}
+					else
+					{
+						it++;
+						it2++
+					}
+				}
+			}
+
+			template <class Compare>
+				void	sort(Compare comp)
+				{
+					iterator	it = this->begin();
+					iterator	it2 = it;
+
+					++it2;
+					while (it2 != this->end())
+					{
+						if (comp(*it, *it2))
+						{
+							splice(it, *this, it2);
+							it = this->begin();
+							it2 = this->bein();
+							it2++;
+						}
+						else
+						{
+							it++;
+							it2++
+						}
+					}
+				}
+
+			void		reverse()
+			{
+				size_t		i;
+
+				i = 0;
+				while (i < (this->size() / 2))
+				{
+					this->splice(this->begin(), *this, --(this->end()));
+					this->splice(this->end(), *this, this->begin())
+					i++;
+				}
+			}
 
 
-			void			push_back(const value_type& val);
+			void		reset()
+			{
+				this->_head->next = this->_tail;
+				this->_tail->prev = this->_head;
+			}
+			
+			void		resetSize()
+			{
+				iterator beg(this->begin());
+				this->_n = 0;
 
+				while (beg != this->end())
+					this->_n++;
+			}
+			
 		private:
-			elem<T>*				_obj;
-			size_type				_n;
-			const allocator_type	_alloc;
+			size_type		_n;
 	};
 }
-
-
-/*************************************************/
-/*******************  LIST  **********************/
-
-//COPLIEN REQUIREMENTS
-
-template<class T, class Alloc>
-ft::list<T, Alloc>::list(const allocator_type& alloc) : _obj(NULL), _n(0), _alloc(alloc)
-{
-	if (PRINT)
-		std::cout << "Default Constructor called\n";
-}
-
-template<class T, class Alloc>
-ft::list<T, Alloc>::list(size_type n, const value_type& val, const allocator_type& alloc)
-		: _obj(NULL), _n(0), _alloc(alloc)
-{
-	if (PRINT)
-		std::cout << "Fill Constructor called\n";
-	this->insert(0, n, val);
-}
-
-template<class T, class Alloc>
-ft::list<T, Alloc>::list(ft::list<T, Alloc>::iterator first, ft::list<T, Alloc>::iterator last,
-		const allocator_type& alloc) : _obj(NULL), _n(0), _alloc(alloc)
-{
-	if (PRINT)
-		std::cout << "Range Constructor called\n";
-	this->insert(this->begin(), first, last);
-}
-
-template<class T, class Alloc>
-ft::list<T, Alloc>::list(const ft::list<T, Alloc>& lst)
-{
-	if (PRINT)
-		std::cout << "Copy Constructor called";
-	*this = lst;
-}
-
-template<class T, class Alloc>
-ft::list<T, Alloc>::~list()
-{
-	iterator	it;
-	iterator	it2;
-	
-	if (PRINT)
-		std::cout << "Destructor called";
-	it = this->_obj;
-	while (it != NULL)
-	{
-		it2 = it + 1;
-		delete *it;
-		it = it2;
-	}
-}
-
-template<class T, class Alloc>
-ft::list<T, Alloc>&	ft::list<T, Alloc>::operator=(const ft::list<T, Alloc>& lst)
-{
-	if (PRINT)
-		std::cout << "Assignation operator called";
-	this->_n = 0;
-	this->_alloc = allocator_type();
-	this->insert(0, lst.front(), lst.back());
-	return *this;
-}
-
-//MEMBER FUNCTIONS
-
-// ITERATORS
-
-template<class T, class Alloc>
-typename ft::list<T, Alloc>::iterator	ft::list<T, Alloc>::begin()
-{
-	typename ft::list<T, Alloc>::iterator it(this->_obj);
-
-	return it;
-}
-
-template<class T, class Alloc>
-typename ft::list<T, Alloc>::const_iterator	ft::list<T, Alloc>::begin() const
-{
-	typename ft::list<T, Alloc>::iterator it(this->_obj);
-
-	return it;
-}
-
-template<class T, class Alloc>
-typename ft::list<T, Alloc>::iterator	ft::list<T, Alloc>::end()
-{
-	elem<T>*	el(this->obj);
-
-	while (el->next)
-		el = el->next;
-	
-	elem<T>*	ret(NULL, el);
-	typename ft::list<T, Alloc>::iterator it(ret);
-
-	return it;
-}
-
-template<class T, class Alloc>
-typename ft::list<T, Alloc>::const_iterator	ft::list<T, Alloc>::end() const
-{
-	elem<T>*	el(this->obj);
-
-	while (el->next)
-		el = el->next;
-	
-	elem<T>*	ret(NULL, el);
-	typename ft::list<T, Alloc>::iterator it(ret);
-
-	return it;
-}
-
-// CAPACITY
-template<class T, class Alloc>
-bool	ft::list<T, Alloc>::empty() const
-{
-	return (this->_n == 0);
-}
-
-template<class T, class Alloc>
-ft::list<T, Alloc>::size_type	ft::list<T, Alloc>::size() const
-{
-	return this->_n;
-}
-
-
-
-template<class T, class Alloc>
-void	ft::list<T, Alloc>::push_back(const value_type& val)
-{
-	iterator	it;
-
-	if (!this->_obj)
-	{
-		this->_obj = new elem<value_type>(val);
-		this->_n = 1;
-		return;
-	}
-	it = this->_obj;
-	while ((it + 1) != NULL)
-		it++;
-	it->next = new elem<value_type>(val);
-	this->_n = this->_n + 1;
-}
-
-
-/***************** END OF LIST  ******************/
-/*************************************************/

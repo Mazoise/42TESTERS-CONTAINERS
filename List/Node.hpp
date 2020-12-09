@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:35:37 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/10/21 19:03:06 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/09 10:49:30 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,42 +17,42 @@
 namespace ft
 {
 	template<class T>
-	class elem
+	class node
 	{
 		private:
 			T	m;
 
 		public:
-			elem();
-			elem(const elem&);
-			elem(T& t, elem<T>* n = NULL, elem<T>* p = NULL);
-			elem(const T& t, elem<T>* n = NULL, elem<T>* p = NULL);
-			elem(elem<T>* n = NULL, elem<T>* p = NULL);
-			~elem();
-			elem&	operator=(const elem&);
-			elem&	getMember() const;
-			elem*	next;
-			elem*	prev;
+			node();
+			node(const node&);
+			node(T& t, node<T>* n = NULL, node<T>* p = NULL);
+			node(const T& t, node<T>* n = NULL, node<T>* p = NULL);
+			node(node<T>* n = NULL, node<T>* p = NULL);
+			~node();
+			node&	operator=(const node&);
+			node&	getMember() const;
+			node*	next;
+			node*	prev;
 	};
 }
 
 template<class T>
-ft::elem<T>::elem(const elem& el) : m(el.getMember()), next(el.next), prev(el.prev) {}
+ft::node<T>::node(const node& el) : m(el.getMember()), next(el.next), prev(el.prev) {}
 
 template<class T>
-ft::elem<T>::elem(T& t, elem* n, elem* p) : m(t), next(n), prev(p) {}
+ft::node<T>::node(T& t, node* n, node* p) : m(t), next(n), prev(p) {}
 
 template<class T>
-ft::elem<T>::elem(const T& t, elem* n, elem* p) : m(t), next(n), prev(p) {}
+ft::node<T>::node(const T& t, node* n, node* p) : m(t), next(n), prev(p) {}
 
 template<class T>
-ft::elem<T>::elem(elem* n, elem* p) : next(n), prev(p) {}
+ft::node<T>::node(node* n, node* p) : next(n), prev(p) {}
 
 template<class T>
-ft::elem<T>::~elem() {}
+ft::node<T>::~node() {}
 
 template<class T>
-ft::elem<T>&	ft::elem<T>::operator=(const ft::elem<T>& el)
+ft::node<T>&	ft::node<T>::operator=(const ft::node<T>& el)
 {
 	this->m = el.getMember();
 	this->next = el.next;
@@ -61,7 +61,7 @@ ft::elem<T>&	ft::elem<T>::operator=(const ft::elem<T>& el)
 }
 
 template<class T>
-ft::elem<T>&	ft::elem<T>::getMember() const
+ft::node<T>&	ft::node<T>::getMember() const
 {
 	return this->m;
 }
