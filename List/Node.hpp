@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   elem.hpp                                           :+:      :+:    :+:   */
+/*   Node.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:35:37 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/09 10:49:30 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/10 14:29:30 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include <iostream>
 #include <string>
+#include <iostream>
+
+#ifdef DEBUG
+# define PRINT 1
+#else
+# define PRINT 0
+#endif
 
 namespace ft
 {
@@ -23,37 +29,52 @@ namespace ft
 			T	m;
 
 		public:
-			node();
 			node(const node&);
-			node(T& t, node<T>* n = NULL, node<T>* p = NULL);
 			node(const T& t, node<T>* n = NULL, node<T>* p = NULL);
 			node(node<T>* n = NULL, node<T>* p = NULL);
 			~node();
-			node&	operator=(const node&);
-			node&	getMember() const;
+			node&		operator=(const node&);
+			T&			getMember();
+			const T&	getMember() const;
+
 			node*	next;
 			node*	prev;
 	};
 }
 
 template<class T>
-ft::node<T>::node(const node& el) : m(el.getMember()), next(el.next), prev(el.prev) {}
+ft::node<T>::node(const node& el) : m(el.getMember()), next(el.next), prev(el.prev)
+{
+	if (PRINT)
+		std::cout << "Node copy ctor, member : " << this->m << "\n";
+}
 
 template<class T>
-ft::node<T>::node(T& t, node* n, node* p) : m(t), next(n), prev(p) {}
+ft::node<T>::node(const T& t, node* n, node* p) : m(t), next(n), prev(p)
+{
+	if (PRINT)
+		std::cout << "Node T ctor, member : " << this->m << "\n";
+}
 
 template<class T>
-ft::node<T>::node(const T& t, node* n, node* p) : m(t), next(n), prev(p) {}
+ft::node<T>::node(node* n, node* p) : m(T()), next(n), prev(p)
+{
+	if (PRINT)
+		std::cout << "Node default ctor\n";
+}
 
 template<class T>
-ft::node<T>::node(node* n, node* p) : next(n), prev(p) {}
-
-template<class T>
-ft::node<T>::~node() {}
+ft::node<T>::~node()
+{
+	if (PRINT)
+		std::cout << "Node destructtor\n";
+}
 
 template<class T>
 ft::node<T>&	ft::node<T>::operator=(const ft::node<T>& el)
 {
+	if (PRINT)
+		std::cout << "Node operator =\n";
 	this->m = el.getMember();
 	this->next = el.next;
 	this->prev = el.prev;
@@ -61,7 +82,18 @@ ft::node<T>&	ft::node<T>::operator=(const ft::node<T>& el)
 }
 
 template<class T>
-ft::node<T>&	ft::node<T>::getMember() const
+T&	ft::node<T>::getMember()
 {
+	if (PRINT)
+		std::cout << "Node getMember()\n";
 	return this->m;
 }
+
+template<class T>
+const T&	ft::node<T>::getMember() const
+{
+	if (PRINT)
+		std::cout << "Node const getMember()\n";
+	return this->m;
+}
+

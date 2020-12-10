@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/09 15:09:53 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/10 15:05:35 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include "../ReverseIterator.hpp"
 #include "../enable_if.hpp"
 #include <iostream>
-#include <fstream>
 #include <string>
+#include <limits>
 
 #ifdef DEBUG
 # define PRINT 1
@@ -28,17 +28,8 @@
 namespace ft
 {
 	static std::ostream& cout = std::cout;
-	
-/*
-	template<class T>
-	class node;
-	
-	template<class T>
-	class iterator;
-	
-	template<class T>
-	class reverse_iterator;
-*/
+
+	typedef std::string										string;
 
 	template <class T>
 	class list
@@ -46,18 +37,18 @@ namespace ft
 		public:
 			//		TYPEDEFS		//
 
-			typedef T										value_type;
-			typedef value_type&								reference;
-			typedef const value_type&						const_reference;
-			typedef value_type*								pointer;
-			typedef const value_type*						const_pointer;
-			typedef NodeIterator< node<value_type> >		iterator;
-			typedef const_NodeIterator< node<value_type> >	const_iterator;
-			typedef ReverseIterator< iterator>				reverse_iterator;
-			typedef ReverseIterator< const_iterator>		const_reverse_iterator;
-			typedef std::ptrdiff_t							difference_type;
-			typedef std::size_t								size_type;
-			typedef node<value_type>						node_type;
+			typedef T											value_type;
+			typedef value_type&									reference;
+			typedef const value_type&							const_reference;
+			typedef value_type*									pointer;
+			typedef const value_type*							const_pointer;
+			typedef NodeIterator< node<value_type>, T >			iterator;
+			typedef const_NodeIterator< node<value_type>, T >	const_iterator;
+			typedef ReverseIterator< iterator>					reverse_iterator;
+			typedef ReverseIterator< const_iterator>			const_reverse_iterator;
+			typedef std::ptrdiff_t								difference_type;
+			typedef std::size_t									size_type;
+			typedef node<value_type>							node_type;
 
 			node_type		_head;
 			node_type		_tail;
@@ -68,17 +59,22 @@ namespace ft
 			{
 				if (PRINT)
 					std::cout << "Default Constructor called\n";
-				this->_head->next = this->_tail;
-				this->_tail->prev = this->_head;
+				this->_head.next = &this->_tail;
+				this->_tail.prev = &this->_head;
 			}
 			explicit list(size_type n, const value_type& val = value_type()): _n(0)
 			{
 				if (PRINT)
 					std::cout << "Fill Constructor called\n";
 				
-				this->_head->next = this->_tail;
-				this->_tail->prev = this->_head;
-				this->insert(0, n, val);
+				this->_head.next = &this->_tail;
+				this->_tail.prev = &this->_head;
+				if (PRINT)
+				{
+					std::cout << "Head : " << &this->_head;
+					std::cout << " | Tail : " << &this->_tail << "\n";
+				}
+				this->assign(n, val);
 			}
 
 			template < class InputIter>
@@ -87,9 +83,9 @@ namespace ft
 				{
 					if (PRINT)
 						std::cout << "Range Constructor called\n";
-					this->_head->next = this->_tail;
-					this->_tail->prev = this->_head;
-					this->insert(this->begin(), first, last);
+					this->_head.next = &this->_tail;
+					this->_tail.prev = &this->_head;
+					this->assign(first, last);
 				}
 
 			list(const list& lst)
@@ -110,30 +106,27 @@ namespace ft
 					std::cout << "Assignation operator called";
 				if (*this == obj)
 					return *this;
-				this->clear();
-				this->_head->next = this->_tail;
-				this->_tail->prev = this->_head;
-				this->insert(this->begin(), lst.begin(), lst.end());
+				this->assign(obj.begin(), obj.endl());
 				return *this;
 			}
 
 			//	Iterators	//
 			iterator		begin()
 			{
-				return this->_head->next;
+				return this->_head.next;
 			}
 			const_iterator	begin() const
 			{
-				return this->_head->next;
+				return this->_head.next;
 			}
 			iterator		end()
 			{
-				return this->_tail;
+				return &this->_tail;
 			}
 
 			const_iterator	end() const
 			{
-				return this->_tail;
+				return &this->_tail;
 			}
 			//			iterator		rbegin();
 			//			const_iterator	rbegin() const;
@@ -153,33 +146,34 @@ namespace ft
 			
 			size_type	max_size() const
 			{
-				return std::allocator<value_type>().max_size();
+				return std::numeric_limits<size_type>::max() / (sizeof(node_type));
 			}
 
 			//	ELEMENT ACCES	//
 			reference front()
 			{
-				return this->_head->next->getMember();
+				return this->_head.next->getMember();
 			}
 
 			const_reference front() const
 			{
-				return this->_head->next->getMember();
+				return this->_head.next->getMember();
 			}
 
 			reference back()
 			{
-				return this->_tail->prev->getMember();
+				return this->_tail.prev->getMember();
 			}
 
 			const_reference back() const
 			{
-				return this->_tail->prev->getMember();
+				return this->_tail.prev->getMember();
 			}
 
 			//	MODIFIERS	//
 			template <class InputIter>
-  				void	assign(InputIter first, enable_if<InpuIter last::input_iter, InputIter>::type last)
+  				void	assign(InputIter first,
+					typename enable_if<InputIter::input_iter, InputIter>::type last)
 				{
 					this->clear();
 					this->insert(this->begin(), first, last);
@@ -212,7 +206,8 @@ namespace ft
 
 			iterator 	insert(iterator position, const value_type& val)
 			{
-				node_type*	node = new node_type(val, position.getPointer(), position.getPointer()->prev);
+				node_type*	node = new node_type(val,
+					position.getPointer(), position.getPointer()->prev);
 
 				if (node)
 				{
@@ -222,17 +217,18 @@ namespace ft
 					this->_n++;
 					return iterator(node);
 				}
-				throw std::bad_alloc("INSERT_BAD_ALLOC");
+				throw std::bad_alloc();
 			}
 
     		void 		insert(iterator position, size_type n, const value_type& val)
 			{
-				while (n++ > 0)
+				while (n-- > 0)
 					position = insert(position, val);
 			}
 
 			template <class InputIter>
-    			void	insert(iterator position, InputIter first, enable_if<InputIter::input_iter, InputIter>::type last)
+    			void	insert(iterator position, InputIter first,
+					typename enable_if<InputIter::input_iter, InputIter>::type last)
 				{
 					while (first != last)
 					{
@@ -243,6 +239,8 @@ namespace ft
 
 			iterator	erase(iterator position)
 			{
+				if (position == this->end())
+					return position;
 				iterator	ret(position.getPointer()->next);
 
 				position.getPointer()->prev->next = position.getPointer()->next;
@@ -256,8 +254,12 @@ namespace ft
 
 			iterator	erase(iterator first, iterator last)
 			{
-				while(first != last)
+				bool	check = (first != last);
+				while (check)
+				{
 					first = erase(first);
+					check = (first != last);
+				}
 					
 				return first;
 			}
@@ -268,23 +270,23 @@ namespace ft
 				iterator	end;
 
 				beg = lst.begin();
-				end = iterator(lst._tail->prev);
+				end = iterator(lst._tail.prev);
 
 				if (this->size())
 				{
-					lst._head->next = this->_head->next;
+					lst._head.next = this->_head.next;
 					lst.begin().getPointer()->prev = lst._head;
-					lst._tail->prev = this->_tail->prev;
-					lst._tail->prev->next = lst._tail;
+					lst._tail.prev = this->_tail.prev;
+					lst._tail.prev->next = lst._tail;
 				}
 				else
 					lst.reset();
 				if (lst.size())
 				{
-					this->_head->next = beg.getPointer();
+					this->_head.next = beg.getPointer();
 					beg.getPointer()->prev = this->_head;
-					this->_tail->prev = end.getPointer();
-					this->_tail->prev->next = this->_tail;
+					this->_tail.prev = end.getPointer();
+					this->_tail.prev->next = this->_tail;
 				}
 				else
 					this->reset();
@@ -301,7 +303,7 @@ namespace ft
 				}
 				else
 				{
-					while( n! this->size())
+					while (n != this->size())
 						this->pop_back();
 				}
 			}
@@ -318,8 +320,8 @@ namespace ft
 
 				tmp->next = x.begin().getPointer();
 				tmp->next->prev = tmp.getPointer();
-				position.getPointer()->prev = x._tail->prev;
-				position.getPointer()->prev->next = position.getPointer()
+				position.getPointer()->prev = x._tail.prev;
+				position.getPointer()->prev->next = position.getPointer();
 				x.reset();
 				x.resetSize();
 				this->resetSize();
@@ -460,7 +462,7 @@ namespace ft
 					else
 					{
 						it++;
-						it2++
+						it2++;
 					}
 				}
 			}
@@ -484,7 +486,7 @@ namespace ft
 						else
 						{
 							it++;
-							it2++
+							it2++;
 						}
 					}
 				}
@@ -497,7 +499,7 @@ namespace ft
 				while (i < (this->size() / 2))
 				{
 					this->splice(this->begin(), *this, --(this->end()));
-					this->splice(this->end(), *this, this->begin())
+					this->splice(this->end(), *this, this->begin());
 					i++;
 				}
 			}
@@ -505,8 +507,8 @@ namespace ft
 
 			void		reset()
 			{
-				this->_head->next = this->_tail;
-				this->_tail->prev = this->_head;
+				this->_head.next = this->_tail;
+				this->_tail.prev = this->_head;
 			}
 			
 			void		resetSize()

@@ -6,14 +6,14 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:50 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/08 12:52:46 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/10 12:10:30 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
 #include <string>
-#include <deque>
+#include "../List/List.hpp"
 
 #ifdef DEBUG
 # define PRINT 1
@@ -21,10 +21,16 @@
 # define PRINT 0
 #endif
 
+
 namespace ft
 {
+	static std::ostream& cout = std::cout;
 
-	template <class T, class Container = std::deque<T> >
+	typedef std::string			string;
+	typedef	std::endl			endl;
+	typedef	std::boolalpha		boolalpha;
+
+	template <class T, class Container = list<T> >
 	class queue
 	{
 		public:
