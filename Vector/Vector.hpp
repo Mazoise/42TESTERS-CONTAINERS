@@ -6,15 +6,17 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/09 11:23:32 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/10 16:48:16 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include <iostream>
-#include <limits>
 #include "../ReverseIterator.hpp"
 #include "../enable_if.hpp"
+#include "VectorIterator.hpp"
+#include "const_VectorIterator.hpp"
+#include <limits>
+#include <iostream>
 
 #ifdef DEBUG
 # define PRINT 1
@@ -25,183 +27,9 @@
 
 namespace ft 
 {
+	static std::ostream& cout = std::cout;
+	typedef std::string						string;
 
-	// ITERATOR
-	template < class T>
-		class VectorIterator
-		{
-			public:
-				typedef T					value_type;
-				typedef	value_type*			pointer;
-				typedef	const value_type*	const_pointer;
-				typedef value_type&			reference;
-				typedef const value_type&	const_reference;
-				typedef	std::ptrdiff_t		difference_type;
-
-				static const bool			input_iter;
-				
-				VectorIterator(): _ptr(NULL) {}
-				VectorIterator(pointer ptr) : _ptr(ptr) {}
-				VectorIterator(const VectorIterator& vec): _ptr(vec.getPointer()) {}
-				~VectorIterator() {}
-				VectorIterator& operator=(const VectorIterator& vec)
-				{
-					this->_ptr = vec.getPointer();
-					return *this;
-				}
-
-				pointer			getPointer() const
-				{
-					return this->_ptr;
-				}
-
-				virtual reference		operator*()
-				{
-					if (PRINT)
-						std::cout << "Operator*\n";
-					return (*(this->_ptr));
-				}
-
-				virtual const_reference	operator*() const
-				{
-					if (PRINT)
-						std::cout << "Const operator*\n";
-					return (*(this->_ptr));
-				}
-
-				pointer			operator->()
-				{
-					return (this->_ptr);
-				}
-
-				VectorIterator	operator++()
-				{
-					++(this->_ptr);
-					return this;
-				}
-
-				VectorIterator	operator++(int)
-				{
-					VectorIterator	tmp = *this;
-
-					++(this->_ptr);
-					return tmp;
-				}
-
-				VectorIterator	operator--()
-				{
-					--(this->_ptr);
-					return this;
-				}
-
-				VectorIterator	operator--(int)
-				{
-					VectorIterator	tmp = *this;
-
-					--(this->_ptr);
-					return tmp;
-				}
-
-				VectorIterator	operator+(difference_type i) const
-				{
-					VectorIterator	tmp(*this);
-
-					tmp += i;
-					return tmp;
-				}
-
-				VectorIterator	operator-(difference_type i) const
-				{
-					VectorIterator	tmp(*this);
-
-					tmp -= i;
-					return tmp;
-				}
-
-				VectorIterator	operator+=(difference_type i)
-				{
-					this->_ptr += i;
-					return *this;
-				}
-
-				VectorIterator	operator-=(difference_type i)
-				{
-					this->_ptr -= i;
-					return *this;
-				}
-
-				difference_type	operator-(const VectorIterator& vec) const
-				{
-					return (this->_ptr - vec.getPointer());
-				}
-
-				reference		operator[](difference_type i)
-				{
-					return *(this->_ptr + i);
-				}
-
-				bool operator==(const VectorIterator& right) const 
-				{
-					return (this->_ptr == right.getPointer());
-				}
-
-				bool operator!=(const VectorIterator& right) const 
-				{
-					return (!(*this == right));
-				}
-
-				bool operator<(const VectorIterator& right) const
-				{
-					return (&(*(this->_ptr)) < &(*right));
-				}
-
-				bool operator>(const VectorIterator& right) const
-				{
-					return right < *this;
-				}
-
-				bool operator<=(const VectorIterator& right) const
-				{
-					return !(*this > right);
-				}
-
-				bool operator>=(const VectorIterator& right) const
-				{
-					return !(*this < right);
-				}
-
-			private:
-				pointer		_ptr;
-		};
-
-	template<class T>
-		bool operator!=(const VectorIterator<T>& lhs, const VectorIterator<T>& rhs)
-		{
-			return !(lhs == rhs);
-		}
-	
-
-	template < class T>
-	const bool VectorIterator<T>::input_iter = true;
-
-
-	template < class T>
-		class const_VectorIterator : public VectorIterator<T>
-		{
-			private:
-				const T*	_ptr;
-			
-			public:
-				const_VectorIterator(): _ptr(NULL) {}
-				const_VectorIterator(const VectorIterator<T>& vec): _ptr(vec.getPointer()) {}
-				const_VectorIterator(const_VectorIterator& vec): _ptr(vec.getPointer()) {}
-				const T&	operator*() const
-				{
-					return *this->_ptr;
-				}
-		};
-
-	// VECTOR
 	template < class T>
 		class vector
 		{
@@ -274,7 +102,6 @@ namespace ft
 					if (*this == obj)
 						return *this;
 					
-					this->clear();
 					this->assign(obj.begin(), obj.end());
 
 					return *this;
@@ -291,7 +118,9 @@ namespace ft
 
 				const_iterator begin() const
 				{
-					return const_iterator(this->_tab);
+					const_iterator	ret(this->_tab);
+
+					return ret;
 				}
 
 				iterator end()
@@ -303,7 +132,9 @@ namespace ft
 
 				const_iterator end() const
 				{
-					return const_iterator(this->_tab + this->_size);
+					const_iterator	ret(this->_tab + this->_size);
+
+					return ret;
 				}
 
 				reverse_iterator	rbegin()
@@ -336,10 +167,9 @@ namespace ft
 					return this->_size;
 				}
 
-				size_type	max_size() const // WITHOUT STL ?!
+				size_type	max_size() const
 				{
-//					return value_type::value_type.max_size();
-					return (std::numeric_limits<size_type>::max());
+					return std::numeric_limits<size_type>::max() / (sizeof(value_type));
 				}
 
 				void		resize(size_type n, value_type val = value_type())
@@ -592,9 +422,9 @@ namespace ft
 					this->_size = 0;
 				}
 
+				pointer					_tab;
 			private:
 
-				pointer					_tab;
 				size_type				_size;
 				size_type				_capacity;
 		};
