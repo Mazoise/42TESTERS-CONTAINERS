@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/10 16:48:16 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/10 17:20:05 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,14 +243,14 @@ namespace ft
 				reference	at(const size_type i)
 				{
 					if (i >= this->_size)
-						throw std::out_of_range("vector::at() | Out of range access)\n");
+						throw std::out_of_range("vector::at() | Out of range access)");
 					return this->_tab[i];
 				}
 
 				const_reference	at(const size_type i) const
 				{
 					if (i >= this->_size)
-						throw std::out_of_range("vector::at() | Out of range access\n");
+						throw std::out_of_range("vector::at() | Out of range access");
 					return this->_tab[i];
 				}
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   string_main.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/10 16:57:22 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/10 17:30:37 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ using namespace NAMESPACE;
 
 int main()
 {
-	vector<int> empty;
-	vector<int> fill(5, 8);
-	cout << "fill(5, 8) : ";
+	vector<string> empty;
+	vector<string> fill(5, "forty_two");
+	cout << "fill(5, forty_two) : ";
 	for (size_t i = 0; i < fill.size(); i++)
 		cout << fill[i] << ' ';
 	cout << '\n';
-	vector<int> copy(fill);
-	std::vector<int> test;
+	vector<string> copy(fill);
+	std::vector<string> test;
 
 	// CTORs
 	cout << "\nCTORS\n";
@@ -61,7 +61,7 @@ int main()
 
 	fill.resize(0);
 	cout << "fill is empty now ? " << fill.empty() << '\n';
-	copy.resize(9, 3);
+	copy.resize(9, "more_strings");
 	cout << "Size of empty " << empty.size() << std::endl;
 	cout << "Capacity of empty " << empty.capacity() << std::endl;
 	cout << "Size of fill " << fill.size() << std::endl;
@@ -106,13 +106,24 @@ int main()
 
 	//ASSIGN
 	cout << "\nASSIGN\n";
-	fill.assign(42, 7);
+	fill.assign(42, "42");
+	for (size_t i = 0; i < fill.size(); i++)
+		cout << fill.at(i) << ' ';
+	cout << '\n';
+	cout << "Size of fill " << fill.size() << std::endl;
+	cout << "Capacity of fill " << fill.capacity() << std::endl;
 
 	//ASSIGN RANGE
 	cout << "\nASSIGN RANGE\n";
-	vector<int>	assign_range;
-	assign_range.assign(8, 5);
+	vector<string>	assign_range;
+	assign_range.assign(8, "Hello");
+	for (size_t i = 0; i < assign_range.size(); i++)
+		cout << assign_range.at(i) << ' ';
+	cout << '\n';
 	assign_range.assign(fill.begin() + 1, fill.end() - 2);
+	for (size_t i = 0; i < assign_range.size(); i++)
+		cout << assign_range.at(i) << ' ';
+	cout << '\n';
 
 	//EMPTY
 	cout << "\nEMPTY\n";
@@ -121,64 +132,38 @@ int main()
 
 	//PUSH/POP_BACK
 	cout << "\nPUSH/POP_BACK\n";
-	fill.push_back(53);
+	fill.push_back("Again");
 	cout << "last elem of fill : " << fill.back() << '\n';
 	fill.pop_back();
 	cout << "last elem of fill : " << fill.back() << '\n';
 
 	//INSERT
 	cout << "\nINSERT\n";
-	vector<int>	insert_in_me;
+	vector<string>	insert_in_me;
 	for (int i = 0; i < 15; i++)
-		insert_in_me.push_back(i);
+		insert_in_me.push_back(std::to_string(i));
 	for (size_t i = 0; i < insert_in_me.size(); i++)
 		cout << insert_in_me.at(i) << ' ';
 	cout << '\n';
 
-	vector<int>::iterator	tmp;
+	vector<string>::iterator	tmp;
 	tmp = insert_in_me.begin() + 4;
-	insert_in_me.insert(tmp, 8, 42);
+	insert_in_me.insert(tmp, 8, "world");
 	for (size_t i = 0; i < insert_in_me.size(); i++)
 		cout << insert_in_me.at(i) << ' ';
 	cout << '\n';
 
-	vector<int>::const_iterator const_it(insert_in_me.begin());
+	vector<string>::const_iterator const_it(insert_in_me.begin());
 	cout << "Const it : " << std::endl;
 	cout << *const_it << '\n';
 //	*const_it = 89;
 
-	int			j = 14;
-
-	int*		ptr = &j;
-	const int*	p(ptr);
-
-	cout << "test : " << *p << '\n';
-
-	//INSERT
-	cout << "\nINSERT\n";
-	vector<int>	std_insert_in_me;
-	for (int i = 0; i < 15; i++)
-		std_insert_in_me.push_back(i);
-	for (size_t i = 0; i < std_insert_in_me.size(); i++)
-		cout << std_insert_in_me.at(i) << ' ';
-	cout << '\n';
-
-	vector<int>::iterator	std_tmp;
-	std_tmp = std_insert_in_me.begin() + 4;
-	std_insert_in_me.insert(std_tmp, 8, 42);
-	for (size_t i = 0; i < std_insert_in_me.size(); i++)
-		cout << std_insert_in_me.at(i) << ' ';
-	cout << '\n';
-
-	vector<int>::const_iterator std_const_it(std_insert_in_me.begin());
-	cout << "const it : " << *std_const_it << '\n';
-//	*std_const_it = 48; // does not compile
 
 	//INSERT RANGE
 	cout << "\nINSERT RANGE\n";
-	vector<int>	insert_bis;
+	vector<string>	insert_bis;
 	for (int i = 0; i < 7; i++)
-		insert_bis.push_back(3 * i);
+		insert_bis.push_back(std::to_string(3 * i));
 	for (size_t i = 0; i < insert_bis.size(); i++)
 		cout << insert_bis[i] << ' ';
 	cout << '\n';
@@ -191,13 +176,11 @@ int main()
 
 	//ERASE
 	cout << "\nERASE\n";
-	vector<int>	erase_in_me;
+	vector<string>	erase_in_me;
 	for (int i = 0; i < 15; i++)
-		erase_in_me.push_back(2 * i);
+		erase_in_me.push_back(std::to_string(2 * i));
 	for (size_t i = 0; i < erase_in_me.size(); i++)
 	{
-		if (erase_in_me[i] < 10)
-			cout << ' ';
 		cout << erase_in_me.at(i) << ' ';
 	}
 	cout << '\n';
@@ -205,8 +188,6 @@ int main()
 	erase_in_me.erase(erase_in_me.begin() + 7);
 	for (size_t i = 0; i < erase_in_me.size(); i++)
 	{
-		if (erase_in_me[i] < 10)
-			cout << ' ';
 		cout << erase_in_me.at(i) << ' ';
 	}
 	cout << '\n';
@@ -214,23 +195,30 @@ int main()
 	erase_in_me.erase(erase_in_me.begin() + 2, erase_in_me.begin() + 6);
 	for (size_t i = 0; i < erase_in_me.size(); i++)
 	{
-		if (erase_in_me[i] < 10)
-			cout << ' ';
 		cout << erase_in_me.at(i) << ' ';
 	}
 	cout << '\n';
 
 	//SWAP
 	cout << "\nSWAP\n";
+	cout << "Size of fill " << fill.size() << std::endl;
+	cout << "Capacity of fill " << fill.capacity() << std::endl;
+	cout << "Size of copy " << copy.size() << std::endl;
+	cout << "Capacity of copy " << copy.capacity() << std::endl;
+	std::cout << "fill.swap(copy)\n";
 	fill.swap(copy);
 	cout << "Size of fill " << fill.size() << std::endl;
 	cout << "Capacity of fill " << fill.capacity() << std::endl;
 	cout << "Size of copy " << copy.size() << std::endl;
 	cout << "Capacity of copy " << copy.capacity() << std::endl;
+	std::cout << "copy:\n";
 	for (size_t i = 0; i < copy.size(); i++)
 		cout << copy[i] << ' ';
 	cout << std::endl;
 
+	cout << "Size of empty " << empty.size() << std::endl;
+	cout << "Capacity of empty " << empty.capacity() << std::endl;
+	std::cout << "copy.swap(empty)\n";
 	copy.swap(empty);
 	cout << "Size of empty " << empty.size() << std::endl;
 	cout << "Capacity of empty " << empty.capacity() << std::endl;
@@ -265,14 +253,14 @@ int main()
 	
 	//RELATIONAL OPERATORS
 	cout << "\nRELATIONAL OPERATORS\n";
-	vector<int> copy_2(copy);
+	vector<string> copy_2(copy);
 	cout << "copy and fill are equal ? " << (copy == fill) << '\n';
 	cout << "copy and copy_2 are equal ? " << (copy == copy_2) << '\n';
 
 	cout << "\nReal Vector\n";
-	vector<int> real;
-	real.assign(5, 7);
-	for (vector<int>::iterator it = real.begin(); it != real.end(); it++)
+	vector<string> real;
+	real.assign(5, "bar");
+	for (vector<string>::iterator it = real.begin(); it != real.end(); it++)
 		cout << *it << " ";
 	cout << '\n';
 
