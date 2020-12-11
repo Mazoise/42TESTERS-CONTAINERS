@@ -6,13 +6,12 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/10 17:20:05 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/11 15:16:13 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include "../ReverseIterator.hpp"
-#include "../enable_if.hpp"
+#include "../utils.hpp"
 #include "VectorIterator.hpp"
 #include "const_VectorIterator.hpp"
 #include <limits>
@@ -27,9 +26,6 @@
 
 namespace ft 
 {
-	static std::ostream& cout = std::cout;
-	typedef std::string						string;
-
 	template < class T>
 		class vector
 		{
@@ -90,8 +86,7 @@ namespace ft
 				{
 					if (PRINT)
 						std::cout << "Destructor called\n";
-					for (size_type i = 0; i < this->_size; i++)
-						this->_tab[i].value_type::~value_type();
+					this->clear();
 					delete[] this->_tab;
 				}
 
@@ -99,9 +94,11 @@ namespace ft
 				{
 					if (PRINT)
 						std::cout << "Assignation operator called\n";
+					/*
 					if (*this == obj)
-						return *this;
-					
+						return *this; // Undefined case
+					*/ 
+
 					this->assign(obj.begin(), obj.end());
 
 					return *this;
@@ -169,34 +166,17 @@ namespace ft
 
 				size_type	max_size() const
 				{
-					return std::numeric_limits<size_type>::max() / (sizeof(value_type));
+					return std::numeric_limits<size_type>::max() / (2 * (sizeof(value_type)));
 				}
 
 				void		resize(size_type n, value_type val = value_type())
 				{
 					if (n < this->_size)
-					{
-						for (size_type i = n; i < this->_size; i++)
-							this->_tab[i].value_type::~value_type();
-						this->_size = n;
-					}
-					else if (n > this->_capacity)
-					{
-						value_type	*tmp = new value_type[n];
-						for (size_type i = 0; i < this->_size; i++)
-							tmp[i] = this->_tab[i];
-						for (size_type i = this->_size; i < n; i++)
-							tmp[i] = val;
-						for (size_type i = 0; i < this->_size; i++)
-							this->_tab[i].value_type::~value_type();
-						delete[] this->_tab;
-						this->_tab = tmp;
-						this->_size = n;
-						this->_capacity = n;
-					}
+						erase(this->begin() + n, this->end());
 					else
 					{
-						for (size_type i = this->_size; i < n; i++)
+						this->reserve(n);
+						for (size_type i = this->size(); i < n; i++)
 							this->_tab[i] = val;
 						this->_size = n;
 					}
@@ -216,14 +196,16 @@ namespace ft
 				{
 					if (n > this->_capacity)
 					{
+						size_type	size;
+
+						size = this->size();
 						value_type	*tmp = new value_type[n];
 						for (size_type i = 0; i < this->_size; i++)
-						{
 							tmp[i] = this->_tab[i];
-							this->_tab[i].value_type::~value_type();
-						}
+						this->clear();
 						delete[] this->_tab;
 						this->_tab = tmp;
+						this->_size = size;
 						this->_capacity = n;
 					}
 				}
@@ -243,14 +225,18 @@ namespace ft
 				reference	at(const size_type i)
 				{
 					if (i >= this->_size)
-						throw std::out_of_range("vector::at() | Out of range access)");
+						throw std::out_of_range("vector::_M_range_check: __n (which is "
+						+ to_string(i) + ") >= this->size() (which is "
+						+ to_string(this->size()) + ")");
 					return this->_tab[i];
 				}
 
 				const_reference	at(const size_type i) const
 				{
 					if (i >= this->_size)
-						throw std::out_of_range("vector::at() | Out of range access");
+						throw std::out_of_range("vector::_M_range_check: __n (which is "
+						+ to_string(i) + ") >= this->size() (which is "
+						+ to_string(this->size()) + ")");
 					return this->_tab[i];
 				}
 
@@ -266,11 +252,21 @@ namespace ft
 
 				reference back()
 				{
+					if (PRINT)
+						cout << "Vector::back(), size = " << this->_size << '\n';
+					if (!this->_size)
+						std::cerr << "Size == 0, expect to be "
+						<< "absorbed by a Black Hole, or something\n";
 					return this->_tab[this->_size - 1];
 				}
 
 				const_reference back() const
 				{
+					if (PRINT)
+						cout << "Vector::const_back(), size = " << this->_size << '\n';
+					if (!this->_size)
+						std::cerr << "Size == 0, expect to be "
+						<< "absorbed by a Black Hole, or something\n";
 					return this->_tab[this->_size - 1];
 				}
 
@@ -285,12 +281,10 @@ namespace ft
 
 				void	assign(size_type n, const value_type& val)
 				{
+					this->clear();
 					this->reserve(n);
 					for (size_type i = 0; i < n; i++)
-					{
-						this->_tab[i].value_type::~value_type();
 						this->_tab[i] = val;
-					}
 					this->_size = n;
 				}
 
@@ -303,8 +297,7 @@ namespace ft
 
 				void	pop_back()
 				{
-					this->_tab[this->_size - 1].value_type::~value_type();
-					this->_size--;
+					this->resize(this->size() - 1);
 				}
 
 				iterator	insert(iterator position, const value_type& val)
@@ -361,44 +354,25 @@ namespace ft
 					iterator	ret;
 
 					ret = position;
-					(*position).value_type::~value_type();
-					while (position != this->end() - 1)
+//					position->value_type::~value_type();
+					while (position + 1 != this->end())
 					{
 						*position = *(position + 1);
 						position++;
 					}
+//					position->value_type::~value_type();
 					this->_size--;
 					return ret;
 				}
 
 				iterator	erase(iterator first, iterator last)
 				{
-					iterator		ret;
-					difference_type	i;
-
-					ret = first;
-					i = 0;
 					while (first != last)
 					{
-						(*first).value_type::~value_type();
-						if (last + i < this->end())
-							*first = *(last + i);
-						first++;
-						i++;
+						erase(first);
+						last--;
 					}
-					while (first != this->end() - i)
-					{
-						(*first).value_type::~value_type();
-						*first = *(first + i);
-						first++;
-					}
-					while (first != this->end())
-					{
-						(*first).value_type::~value_type();
-						first++;
-					}
-					this->_size -= i;
-					return ret;
+					return first;
 				}
 
 				void	swap(vector& vec)
@@ -417,9 +391,7 @@ namespace ft
 
 				void	clear()
 				{
-					for (size_type i = 0; i < this->_size; i++)
-						this->_tab[i].value_type::~value_type();
-					this->_size = 0;
+					erase(this->begin(), this->end());
 				}
 
 				pointer					_tab;
