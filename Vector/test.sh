@@ -9,6 +9,15 @@ cd ressources
 
 rm -rf output bin diff
 
+if [ $# -gt 0 ]
+then
+	if [ $1 = "clean" ]
+	then
+		exit
+	fi
+	#other arguments
+fi
+
 mkdir output
 mkdir diff
 mkdir bin
