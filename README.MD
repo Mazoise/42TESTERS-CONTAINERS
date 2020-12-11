@@ -1,4 +1,6 @@
-How to run tester:
+#	42 / FT_CONTAINERS #
+
+##How to run tester:##
 
 ./test.sh will run every tests available in ressources/mains
 
