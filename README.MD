@@ -15,8 +15,8 @@ You can add your own tests as long as you respect these conditions:
 	* #else
 	* #define NAMESPACE std
 	* #endif
-
-	using namespace NAMESPACE
+	*
+	* using namespace NAMESPACE
 
 	they will be run once normally and once with -D STD option
 
