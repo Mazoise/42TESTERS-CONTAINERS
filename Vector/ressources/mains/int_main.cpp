@@ -6,11 +6,11 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/11 13:02:51 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/11 16:20:09 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Vector.hpp"
+#include "Vector.hpp"
 #include <vector>
 
 #ifndef STD

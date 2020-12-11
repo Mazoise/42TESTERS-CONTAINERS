@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/11 15:16:13 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/11 15:34:38 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ namespace ft
 				{
 					if (PRINT)
 						std::cout << "Assignation operator called\n";
-					/*
+/*
 					if (*this == obj)
 						return *this; // Undefined case
-					*/ 
+*/
 
 					this->assign(obj.begin(), obj.end());
 

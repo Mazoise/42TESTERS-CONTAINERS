@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ReverseIterator.hpp                                :+:      :+:    :+:   */
+/*   utils.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 14:20:31 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/03 16:53:36 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/11 11:31:52 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
+#include <string>
+#include <sstream>
 
 #ifdef DEBUG
 # define PRINT 1
@@ -22,6 +24,25 @@
 
 namespace ft
 {
+	static std::ostream& 									cout = std::cout;
+	typedef std::string										string;
+
+
+	string	to_string(size_t n)
+	{
+		std::stringstream tmp;
+
+		tmp << n;
+
+		return tmp.str();
+	}
+
+	template<bool B, class T = void>
+		struct enable_if {};
+
+	template<class T>
+		struct enable_if<true, T> { typedef T type; };
+
 	template <class Iterator>
 		class ReverseIterator
 		{

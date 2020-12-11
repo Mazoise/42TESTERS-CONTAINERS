@@ -1,24 +1,31 @@
 #!/bin/bash
 
+# VARIABLES
+
+MAINS_DIR=mains
+HPP_PATH=../
+
 cd ressources
 
-rm -rf output int.out string.out
+rm -rf output bin diff
 
 mkdir output
+mkdir diff
+mkdir bin
 
-declare -a mains=("int" "string" "other" "inception")
+MAINS=($(ls $MAINS_DIR | cut -f1 -d'_'))
 
-for m in "${mains[@]}"
+for m in "${MAINS[@]}"
 do
 
-clang++ -Werror -Wextra -Werror "$m"_main.cpp -o output/"$m"_ft
-clang++ -Werror -Wextra -Werror -D STD "$m"_main.cpp -o output/"$m"_std
+clang++ -Werror -Wextra -Werror -I $HPP_PATH $MAINS_DIR/"$m"_main.cpp -o bin/"$m"_ft
+clang++ -Werror -Wextra -Werror -D STD -I $HPP_PATH $MAINS_DIR/"$m"_main.cpp -o bin/"$m"_std
 
-./output/"$m"_std > output/"$m"_std.log
-./output/"$m"_ft > output/"$m"_ft.log
+./bin/"$m"_std > output/"$m"_std.log
+./bin/"$m"_ft > output/"$m"_ft.log
 
-diff output/"$m"_std.log output/"$m"_ft.log > "$m".diff
-if [ $(cat "$m".diff | wc -l) -eq 0 ]
+diff output/"$m"_std.log output/"$m"_ft.log > diff/"$m".diff
+if [ $(cat diff/"$m".diff | wc -l) -eq 0 ]
 then
 	echo "$m" 'test passed!'
 fi

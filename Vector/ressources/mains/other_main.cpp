@@ -6,11 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 08:48:03 by user42            #+#    #+#             */
-/*   Updated: 2020/12/11 11:44:55 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/11 16:20:19 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Vector.hpp"
+#include "Vector.hpp"
 #include <vector>
 
 #ifndef STD
