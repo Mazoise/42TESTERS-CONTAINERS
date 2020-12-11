@@ -24,7 +24,7 @@ You can add your own tests as long as you respect these conditions:
 
 - Tests must use '#include "Container.hpp"'. Include path will be set as a variable in the bash script
 
-If you have anhy question or suggestion, please feel free to PM on slack @hbaudet ;)
+If you have anhy question or suggestion, please feel free to PM me on slack @hbaudet ;)
 
 ## Thanks :
 - oroberts
