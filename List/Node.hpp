@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:35:37 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/10 14:29:30 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/14 13:09:20 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ template<class T>
 ft::node<T>::node(const node& el) : m(el.getMember()), next(el.next), prev(el.prev)
 {
 	if (PRINT)
-		std::cout << "Node copy ctor, member : " << this->m << "\n";
+		std::cout << "Node copy ctor\n";
 }
 
 template<class T>
 ft::node<T>::node(const T& t, node* n, node* p) : m(t), next(n), prev(p)
 {
 	if (PRINT)
-		std::cout << "Node T ctor, member : " << this->m << "\n";
+		std::cout << "Node T ctor\n";
 }
 
 template<class T>

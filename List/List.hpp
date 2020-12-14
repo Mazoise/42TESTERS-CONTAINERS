@@ -6,15 +6,14 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/10 15:05:35 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:24:32 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include "Node.hpp"
 #include "NodeIterator.hpp"
-#include "../ReverseIterator.hpp"
-#include "../enable_if.hpp"
+#include "../utils.hpp"
 #include <iostream>
 #include <string>
 #include <limits>
@@ -27,10 +26,6 @@
 
 namespace ft
 {
-	static std::ostream& cout = std::cout;
-
-	typedef std::string										string;
-
 	template <class T>
 	class list
 	{
@@ -42,8 +37,8 @@ namespace ft
 			typedef const value_type&							const_reference;
 			typedef value_type*									pointer;
 			typedef const value_type*							const_pointer;
-			typedef NodeIterator< node<value_type>, T >			iterator;
-			typedef const_NodeIterator< node<value_type>, T >	const_iterator;
+			typedef NodeIterator<T>								iterator;
+			typedef const_NodeIterator<T>						const_iterator;
 			typedef ReverseIterator< iterator>					reverse_iterator;
 			typedef ReverseIterator< const_iterator>			const_reverse_iterator;
 			typedef std::ptrdiff_t								difference_type;
@@ -69,17 +64,13 @@ namespace ft
 				
 				this->_head.next = &this->_tail;
 				this->_tail.prev = &this->_head;
-				if (PRINT)
-				{
-					std::cout << "Head : " << &this->_head;
-					std::cout << " | Tail : " << &this->_tail << "\n";
-				}
 				this->assign(n, val);
 			}
 
 			template < class InputIter>
 				list(InputIter first,
-					typename enable_if<InputIter::input_iter, InputIter>::type last): _n(0)
+					typename enable_if<InputIter::input_iter,
+						InputIter>::type last): _n(0)
 				{
 					if (PRINT)
 						std::cout << "Range Constructor called\n";
@@ -88,10 +79,12 @@ namespace ft
 					this->assign(first, last);
 				}
 
-			list(const list& lst)
+			list(const list& lst): _n(0)
 			{
 				if (PRINT)
-					std::cout << "Copy Constructor called";
+					std::cout << "Copy Constructor called\n";
+				this->_head.next = &this->_tail;
+				this->_tail.prev = &this->_head;
 				*this = lst;
 			}
 
@@ -103,35 +96,65 @@ namespace ft
 			list&	operator=(const list& obj)
 			{
 				if (PRINT)
-					std::cout << "Assignation operator called";
-				if (*this == obj)
-					return *this;
-				this->assign(obj.begin(), obj.endl());
+					std::cout << "Assignation operator called\n";
+				this->assign(obj.begin(), obj.end());
 				return *this;
 			}
 
 			//	Iterators	//
 			iterator		begin()
 			{
-				return this->_head.next;
+				iterator	ret(this->_head.next);
+
+				return ret;
 			}
 			const_iterator	begin() const
 			{
-				return this->_head.next;
+				const_iterator	ret(_head.next);
+
+				return ret;
 			}
 			iterator		end()
 			{
-				return &this->_tail;
+				iterator	ret(&this->_tail);
+
+				return ret;
 			}
 
 			const_iterator	end() const
 			{
-				return &this->_tail;
+				const_iterator	ret(&_tail);
+
+				return ret;
 			}
-			//			iterator		rbegin();
-			//			const_iterator	rbegin() const;
-			//			iterator		rend();
-			//			const_iterator	rend() const;
+
+			reverse_iterator		rbegin()
+			{
+				reverse_iterator ret(this->end());
+
+				return ret;
+			}
+
+			const_reverse_iterator	rbegin() const
+			{
+				const_reverse_iterator ret(this->end());
+
+				return ret;
+			}
+
+			reverse_iterator		rend()
+			{
+				reverse_iterator ret(this->_head);
+
+				return ret;
+			}
+
+			const_reverse_iterator	rend() const
+			{
+				reverse_iterator ret(this->_head);
+
+				return ret;
+			}
 
 			//	Capacity	//
 			bool			empty() const
@@ -146,7 +169,7 @@ namespace ft
 			
 			size_type	max_size() const
 			{
-				return std::numeric_limits<size_type>::max() / (sizeof(node_type));
+				return std::numeric_limits<size_type>::max() / (2 * sizeof(node_type));
 			}
 
 			//	ELEMENT ACCES	//
@@ -230,9 +253,11 @@ namespace ft
     			void	insert(iterator position, InputIter first,
 					typename enable_if<InputIter::input_iter, InputIter>::type last)
 				{
+					iterator	tmp(last.getPointer()->prev);
 					while (first != last)
 					{
-						position = insert(position, *last);
+						position = insert(position, *tmp);
+						tmp--;
 						last--;
 					}
 				}
@@ -254,44 +279,50 @@ namespace ft
 
 			iterator	erase(iterator first, iterator last)
 			{
-				bool	check = (first != last);
-				while (check)
+				while (first != last)
 				{
 					first = erase(first);
-					check = (first != last);
 				}
 					
 				return first;
 			}
 
-			void		swap(const list& lst)
+			void		swap(list& lst)
 			{
-				iterator	beg;
-				iterator	end;
+				iterator 	beg(lst.begin());
+				iterator 	end(lst.end());
+				size_type	i(lst.size());
 
-				beg = lst.begin();
-				end = iterator(lst._tail.prev);
+				end--;
 
 				if (this->size())
 				{
 					lst._head.next = this->_head.next;
-					lst.begin().getPointer()->prev = lst._head;
+					lst._head.next->prev = &lst._head;
 					lst._tail.prev = this->_tail.prev;
-					lst._tail.prev->next = lst._tail;
+					lst._tail.prev->next = &lst._tail;
+					lst._n = this->size();
 				}
 				else
-					lst.reset();
-				if (lst.size())
+				{
+					lst._head.next = &this->_tail;
+					lst._tail.prev = &this->_head;
+					lst._n = 0;
+				}
+				if (i)
 				{
 					this->_head.next = beg.getPointer();
-					beg.getPointer()->prev = this->_head;
+					this->_head.next->prev = &this->_head;
 					this->_tail.prev = end.getPointer();
-					this->_tail.prev->next = this->_tail;
+					this->_tail.prev->next = &this->_tail;
+					this->_n = i;
 				}
 				else
-					this->reset();
-				this->resetSize();
-				lst.resetSize();
+				{
+					this->_head.next = &this->_tail;
+					this->_tail.prev = &this->_head;
+					this->_n = 0;
+				}
 			}
 
 			void		resize(size_type n, value_type val = value_type())
@@ -507,8 +538,8 @@ namespace ft
 
 			void		reset()
 			{
-				this->_head.next = this->_tail;
-				this->_tail.prev = this->_head;
+				this->_head.next = &this->_tail;
+				this->_tail.prev = &this->_head;
 			}
 			
 			void		resetSize()
@@ -523,4 +554,81 @@ namespace ft
 		private:
 			size_type		_n;
 	};
+
+	template<class T >
+		void	swap(list<T>& x, list<T>& y)
+		{
+			x.swap(y);
+		}
+
+	template <class T>
+		bool operator==(const list<T>& left, const list<T>& right)
+		{
+			typename list<T>::iterator it = right.begin();
+
+			if (left.size() != right.size())
+				return false;
+			for (typename list<T>::iterator i = left.begin(); i != left.end(); i++)
+			{
+				if (*i != *it)
+					return false;
+				it++;
+			}
+			return true;
+		}
+	
+	template <class T>
+		bool operator==(list<T>& left, list<T>& right)
+		{
+			typename list<T>::iterator	it = right.begin();
+
+			if (left.size() != right.size())
+				return false;
+
+			for (typename list<T>::iterator i = left.begin(); i != left.end(); i++)
+			{
+				if (*i != *it)
+					return false;
+				it++;
+			}
+			return true;
+		}
+	
+	template <class T>
+		bool operator<(list<T>& left, list<T>& right)
+		{
+			typename list<T>::iterator	it = right.begin();
+			typename list<T>::iterator	i = left.begin();
+
+			while (it != right.end() && i != left.end() && *it == *i)
+			if (it == right.end() && i != left.end())
+				return false;
+			if (i == left.end() && it != right.end())
+				return true;
+			return (*i < *it);
+		}
+
+	template <class T>
+		bool operator!=(list<T>& left, list<T>& right)
+		{
+			return (!(left == right));
+		}
+
+	template <class T>
+		bool operator>(list<T>& left, list<T>& right)
+		{
+			return (right < left);
+		}
+
+	template <class T>
+		bool operator<=(list<T>& left, list<T>& right)
+		{
+			return (!(right < left));
+		}
+
+	template <class T>
+		bool operator>=(list<T>& left, list<T>& right)
+		{
+			return (!(left < right));
+		}
 }
