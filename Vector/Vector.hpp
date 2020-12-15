@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/11 15:34:38 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/14 14:27:24 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -440,9 +440,9 @@ namespace ft
 
 			while (i < left.size() && i < right.size() && left[i] == right[i])
 				i++;
-			if (i >= left.size())
+			if (i >= left.size() && i < right.size())
 				return true;
-			if (i >= right.size())
+			if (i >= right.size() && i < left.size())
 				return false;
 			return (left[i] < right[i]);
 		}

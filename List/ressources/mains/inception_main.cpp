@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/14 17:05:38 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/15 10:58:50 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,6 @@ int main()
 {
 	list<int>			test(3, 3);
 
-/*
-	cout << "self assignation test\n";
-	list<list<int> >	self_assign;
-	list<list<int> >	*ptr = &self_assign;
-	list<list<int> >	*ptr2 = &self_assign;
-
-	self_assign.assign(4, test);
-	*ptr = *ptr2;
-
-	cout << std::boolalpha << (*ptr == *ptr2) << '\n';
-*/
-//	self_assign = self_assign; //compiler doesn't like it!
-
-
 
 	list<list<int> > JOHN;
 	list<list<int> > BOB(5, test);
@@ -77,9 +63,6 @@ int main()
 	cout << "Size of BOB " << BOB.size() << std::endl;
 	cout << "Size of MIKE " << MIKE.size() << std::endl;
 
-	cout << "Max size of JOHN " << JOHN.max_size() << std::endl;
-	cout << "Max size of BOB " << BOB.max_size() << std::endl;
-	cout << "Max size of MIKE " << MIKE.max_size() << std::endl;
 	print(JOHN);
 	print(BOB);
 	print(MIKE);
