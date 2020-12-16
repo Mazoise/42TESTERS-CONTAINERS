@@ -2,19 +2,21 @@
 
 DIR=($(ls))
 CLEAN=""
+COUNT=$#
 
 for ARG in "$@"
 do
 	if [ "$ARG" = "clean" ]
 	then
 		CLEAN="clean"
+		COUNT=$((COUNT-1))
 		break
 	fi
 done
 
 for I in "${DIR[@]}" 
 do
-	if (( $# > 0 ))
+	if (( $COUNT > 0 ))
 	then
 		CHECK="no"
 		for ARG in "$@"
