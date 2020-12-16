@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/14 17:24:32 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/16 14:52:24 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,22 +347,11 @@ namespace ft
 			//	OPERATIONS	//
 			void	splice(iterator position, list& x)
 			{
-				iterator	tmp(position.getPointer()->prev);
-
-				tmp->next = x.begin().getPointer();
-				tmp->next->prev = tmp.getPointer();
-				position.getPointer()->prev = x._tail.prev;
-				position.getPointer()->prev->next = position.getPointer();
-				x.reset();
-				x.resetSize();
-				this->resetSize();
+				splice(position, x, x.begin(), x.end());
 			}
 
 			void	splice(iterator position, list& x, iterator i)
 			{
-				if (x == *this && i == position)
-					return ;
-
 				i.getPointer()->prev->next = i.getPointer()->next;
 				i.getPointer()->next->prev = i.getPointer()->prev;
 				x.resetSize();
@@ -371,13 +360,22 @@ namespace ft
 				i.getPointer()->prev->next = i.getPointer();
 				i.getPointer()->next = position.getPointer();
 				position.getPointer()->prev = i.getPointer();
-				this->resetSize();
+				this->_n++;
 			}
 
 			void	splice(iterator position, list& x, iterator first, iterator last)
 			{
+				iterator	tmp;
+
+				tmp = first;
+				tmp++;
 				while(first != last)
-					splice(position, x, first++);
+				{
+					splice(position, x, first);
+					first = tmp;
+					if (tmp != last)
+						tmp++;
+				}
 			}
 
 			void	remove(const value_type& val)
@@ -548,7 +546,10 @@ namespace ft
 				this->_n = 0;
 
 				while (beg != this->end())
+				{
+					beg++;
 					this->_n++;
+				}
 			}
 			
 		private:

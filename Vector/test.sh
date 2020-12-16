@@ -50,7 +50,7 @@ run_tests ()
 			fi
 		fi
 	fi
-	#rm .error.log .main_error.log 2> /dev/null
+	rm .error.log .main_error.log 2> /dev/null
 }
 
 # CHECK OPTIONS

@@ -6,19 +6,20 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:35:37 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/14 13:09:20 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/16 17:32:52 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#include <string>
-#include <iostream>
+#ifndef NODE_HPP
+# define NODE_HPP
+# include <string>
+# include <iostream>
 
-#ifdef DEBUG
-# define PRINT 1
-#else
-# define PRINT 0
-#endif
+# ifdef DEBUG
+#  define PRINT 1
+# else
+#  define PRINT 0
+# endif
 
 namespace ft
 {
@@ -97,3 +98,4 @@ const T&	ft::node<T>::getMember() const
 	return this->m;
 }
 
+#endif

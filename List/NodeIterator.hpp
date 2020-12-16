@@ -6,20 +6,21 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 17:54:49 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/14 16:59:35 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/16 17:31:40 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#include "const_NodeIterator.hpp"
-#include "Node.hpp"
-#include <iostream>
+#ifndef NODEITERATOR_HPP
+# define NODEITERATOR_HPP
+# include "const_NodeIterator.hpp"
+# include "Node.hpp"
+# include <iostream>
 
-#ifdef DEBUG
-# define PRINT 1
-#else
-# define PRINT 0
-#endif
+# ifdef DEBUG
+#  define PRINT 1
+# else
+#  define PRINT 0
+# endif
 
 namespace ft
 {
@@ -132,3 +133,5 @@ namespace ft
 	template < class T>
 		const bool NodeIterator<T>::input_iter = true;
 }
+
+#endif

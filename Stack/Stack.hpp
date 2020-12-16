@@ -6,14 +6,14 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:50 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/10 12:10:24 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/16 17:52:33 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
 #include <string>
-#include "../deque/Deque.hpp"
+#include "../Deque/Deque.hpp"
 
 #ifdef DEBUG
 # define PRINT 1
@@ -23,13 +23,7 @@
 
 namespace ft
 {
-	static std::ostream& cout = std::cout;
-
-	typedef std::string			string;
-	typedef	std::endl			endl;
-	typedef	std::boolalpha		boolalpha;
-
-	template <class T, class Container = ft::deque<T> >
+	template <class T, class Container = deque<T> >
 	class stack
 	{
 		public:
