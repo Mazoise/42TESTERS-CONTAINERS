@@ -20,13 +20,13 @@ You can add your own tests as long as you respect these conditions:
 
 - Tests must be named as : `name_main.cpp` and placed in `ressources/mains/`
 - Tests must use
-	```* #ifndef STD
-	* #define NAMESPACE ft
-	* #else
-	* #define NAMESPACE std
-	* #endif
-	*
-	* using namespace NAMESPACE;```
+	```#ifndef STD
+	# define NAMESPACE ft
+	#else
+	# define NAMESPACE std
+	#endif
+	
+	using namespace NAMESPACE;```
 
 	they will be run once normally and once with `-D STD` option
 
