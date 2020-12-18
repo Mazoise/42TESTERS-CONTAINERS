@@ -1,6 +1,14 @@
 #	42 / FT_CONTAINERS #
 
+This project is a re-implementation of some of the STL containers.
+It includes Vector, List, Map, Queue, Deque and Stack.
+The whole project is c++98 compliant.
+
 ##	How to run tester:
+
+./run.sh will look for and run every ./test.sh
+- Options (like 'clean') will be passed to each one of them
+- If one or more container name is specified, then only listed containers will be tested
 
 ./test.sh will run every tests available in ressources/mains
 
@@ -18,9 +26,9 @@ You can add your own tests as long as you respect these conditions:
 	* #define NAMESPACE std
 	* #endif
 	*
-	* using namespace NAMESPACE
+	* using namespace NAMESPACE;
 
-	they will be run once normally and once with -D STD option
+	they will be run once normally and once with '-D STD' option
 
 - Tests must use '#include "Container.hpp"'. Include path will be set as a variable in the bash script
 
