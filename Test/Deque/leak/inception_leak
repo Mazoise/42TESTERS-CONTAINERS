@@ -1,0 +1,44 @@
+==129703== Memcheck, a memory error detector
+==129703== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==129703== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==129703== Command: ./bin/inception_ft
+==129703== 
+==129703== 
+==129703== Process terminating with default action of signal 2 (SIGINT)
+==129703==    at 0x400E4B4: elf_machine_rela (dl-machine.h:309)
+==129703==    by 0x400E4B4: elf_dynamic_do_Rela (do-rel.h:137)
+==129703==    by 0x400E4B4: _dl_relocate_object (dl-reloc.c:255)
+==129703==    by 0x4004529: dl_main (rtld.c:2265)
+==129703==    by 0x401CBAA: _dl_sysdep_start (dl-sysdep.c:252)
+==129703==    by 0x400204B: _dl_start_final (rtld.c:449)
+==129703==    by 0x400204B: _dl_start (rtld.c:539)
+==129703==    by 0x4001107: ??? (in /lib/x86_64-linux-gnu/ld-2.31.so)
+==129703== Jump to the invalid address stated on the next line
+==129703==    at 0x1030: ???
+==129703==    by 0x1FFEFFF89F: ???
+==129703==    by 0x4004529: dl_main (rtld.c:2265)
+==129703==    by 0x401CBAA: _dl_sysdep_start (dl-sysdep.c:252)
+==129703==    by 0x400204B: _dl_start_final (rtld.c:449)
+==129703==    by 0x400204B: _dl_start (rtld.c:539)
+==129703==    by 0x4001107: ??? (in /lib/x86_64-linux-gnu/ld-2.31.so)
+==129703==  Address 0x1030 is not stack'd, malloc'd or (recently) free'd
+==129703== 
+==129703== 
+==129703== Process terminating with default action of signal 11 (SIGSEGV)
+==129703==  Bad permissions for mapped region at address 0x1030
+==129703==    at 0x1030: ???
+==129703==    by 0x1FFEFFF89F: ???
+==129703==    by 0x4004529: dl_main (rtld.c:2265)
+==129703==    by 0x401CBAA: _dl_sysdep_start (dl-sysdep.c:252)
+==129703==    by 0x400204B: _dl_start_final (rtld.c:449)
+==129703==    by 0x400204B: _dl_start (rtld.c:539)
+==129703==    by 0x4001107: ??? (in /lib/x86_64-linux-gnu/ld-2.31.so)
+==129703== 
+==129703== HEAP SUMMARY:
+==129703==     in use at exit: 0 bytes in 0 blocks
+==129703==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==129703== 
+==129703== All heap blocks were freed -- no leaks are possible
+==129703== 
+==129703== For lists of detected and suppressed errors, rerun with: -s
+==129703== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

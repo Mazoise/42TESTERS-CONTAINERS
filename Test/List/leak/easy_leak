@@ -1,0 +1,14 @@
+==106847== Memcheck, a memory error detector
+==106847== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==106847== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==106847== Command: ./bin/easy_ft
+==106847== 
+==106847== 
+==106847== HEAP SUMMARY:
+==106847==     in use at exit: 0 bytes in 0 blocks
+==106847==   total heap usage: 23 allocs, 23 frees, 77,304 bytes allocated
+==106847== 
+==106847== All heap blocks were freed -- no leaks are possible
+==106847== 
+==106847== For lists of detected and suppressed errors, rerun with: -s
+==106847== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
