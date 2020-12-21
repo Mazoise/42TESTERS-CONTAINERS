@@ -8,7 +8,7 @@ The whole project is c++98 compliant.
 
 `./Run_test.sh` will look for all your containers and run every test it has for each
 - If one or more container name is specified, then only listed containers will be tested
-- test are stored in each `container_name/ressources/mains` folder
+- test are stored in each `Test/container_name/ressources/mains` folder
 - You can pass arguments to the tester :
 	- `clean` will clean your directory and exit
 	- [...]
@@ -24,7 +24,9 @@ The whole project is c++98 compliant.
 	
 		using namespace NAMESPACE;```
 
-- Test will be run once normally and once with `-D STD` option
+- Test will be run once normally and once with `-D STD` option.
+Test will be considered succesfull if outputs do not differ and
+ if valgrind finds no leaks or errors.
 
 - Tests must use `#include "Container.hpp"`. Include path will be set as a variable in the bash script
 
