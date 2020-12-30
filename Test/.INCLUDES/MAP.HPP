@@ -6,15 +6,14 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/10 12:11:20 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/21 12:55:55 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
 #include <string>
-#include "../ReverseIterator.hpp"
-#include "../enable_if.hpp"
+#include "../utils.hpp"
 
 #ifdef DEBUG
 # define PRINT 1
@@ -24,12 +23,6 @@
 
 namespace ft
 {
-	static std::ostream& cout = std::cout;
-
-	typedef std::string			string;
-	typedef	std::endl			endl;
-	typedef	std::boolalpha		boolalpha;
-
 	class Map
 	{
 			private:

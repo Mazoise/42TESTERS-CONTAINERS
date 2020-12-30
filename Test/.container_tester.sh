@@ -2,7 +2,8 @@
 
 # SETUP
 
-INCLUDES=../INCLUDES
+
+INCLUDES=../.INCLUDES
 MAINS=($(ls mains | cut -f1 -d'_'))
 RUN="yes"
 OK="\xE2\x9C\x85"
@@ -16,10 +17,10 @@ CONT="$(pwd | rev | cut -f1 -d'/' | rev)"
 run_tests ()
 {
 	touch .error.log .main_error.log
-	clang++ -Werror -Wextra -Werror -I "$INCLUDES" -I "$INCLUDES"/EMPTY -I ../"$2" \
+	clang++ -Werror -Wextra -Werror -I "$INCLUDES" -I "$INCLUDES"/EMPTY -I ../"$2" -I "$INCLUDES"/EMPTY/JUST_IN_CASE \
 			mains/"$1"_main.cpp -o bin/"$1"_ft 2> .error.log
 	clang++ -Werror -Wextra -Werror -D STD -I "$INCLUDES" -I "$INCLUDES"/EMPTY \
-			-I ../"$2" mains/"$1"_main.cpp -o bin/"$1"_std 2> .main_error.log
+			-I "$INCLUDES/EMPTY/JUST_IN_CASE" -I ../"$2" mains/"$1"_main.cpp -o bin/"$1"_std #2> .main_error.log
 
 	if [ "$(cat .main_error.log | wc -c)" != "0" ]
 	then
@@ -37,7 +38,7 @@ run_tests ()
 				valgrind ./bin/"$1"_ft > /dev/null 2> leak/"$1"_leak
 				if [ "$(grep "All heap blocks were freed -- no leaks are possible" leak/"$1"_leak)" = "" ]
 				then
-					echo -e "\e[31m""$NOPE""\t""$1" "test leaks (shame!)"
+					echo -e "\e[31m""$NOPE""\t""$1" "test seems to leak (shame!), or it crashed (shame shame!)"
 				else
 					if [ "$(grep "ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)" leak/"$1"_leak)" = "" ]
 					then
@@ -81,10 +82,16 @@ mkdir bin
 mkdir leak
 
 echo -e "\e[34m\e[1m-" $CONT ":\n\e[0m"
-echo -e "\e[33mFound ${#MAINS[@]} tests for" $CONT, running tests :"\n\e[0m"
+echo -en "\e[33mFound ${#MAINS[@]} tests for $CONT, "
+if (( ${#MAINS[@]} > 0 ))
+then
+	echo -e running tests :"\n\e[0m"
+else
+	echo -e jumping to next container."\n\e[0m"
+fi
 
 for M in "${MAINS[@]}"
 do
-	run_tests $M $1 2> /dev/null
+	run_tests $M $1 #2> /dev/null
 done
 echo

@@ -6,20 +6,22 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 14:20:31 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/11 11:31:52 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/30 11:21:38 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#include <iostream>
-#include <string>
-#include <sstream>
+#ifndef UTILS_HPP
+# define UTILS_HPP
 
-#ifdef DEBUG
-# define PRINT 1
-# else
-# define PRINT 0
-#endif
+# include <iostream>
+# include <string>
+# include <sstream>
+
+# ifdef DEBUG
+#  define PRINT 1
+#  else
+#  define PRINT 0
+# endif
 
 
 namespace ft
@@ -195,3 +197,5 @@ namespace ft
 			return rhs.base() - lhs.base();
 		}
 }
+
+#endif

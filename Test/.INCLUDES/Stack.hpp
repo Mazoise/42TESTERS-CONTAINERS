@@ -6,14 +6,14 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:50 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/16 17:52:33 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/30 12:07:56 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
 #include <string>
-#include "../Deque/Deque.hpp"
+#include "Deque.hpp"
 
 #ifdef DEBUG
 # define PRINT 1

@@ -4,6 +4,7 @@ DIR=($(ls))
 CLEAN=""
 COUNT=$#
 
+mkdir -p .INCLUDES/EMPTY/JUST_IN_CASE
 
 for ARG in "$@"
 do
@@ -16,22 +17,27 @@ do
 	#add other options if need
 done
 
-if [ "$CLEAN" != "clean" ]  && [ "$(cat path 2> /dev/null)" = "" ]
+if [ "$CLEAN" != "clean" ]
 then
-	echo -e "\e[1m\e[34m"'Please enter the path (absolute or relative) to you ft_container repository, with no / at the end por favor'
-	read PATH_TO_REPO
-	echo "$PATH_TO_REPO" > path
-	cp "$PATH_TO_REPO"/**/*.hpp INCLUDES 2> /dev/null
-	for file in INCLUDES/*.hpp
+	if [ "$(cat .path 2> /dev/null)" = "" ]
+	then
+		echo -e "\e[1m\e[34m"'Please enter the path (absolute or relative) to you ft_container repository, with no / at the end por favor'
+		read PATH_TO_REPO
+		echo "$PATH_TO_REPO" > .path
+		echo "Enter your Include path if needed"
+		read INCLUDE_PATH
+		echo "$INCLUDE_PATH" > .includes
+	else
+		PATH_TO_REPO="$(cat .path 2> /dev/null)"
+		INCLUDE_PATH="$(cat .includes 2> /dev/null)"
+	fi
+	cp "$PATH_TO_REPO"/**/*.hpp .INCLUDES 2> /dev/null
+	for file in .INCLUDES/*.hpp
 	do
 		cp $file ${file:u} 2> /dev/null
 	done
-	echo "Enter your Include path if needed"
-	read INCLUDE_PATH
-	echo "$INCLUDE_PATH" > includes
-else
-	PATH_TO_REPO="$(cat path)"
-	INCLUDE_PATH="$(cat includes)"
+	else
+	rm .includes .path 2> /dev/null
 fi
 
 for I in "${DIR[@]}" 
@@ -52,12 +58,19 @@ do
 			continue
 		fi
 	fi
-	if [[ -d "$I" ]] && [[ -f INCLUDES/"$I".hpp ]]
+	if [[ -d "$I" ]] && [[ -f .INCLUDES/"$I".hpp ]]
 	then
 		cd "$I"
 		../.container_tester.sh "$INCLUDE_PATH" "$CLEAN" 2> /dev/null
 		cd ../
+	else
+		#echo "$I" is not a directory
+		#echo OR .INCLUDES/"$I".hpp does not exist
 	fi
 done
 
-rm INCLUDES/* 2> /dev/null
+if [ "$CLEAN" = "clean" ]
+then
+	rm .path .includes 2> /dev/null
+fi
+#rm .INCLUDES/* 2> /dev/null

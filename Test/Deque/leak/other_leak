@@ -1,0 +1,41 @@
+==16401== Memcheck, a memory error detector
+==16401== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==16401== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==16401== Command: ./bin/other_ft
+==16401== 
+==16401== Invalid write of size 8
+==16401==    at 0x403E70: ft::deque<int>::erase(ft::NodeIterator<int>) (in /home/hannibal/Documents/Cursus42/ft_containers/Test/Deque/bin/other_ft)
+==16401==    by 0x402E9C: ft::deque<int>::erase(ft::NodeIterator<int>, ft::NodeIterator<int>) (in /home/hannibal/Documents/Cursus42/ft_containers/Test/Deque/bin/other_ft)
+==16401==    by 0x4035D6: ft::deque<int>::clear() (in /home/hannibal/Documents/Cursus42/ft_containers/Test/Deque/bin/other_ft)
+==16401==    by 0x402D5B: ft::deque<int>::~deque() (in /home/hannibal/Documents/Cursus42/ft_containers/Test/Deque/bin/other_ft)
+==16401==    by 0x4027DA: main (in /home/hannibal/Documents/Cursus42/ft_containers/Test/Deque/bin/other_ft)
+==16401==  Address 0x10 is not stack'd, malloc'd or (recently) free'd
+==16401== 
+==16401== 
+==16401== Process terminating with default action of signal 11 (SIGSEGV)
+==16401==  Access not within mapped region at address 0x10
+==16401==    at 0x403E70: ft::deque<int>::erase(ft::NodeIterator<int>) (in /home/hannibal/Documents/Cursus42/ft_containers/Test/Deque/bin/other_ft)
+==16401==    by 0x402E9C: ft::deque<int>::erase(ft::NodeIterator<int>, ft::NodeIterator<int>) (in /home/hannibal/Documents/Cursus42/ft_containers/Test/Deque/bin/other_ft)
+==16401==    by 0x4035D6: ft::deque<int>::clear() (in /home/hannibal/Documents/Cursus42/ft_containers/Test/Deque/bin/other_ft)
+==16401==    by 0x402D5B: ft::deque<int>::~deque() (in /home/hannibal/Documents/Cursus42/ft_containers/Test/Deque/bin/other_ft)
+==16401==    by 0x4027DA: main (in /home/hannibal/Documents/Cursus42/ft_containers/Test/Deque/bin/other_ft)
+==16401==  If you believe this happened as a result of a stack
+==16401==  overflow in your program's main thread (unlikely but
+==16401==  possible), you can try to increase the size of the
+==16401==  main thread stack using the --main-stacksize= flag.
+==16401==  The main thread stack size used in this run was 8388608.
+==16401== 
+==16401== HEAP SUMMARY:
+==16401==     in use at exit: 312 bytes in 13 blocks
+==16401==   total heap usage: 114 allocs, 101 frees, 79,488 bytes allocated
+==16401== 
+==16401== LEAK SUMMARY:
+==16401==    definitely lost: 0 bytes in 0 blocks
+==16401==    indirectly lost: 0 bytes in 0 blocks
+==16401==      possibly lost: 0 bytes in 0 blocks
+==16401==    still reachable: 312 bytes in 13 blocks
+==16401==         suppressed: 0 bytes in 0 blocks
+==16401== Rerun with --leak-check=full to see details of leaked memory
+==16401== 
+==16401== For lists of detected and suppressed errors, rerun with: -s
+==16401== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
