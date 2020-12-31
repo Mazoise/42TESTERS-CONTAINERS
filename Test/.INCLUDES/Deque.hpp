@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/16 17:14:33 by hbaudet          ###   ########.fr       */
+/*   Updated: 2020/12/31 15:38:45 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,19 @@ namespace ft
 					this->_tail.prev = &this->_head;
 					this->assign(first, last);
 				}
+
+			deque(T* first, T* last): _n(0)
+			{
+				if (PRINT)
+					std::cout << "Pointer range constructor called\n";
+				this->_head.next = &this->_tail;
+				this->_tail.prev = &this->_head;
+				while(first != last)
+				{
+					push_back(*first);
+					++first;
+				}
+			}
 
 			deque(const deque& lst): _n(0)
 			{
@@ -213,12 +226,8 @@ namespace ft
 					throw std::out_of_range("vector::_M_range_check: __n (which is "
 						+ to_string(n) + ") >= this->size() (which is "
 						+ to_string(this->size()) + ")");
-
-				iterator	it(this->begin());
-
-				while (n-- != 0)
-					it++;
-				return *it;
+				
+				return ((*this)[n]);
 			}
 
 			const_reference	at(size_type n) const
@@ -227,12 +236,8 @@ namespace ft
 					throw std::out_of_range("vector::_M_range_check: __n (which is "
 						+ to_string(n) + ") >= this->size() (which is "
 						+ to_string(this->size()) + ")");
-
-				iterator	it(this->begin());
-
-				while (n-- != 0)
-					it++;
-				return *it;
+			
+				return ((*this)[n]);
 			}
 
 			//	MODIFIERS	//
@@ -347,8 +352,8 @@ namespace ft
 				}
 				else
 				{
-					lst._head.next = &this->_tail;
-					lst._tail.prev = &this->_head;
+					lst._head.next = &lst._tail;
+					lst._tail.prev = &lst._head;
 					lst._n = 0;
 				}
 				if (i)

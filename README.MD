@@ -6,15 +6,15 @@ The whole project is c++98 compliant.
 
 ##	How to run tester:
 
-`./Run_test.sh` will look for all your containers and run every test it has for each
+`Run_test.sh` will look for all your containers and run every test it has for each
 - If one or more container name is specified, then only listed containers will be tested
-- test are stored in each `Test/container_name/ressources/mains` folder
+- test are stored in each `Test/container_name/mains` folder
 - You can pass arguments to the tester :
 	- `clean` will clean your directory and exit
 	- [...]
 
 - You can add your own tests as long as you respect these conditions:
-	- Tests must be named as : `name_main.cpp` and placed in `ressources/mains/`
+	- Tests must be named as : `name_main.cpp` and placed in `container_name/mains/`
 	- Tests must use
 		```#ifndef STD
 		# define NAMESPACE ft
@@ -30,7 +30,7 @@ Test will be considered succesfull if outputs do not differ and
 
 - Tests must use `#include "Container.hpp"`. Include path will be set as a variable in the bash script
 
-- There is a main template named `.empty_main.cpp` in `ressources/mains/`
+- There is a main template named `.empty_main.cpp` in `container_name/mains/`
 
 If you have any question or suggestion, please feel free to PM me on slack @hbaudet ;)
 
