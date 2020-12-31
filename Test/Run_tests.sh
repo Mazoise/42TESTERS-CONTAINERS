@@ -13,6 +13,8 @@ do
 		CLEAN="clean"
 		COUNT=$((COUNT-1))
 		break
+	else
+		CLEAN=""
 	fi
 	#add other options if need
 done
@@ -36,7 +38,7 @@ then
 	do
 		cp $file ${file:u} 2> /dev/null
 	done
-	else
+else
 	rm .includes .path 2> /dev/null
 fi
 
@@ -63,9 +65,8 @@ do
 		cd "$I"
 		../.container_tester.sh "$INCLUDE_PATH" "$CLEAN" 2> /dev/null
 		cd ../
-	else
-		#echo "$I" is not a directory
-		#echo OR .INCLUDES/"$I".hpp does not exist
+	else if [[ "$CLEAN" = "clean" ]] && [[ -d "$1" ]]
+		cd "$I" 2> /dev/null && ../.container_tester.sh 2> /dev/null " " clean && cd ../
 	fi
 done
 
@@ -73,4 +74,4 @@ if [ "$CLEAN" = "clean" ]
 then
 	rm .path .includes 2> /dev/null
 fi
-#rm .INCLUDES/* 2> /dev/null
+rm -rf .INCLUDES 2> /dev/null

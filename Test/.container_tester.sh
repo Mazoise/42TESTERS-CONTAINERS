@@ -16,17 +16,18 @@ CONT="$(pwd | rev | cut -f1 -d'/' | rev)"
 
 run_tests ()
 {
-	touch .error.log .main_error.log
+	rm logs/"$1"_ft.error.log
+	rm logs/"$1"_std.error.log
 	clang++ -Werror -Wextra -Werror -I "$INCLUDES" -I "$INCLUDES"/EMPTY -I ../"$2" -I "$INCLUDES"/EMPTY/JUST_IN_CASE \
-			mains/"$1"_main.cpp -o bin/"$1"_ft 2> .error.log
+			mains/"$1"_main.cpp -o bin/"$1"_ft 2> logs/"$1"_ft.error.log
 	clang++ -Werror -Wextra -Werror -D STD -I "$INCLUDES" -I "$INCLUDES"/EMPTY \
-			-I "$INCLUDES/EMPTY/JUST_IN_CASE" -I ../"$2" mains/"$1"_main.cpp -o bin/"$1"_std #2> .main_error.log
+			-I "$INCLUDES/EMPTY/JUST_IN_CASE" -I ../"$2" mains/"$1"_main.cpp -o bin/"$1"_std 2> logs/"$1"_std.error.log
 
-	if [ "$(cat .main_error.log | wc -c)" != "0" ]
+	if [ $(cat logs/"$1"_std.error.log | wc -c) != "0" ]
 	then
 		echo -e "\e[31m\e[5m$WARNING""\t\e[0m\e[35m\e[1m""$1""_main.cpp seems to be invalid!\e[0m"
 	else
-		if [ "$(cat .error.log | wc -c)" != "0" ]
+		if [ "$(cat logs/"$1"_ft.error.log | wc -c)" != "0" ]
 		then
 			echo -e "\e[1m\e[31m\e[25m""$DEAD""\t""$1" "test does not compile!\e[0m"
 		else
@@ -52,7 +53,6 @@ run_tests ()
 			fi
 		fi
 	fi
-	rm .error.log .main_error.log 2> /dev/null
 }
 
 # CHECK OPTIONS
@@ -70,7 +70,7 @@ done
 
 # RUN
 
-rm -rf out bin diff leak
+rm -rf out bin diff leak logs
 if [ $RUN = "no" ]
 then
 	exit
@@ -80,6 +80,7 @@ mkdir out
 mkdir diff
 mkdir bin
 mkdir leak
+mkdir logs
 
 echo -e "\e[34m\e[1m-" $CONT ":\n\e[0m"
 echo -en "\e[33mFound ${#MAINS[@]} tests for $CONT, "
@@ -92,6 +93,6 @@ fi
 
 for M in "${MAINS[@]}"
 do
-	run_tests $M $1 #2> /dev/null
+	run_tests $M $1 2> /dev/null
 done
 echo
