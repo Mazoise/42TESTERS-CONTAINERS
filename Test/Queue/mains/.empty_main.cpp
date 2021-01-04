@@ -6,13 +6,13 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/18 19:23:37 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/04 11:24:29 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <queue>
-#include "QUEUE.HPP"
-#include "LIST.HPP"
+#include "QUEUE_UC.HPP"
+#include "LIST_UC.HPP"
 
 #ifndef STD
 # define NAMESPACE ft

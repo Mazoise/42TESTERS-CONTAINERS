@@ -6,11 +6,11 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/18 19:22:25 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/04 12:11:34 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "LIST.HPP"
+#include "LIST_UC.HPP"
 #include <list>
 
 #ifndef STD
@@ -44,8 +44,6 @@ int main()
 	ti--;
 	cout << *(++it) << '\n';
 
-	cout << "List<int> max size : " << li.max_size() << '\n';
-	cout << "List<string> max size : " << test.max_size() << '\n';
 
 	while (*it != 42)
 	{

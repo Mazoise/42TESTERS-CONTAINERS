@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 17:54:49 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/21 12:55:50 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/04 11:45:49 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ namespace ft
 	template<class T>
 		class NodeIterator;
 
-	template<class T, class N<T> >
+	template<class T>
 		class const_NodeIterator
 		{
 			public:
 				typedef const T					value_type;
-				typedef	const N<value_type>		node_type;
-				typedef	const N<T>*				pointer;
+				typedef	const node<value_type>	node_type;
+				typedef	const node<T>*			pointer;
 				typedef	const node_type*		const_pointer;
 				typedef value_type&				reference;
 				typedef	::std::ptrdiff_t		difference_type;

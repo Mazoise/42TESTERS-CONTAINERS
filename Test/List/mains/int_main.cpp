@@ -6,11 +6,11 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/18 19:22:29 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/04 12:11:43 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "LIST.HPP"
+#include "LIST_UC.HPP"
 #include <list>
 
 #ifndef STD
@@ -45,10 +45,7 @@ int main()
 	cout << "Size of JOHN " << JOHN.size() << std::endl;
 	cout << "Size of BOB " << BOB.size() << std::endl;
 	cout << "Size of MIKE " << MIKE.size() << std::endl;
-
-	cout << "Max size of JOHN " << JOHN.max_size() << std::endl;
-	cout << "Max size of BOB " << BOB.max_size() << std::endl;
-	cout << "Max size of MIKE " << MIKE.max_size() << std::endl;
+	
 	print(JOHN);
 	print(BOB);
 	print(MIKE);

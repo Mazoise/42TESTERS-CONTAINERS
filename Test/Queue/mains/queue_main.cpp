@@ -6,12 +6,12 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 12:40:31 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/21 12:59:10 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/04 11:24:37 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "QUEUE.HPP"
-#include "LIST.HPP"
+#include "QUEUE_UC.HPP"
+#include "LIST_UC.HPP"
 #include <list>
 #include <queue>
 #include <string>

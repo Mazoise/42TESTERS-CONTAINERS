@@ -6,13 +6,13 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 12:40:31 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/18 19:30:38 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/04 12:12:14 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "STACK.HPP"
+#include "STACK_UC.HPP"
 #include <list>
-#include "LIST.HPP"
+#include "LIST_UC.HPP"
 #include <stack>
 
 #ifndef STD

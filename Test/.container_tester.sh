@@ -25,31 +25,35 @@ run_tests ()
 
 	if [ $(cat logs/"$1"_std.error.log | wc -c) != "0" ]
 	then
-		echo -e "\e[31m\e[5m$WARNING""\t\e[0m\e[35m\e[1m""$1""_main.cpp seems to be invalid!\e[0m"
+		echo -e "\033[31m\033[5m$WARNING""\t\033[0m\033[35m\033[1m""$1""_main.cpp seems to be invalid!\033[0m"
 	else
-		if [ "$(cat logs/"$1"_ft.error.log | wc -c)" != "0" ]
+		if [ "$(cat logs/"$1"_ft.error.log | wc -c | rev | cut -f1 -d' ')" != "0" ]
 		then
-			echo -e "\e[1m\e[31m\e[25m""$DEAD""\t""$1" "test does not compile!\e[0m"
+			echo -e "\033[1m\033[31m\033[25m""$DEAD""\t""$1" "test does not compile!\033[0m"
 		else
 			./bin/"$1"_std > out/"$1"_std.log 2> /dev/null
 			./bin/"$1"_ft > out/"$1"_ft.log 2> /dev/null
 			diff out/"$1"_std.log out/"$1"_ft.log > diff/"$1".diff
 			if [ $(cat diff/"$1".diff | wc -l) -eq 0 ]
 			then
-				valgrind ./bin/"$1"_ft > /dev/null 2> leak/"$1"_leak
-				if [ "$(grep "All heap blocks were freed -- no leaks are possible" leak/"$1"_leak)" = "" ]
+				if [[ "$OSTYPE" == "linux-gnu"* ]]
 				then
-					echo -e "\e[31m""$NOPE""\t""$1" "test seems to leak (shame!), or it crashed (shame shame!)"
-				else
-					if [ "$(grep "ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)" leak/"$1"_leak)" = "" ]
+					echo "NOT ON MAC OS"
+					valgrind ./bin/"$1"_ft > /dev/null 2> leak/"$1"_leak
+					if [ "$(grep "All heap blocks were freed -- no leaks are possible" leak/"$1"_leak)" = "" ]
 					then
-						echo -e "\e[31m""$NOPE""\t""$1" "Valgrind detected some errors"
+						echo -e "\033[31m""$NOPE""\t""$1" "test seems to leak (shame!), or it crashed (shame shame!)"
+					elif [ "$(grep "ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)" leak/"$1"_leak)" = "" ]
+					then
+						echo -e "\033[31m""$NOPE""\t""$1" "Valgrind detected some errors"
 					else
-						echo -e "$OK""\e[1m\e[32m""\t""$1" 'test passed!'"\e[0m"
+						echo -e "$OK""\033[1m\033[32m""\t""$1" 'test passed!'"\033[0m"
 					fi
+				else
+					echo -e "$OK""\033[1m\033[32m""\t""$1" 'test passed!'"\033[0m"
 				fi
 			else
-				echo -e "\e[31m""$NOPE""\t""$1" "test outputs differ. Check logs\e[0m"
+				echo -e "\033[31m""$NOPE""\t""$1" "test outputs differ. Check logs\033[0m"
 			fi
 		fi
 	fi
@@ -82,13 +86,13 @@ mkdir bin
 mkdir leak
 mkdir logs
 
-echo -e "\e[34m\e[1m-" $CONT ":\n\e[0m"
-echo -en "\e[33mFound ${#MAINS[@]} tests for $CONT, "
+echo -e "\033[34m\033[1m-" $CONT ":\n\033[0m"
+echo -en "\033[33mFound ${#MAINS[@]} tests for $CONT, "
 if (( ${#MAINS[@]} > 0 ))
 then
-	echo -e running tests :"\n\e[0m"
+	echo -e running tests :"\n\033[0m"
 else
-	echo -e jumping to next container."\n\e[0m"
+	echo -e jumping to next container."\n\033[0m"
 fi
 
 for M in "${MAINS[@]}"

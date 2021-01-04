@@ -6,11 +6,11 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/18 19:31:13 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/04 12:07:31 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "VECTOR.HPP"
+#include "VECTOR_UC.HPP"
 #include <vector>
 
 #ifndef STD
@@ -39,10 +39,6 @@ int main()
 	cout << "Size of JOHN " << JOHN.size() << std::endl;
 	cout << "Size of BOB " << BOB.size() << std::endl;
 	cout << "Size of MIKE " << MIKE.size() << std::endl;
-
-	cout << "Max size of JOHN " << JOHN.max_size() << std::endl;
-	cout << "Max size of BOB " << BOB.max_size() << std::endl;
-	cout << "Max size of MIKE " << MIKE.max_size() << std::endl;
 
 
 	// RESIZE
@@ -144,7 +140,8 @@ int main()
 	}
 	catch (std::out_of_range& oor)
 	{
-		cout << oor.what();
+		(void)oor;
+		cout << "OOR error caught\n";
 	}
 
 	// FRONT / BACK

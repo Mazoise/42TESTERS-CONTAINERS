@@ -6,11 +6,11 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 08:48:03 by user42            #+#    #+#             */
-/*   Updated: 2020/12/18 19:31:12 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/04 12:08:52 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "VECTOR.HPP"
+#include "VECTOR_UC.HPP"
 #include <vector>
 
 #ifndef STD
@@ -131,12 +131,20 @@ int main()
 		CMAG << "operations..." << ENDL;
 		fill.at(-1) = -1;
 	}
-	catch(std::out_of_range& e) { CRED << e.what() << ENDL; }
+	catch (std::out_of_range& oor)
+	{
+		(void)oor;
+		cout << "OOR error caught\n";
+	}
 	try
 	{
 		fill.at(15) = -1;
 	}
-	catch(std::out_of_range& e) { CRED << e.what() << ENDL; }
+	catch (std::out_of_range& oor)
+	{
+		(void)oor;
+		cout << "OOR error caught\n";
+	}
 	CMAG << "print..." << ENDL;
 	print_vector(fill);
 
