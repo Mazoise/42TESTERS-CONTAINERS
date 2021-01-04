@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:35:37 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/04 13:05:35 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/04 16:39:06 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ namespace ft
 			node_pair*	prev;
 			node_pair*	parent;
 			node_pair*	getNext(node_pair* source = NULL) const;
-			node_pair*	getPrev(node_pair<K, V>* source = NULL) const;
+			node_pair*	getPrev(node_pair* source = NULL) const;
 	};
 }
 
