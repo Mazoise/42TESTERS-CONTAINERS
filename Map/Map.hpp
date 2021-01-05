@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/04 17:05:01 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/05 13:16:18 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,12 +131,18 @@ namespace ft
 			{
 				iterator	tmp(&this->_root);
 
+				if (!this->size())
+					return this->end();
+
 				return tmp;
 			}
 
 			const_iterator			begin() const
 			{
 				iterator	tmp(&this->_root);
+
+				if (!this->size())
+					return this->end();
 
 				return tmp;
 			}
@@ -171,14 +177,20 @@ namespace ft
 
 			reverse_iterator		rend()
 			{
-				reverse_iterator ret(this->_root);
+				reverse_iterator ret(&this->_root);
+				
+				if (!this->size())
+					return this->end();
 
 				return ret;
 			}
 
 			const_reverse_iterator	rend() const
 			{
-				reverse_iterator ret(this->_root);
+				reverse_iterator ret(&this->_root);
+				
+				if (!this->size())
+					return this->end();
 
 				return ret;
 			}
@@ -200,17 +212,12 @@ namespace ft
 
 			mapped_type&			operator[](const key_type& k)
 			{
-				iterator beg = this->begin();
-				iterator end = this->end();
+				iterator found = this->find(k);
 
-				while (beg != end)
-				{
-					if (beg->first == k)
-						return beg->second;
-					beg++
-				}
+				if (found != this->end()))
+					return found->second;
 
-				pair<iterator, bool>	ret(this->insert(value_type(k)));
+				pair<iterator, bool>	ret(this->insert(value_type(pair(k))));
 
 				return ret->first->second;
 			}
@@ -237,12 +244,101 @@ namespace ft
 			}
 
 			iterator				insert(iterator position, const value_type& val)
-			{}
+			{
+				iterator	ret = find(val.first);
+
+				if (ret != this->end())
+					return ret;
+				if (key_comp(position->first, val.first)
+					&& !(key_comp(position.getPointer()->next->first, val.first))
+					&& this->find(val.first) == this->end())
+				{
+					node_type*	tmp = new node_type(val, position.getPointer()->next, NULL, position.getPointer());
+					position.getPointer()->next.getPointer()->parent = tmp;
+					position.getPointer()->next = tmp;
+					this->_size++;
+					return (iterator(tmp));
+				}
+				pair<iterator, bool>	inserted = this->insert(val);
+				return inserted->first;
+			}
 
 			template <class InputIterator>
 				void				insert(InputIterator first,
 					typename enable_if<InputIter::input_iter, InputIter>::type last)
-				{}
+				{
+					while (first != last)
+					{
+						this->insert(*first);
+						first++;
+					}
+				}
+
+			void					erase(iterator position)
+			{
+				position.getPointer()->parent.getPointer()->next = position.getPointer()->prev;
+				position.getPointer()->next.getPointer()->parent = position.getointer()->parent;
+
+				pointer		tmp = position.getPointer();
+
+				while (tmp->next)
+					tmp = tmp->next;
+				tmp->next = position.getPointer();
+				tmp->next->parent = tmp;
+
+				delete *position;
+				this->_size--;
+			}
+
+			size_type				erase(const key_type& k)
+			{
+				iterator	tmp = this->find(k);
+
+				if (tmp == ths->end())
+					return 0;
+				erase(tmp);
+				return 1;
+			}
+
+			void					erase(iterator first, iterator last)
+			{
+				iterator tmp(first);
+
+				while (first != last)
+				{
+					tmp++;
+					erase(first);
+					first = tmp;
+				}
+			}
+
+			iterator				find(const key_type& k)
+			{
+				iterator beg = this->begin();
+				iterator end = this->end();
+
+				while (beg != end && key_comp(beg->first, val.first))
+				{
+					if (beg->first == k)
+						return beg;
+					beg++
+				}
+				return this->end();
+			}
+
+			const_iterator			find(const key_type& k) const
+			{
+				const_iterator beg = this->begin();
+				const_iterator end = this->end();
+
+				while (beg != end && key_comp(beg->first, val.first))
+				{
+					if (beg->first == k)
+						return beg;
+					beg++
+				}
+				return this->end();
+			}
 
 			node_type&	getMember()
 			{
