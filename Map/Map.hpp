@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/05 13:16:18 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/05 15:45:34 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,11 @@ namespace ft
 	class map
 	{
 		public:
-			template <class Key, class T, class Compare>
-				class map<Key, T, Compare>::value_comp
-				{
-					friend class map;
-					
-					protected:
-						Compare comp;
-						value_compare (Compare c) : comp(c) {}
-
-					public:
-						typedef bool result_type;
-						typedef value_type first_argument_type;
-						typedef value_type second_argument_type;
-						bool operator() (const value_type& x, const value_type& y) const
-						{
-							return comp(x.first, y.first);
-						}
-				};
-
 			typedef Key									key_type;
 			typedef T									mapped_type;
 			typedef pair<key_type, mapped_type>			value_type;
 			typedef node_pair<key_type, mapped_type>	node_type;
 			typedef Compare								key_compare;
-			typedef map::value_comp<Key, T, Compare>	value_compare;
 			typedef value_type&							reference;
 			typedef const value_type&					const_reference;
 			typedef value_type*							pointer;
@@ -65,7 +45,23 @@ namespace ft
 			typedef std::ptrdiff_t						difference_type;
 			typedef size_t								size_type;
 
-			explicit map(const key_compare& comp = key_compare()): _size(0)
+			class value_compare
+				{
+					friend class map;
+					
+					protected:
+						Compare comp;
+						value_compare(Compare c): comp(c) {}
+
+					public:
+						bool	operator()(const value_type& x, const value_type& y) const
+						{
+							return comp(x.first, y.first);
+						}
+				};
+
+
+			explicit map(const key_compare& comp = key_compare()): _comp(comp), _size(0)
 			{
 				if (PRINT)
 					cout << "Empty map ctor\n";
@@ -79,7 +75,7 @@ namespace ft
 
 			template <class InputIterator>
 				map(InputIterator first, typename enable_if<InputIter::input_iter,
-					InputIter>::type last, const key_compare& comp = key_compare()): _size(0)
+					InputIter>::type last, const key_compare& comp = key_compare()): _comp(comp), _size(0)
 				{
 					if (PRINT)
 						cout << "Range map ctor\n";
@@ -92,7 +88,7 @@ namespace ft
 					this->insert(first, last);
 				}
 			
-			map (const map& x): _size(0)
+			map (const map& x): _comp(comp), _size(0)
 			{
 				if (PRINT)
 					cout << "Copy map ctor\n";
@@ -129,22 +125,12 @@ namespace ft
 
 			iterator				begin()
 			{
-				iterator	tmp(&this->_root);
-
-				if (!this->size())
-					return this->end();
-
-				return tmp;
+				
 			}
 
 			const_iterator			begin() const
 			{
-				iterator	tmp(&this->_root);
-
-				if (!this->size())
-					return this->end();
-
-				return tmp;
+				
 			}
 
 			iterator				end()
@@ -177,22 +163,12 @@ namespace ft
 
 			reverse_iterator		rend()
 			{
-				reverse_iterator ret(&this->_root);
-				
-				if (!this->size())
-					return this->end();
-
-				return ret;
+			
 			}
 
 			const_reverse_iterator	rend() const
 			{
-				reverse_iterator ret(&this->_root);
 				
-				if (!this->size())
-					return this->end();
-
-				return ret;
 			}
 
 			bool					empty() const
@@ -340,12 +316,76 @@ namespace ft
 				return this->end();
 			}
 
-			node_type&	getMember()
+			void					swap (map& x)
+			{
+				node_type	root;
+				node_type*	end;
+				size_type	size;
+
+				root = this->_root;
+				end = this->_end.prev;
+				size = this->size();
+
+				this->_end.prev = x.end().getPointer()->prev;
+				this->_end.prev->next = &this->_end;
+				this->_root = x.getRoot();
+				if (this->_root->next)
+					this->_root->next->parent = &this->_root;
+				if (this->_root->prev)
+					this->_root->prev->parent = &this->_root;
+				this->_size = x.size();
+
+				x.setRoot(root);
+				if (x.getRoot().next)
+					x.getRoot().next->prev = &x.getRoot();
+				if (x.getRoot().prev)
+					x.getRoot().prev->parent = &x.getRoot();
+				end->next = x.end().getPointer();
+				end->next->prev = end;
+				x.setSize(size);
+			}
+
+			void					clear()
+			{
+				this->erase(this->begin(), this->end());
+			}
+
+			void					setSize(size_type size)
+			{
+				this->_size = size;
+			}
+
+			key_compare				key_comp() const
+			{
+				return	this->_comp;
+			}
+
+			value_compare			value_comp() const
+			{
+				return value_comp(this->_comp);
+			}
+			
+			node_type&				getRoot()
+			{
+				return this->_root;
+			}
+
+			const node_type&		getRoot() const
+			{
+				return this->_root;
+			}
+
+			void					setRoot(const node_type& r)
+			{
+				this->_root = r;
+			}
+
+			node_type&				getMember()
 			{
 				return this->root;
 			}
 
-			const node_type&	getMember() const
+			const node_type&		getMember() const
 			{
 				return this->root;
 			}
@@ -353,6 +393,7 @@ namespace ft
 			private:
 				node_type		_root;
 				node_type		_end;
+				key_compare		_comp;
 				size_type		_size;
 	};
 }
