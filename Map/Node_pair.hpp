@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:35:37 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/04 16:39:06 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/06 13:25:54 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ namespace ft
 		public:
 			pair(const K& k = K(), const V& v = V()): first(k), second(v) {}
 			~pair() {}
+
+			pair&	operator=(const pair& p)
+			{
+				this->first = p.first;
+				this->second = p.second;
+
+				return *this;
+			}
+
 			K	first;
 			V	second;
 	};
@@ -52,8 +61,8 @@ namespace ft
 			node_pair*	next;
 			node_pair*	prev;
 			node_pair*	parent;
-			node_pair*	getNext(node_pair* source = NULL) const;
-			node_pair*	getPrev(node_pair* source = NULL) const;
+			node_pair*	getNext(const node_pair* source = NULL) const;
+			node_pair*	getPrev(const node_pair* source = NULL) const;
 	};
 }
 
@@ -117,22 +126,22 @@ const ft::pair<K, V>&	ft::node_pair<K, V>::getMember() const
 }
 
 template<class K, class V>
-ft::node_pair<K, V>*	ft::node_pair<K, V>::getNext(node_pair<K, V>* source) const
+ft::node_pair<K, V>*	ft::node_pair<K, V>::getNext(const node_pair<K, V>* source) const
 {
 	if (source != this->next && this->next)
 		return (this->next);
 	if (this->parent)
-		return (this->parent.getNext(this));
+		return (this->parent->getNext(this));
 	return (NULL);
 }
 
 template<class K, class V>
-ft::node_pair<K, V>*	ft::node_pair<K, V>::getPrev(node_pair<K, V>* source) const
+ft::node_pair<K, V>*	ft::node_pair<K, V>::getPrev(const node_pair<K, V>* source) const
 {
 	if (source != this->prev && this->prev)
 		return (this->prev);
 	if (this->parent)
-		return (this->parent.getNext(this));
+		return (this->parent->getNext(this));
 	return (NULL);
 }
 

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   NodeIterator.hpp                                   :+:      :+:    :+:   */
+/*   MapNodeIterator.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NODEITERATOR_HPP
-# define NODEITERATOR_HPP
-// # include "const_NodeIterator.hpp"
+#ifndef MAPNODEITERATOR_HPP
+# define MAPNODEITERATOR_HPP
+// # include "const_MapNodeIterator.hpp"
 # include "Node_pair.hpp"
 # include <iostream>
 
@@ -31,7 +31,7 @@ namespace ft
 	class	pair;
 
 	template<class K, class V>
-		class NodeIterator
+		class MapNodeIterator
 		{
 			public:
 				typedef pair<K, V>			value_type;
@@ -42,16 +42,16 @@ namespace ft
 
 				static const bool			input_iter;
 				
-				NodeIterator(): _ptr(NULL) {}
-				NodeIterator(pointer ptr) : _ptr(ptr) {}
-				NodeIterator(const NodeIterator& vec): _ptr(vec.getPointer())
+				MapNodeIterator(): _ptr(NULL) {}
+				MapNodeIterator(pointer ptr) : _ptr(ptr) {}
+				MapNodeIterator(const MapNodeIterator& vec): _ptr(vec.getPointer())
 				{
 					if (PRINT)
 						std::cout << "NodeIter copy ctor\n";
 				}
-				~NodeIterator() {}
+				~MapNodeIterator() {}
 
-				NodeIterator& operator=(const NodeIterator& vec)
+				MapNodeIterator& operator=(const MapNodeIterator& vec)
 				{
 					if (PRINT)
 						std::cout << "NodeIter operator =\n";
@@ -80,40 +80,40 @@ namespace ft
 					return (&this->_ptr->getMember());
 				}
 
-				NodeIterator	operator++()
+				MapNodeIterator	operator++()
 				{
 					this->_ptr = this->_ptr->getNext();
 					return *this;
 				}
 
-				NodeIterator	operator++(int)
+				MapNodeIterator	operator++(int)
 				{
-					NodeIterator	tmp(*this);
+					MapNodeIterator	tmp(*this);
 
 					this->_ptr = this->_ptr->getNext();
 					return tmp;
 				}
 
-				NodeIterator	operator--()
+				MapNodeIterator	operator--()
 				{
 					this->_ptr = this->_ptr->getPrev();
 					return *this;
 				}
 
-				NodeIterator	operator--(int)
+				MapNodeIterator	operator--(int)
 				{
-					NodeIterator	tmp(*this);
+					MapNodeIterator	tmp(*this);
 
 					this->_ptr = this->_ptr->getPrev();
 					return tmp;
 				}
 
-				bool 			operator==(const NodeIterator& right) const 
+				bool 			operator==(const MapNodeIterator& right) const 
 				{
 					return (this->_ptr == right.getPointer());
 				}
 
-				bool 			operator!=(const NodeIterator& right) const 
+				bool 			operator!=(const MapNodeIterator& right) const 
 				{
 					bool ret = (*this == right);
 
@@ -125,7 +125,7 @@ namespace ft
 		};
 
 	template<class K, class V>
-		bool operator!=(const NodeIterator<K, V>& lhs, const NodeIterator<K, V>& rhs)
+		bool operator!=(const MapNodeIterator<K, V>& lhs, const MapNodeIterator<K, V>& rhs)
 		{
 			if (PRINT)
 				std::cout << "Operator != (NodeIter, NodeIter)\n";
@@ -134,7 +134,7 @@ namespace ft
 	
 
 	template <class K, class V>
-		const bool NodeIterator<K, V>::input_iter = true;
+		const bool MapNodeIterator<K, V>::input_iter = true;
 }
 
 #endif
