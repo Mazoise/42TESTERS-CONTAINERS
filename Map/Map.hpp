@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/06 13:33:55 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:53:44 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ namespace ft
 			{
 				if (PRINT)
 					cout << "Map dtor\n";
-				this->clear();
+				// this->clear();
 			}
 
 			map&	operator=(const map& x)
@@ -189,35 +189,45 @@ namespace ft
 			pair<iterator, bool>		insert(const value_type& val)
 			{
 				if (PRINT)
-					cout << "insert single\n";
+					ft::cout << "insert single : " << val.first << ", " << val.second << "\n";
 				if (!this->size())
 				{
 					insert_first_elem(val);
 					return pair<iterator, bool>(this->begin(), true);
 				}
-				iterator beg = this->begin();
-				iterator end = this->end();
+				node_type*	tmp = this->_root;
+				node_type*	beg = &this->_begin;
+				node_type*	end = &this->_end;
 
-				while (beg != end && this->_comp(beg->first, val.first))
+				while (tmp && tmp != beg && tmp != end)
 				{
-					if (beg->first == val.first)
+					if (this->key_comp()(tmp->getMember().first, val.first))
 					{
-						beg->second = val.second;
-						return (pair<iterator, bool>(beg, false));
+						if (tmp->next)
+							tmp = tmp->next;
+						else
+							return pair<iterator, bool>(this->insert(tmp, val), true);
 					}
-					beg++;
+					else if (this->key_comp()(val.first, tmp->getMember().first))
+					{
+						if (tmp->prev)
+							tmp = tmp->prev;
+						else
+							return pair<iterator, bool>(this->insert(--tmp, val), true);
+					}
+					else
+					{
+						tmp->getMember().second = val.second;
+						return pair<iterator, bool>(tmp, false);
+					}
 				}
-				beg--;
-
-				pair<iterator, bool>	ret(this->insert(beg, val), true);
-
-				return (ret);
+				return pair<iterator, bool>(this->insert(--(this->begin()), val), true);
 			}
 
 			iterator				insert(iterator position, const value_type& val)
 			{
 				if (PRINT)
-					cout << "insert position\n";
+					cout << "insert position : " << val.first << ", " << val.second;
 				if (!this->size())
 				{
 					insert_first_elem(val);
@@ -225,19 +235,48 @@ namespace ft
 				}
 				iterator	ret = find(val.first);
 
-				if (ret != this->end())
-					return ret;
-				if (key_comp()(position->first, val.first)
-					&& !(key_comp()(position.getPointer()->next->getMember().first, val.first))
-					&& this->find(val.first) == this->end())
+				if (ret != this->end()) //case where key already exists
 				{
-					node_type*	tmp = new node_type(val, position.getPointer()->next, NULL, position.getPointer());
-					position.getPointer()->next->parent = tmp;
-					position.getPointer()->next = tmp;
+					ret->second = val.second;
+					cout << " but key exists\n";
+					return ret;
+				}
+				// Checking if position is relevant
+				if (((position == --this->begin()) && (this->key_comp()(val.first, this->begin()->first)))
+					|| ((position == --this->end()) && (this->key_comp()(position->first, val.first)))
+					|| (this->key_comp()(position->first, val.first)
+							&& (this->key_comp()(val.first, position.getPointer()->next->getMember().first))) )
+				{
+					node_type*	tmp = new node_type(val);
+					if (position == --this->begin()) //Inserting BEFORE beginning (used by insert(val) whn all keys > val.first)
+					{
+						cout << " at the begining\n";
+						tmp->parent = this->_begin.parent;
+						tmp->prev =&this->_begin;
+						tmp->parent->prev = tmp;
+						this->_begin.parent = tmp;
+					}
+					else if (position == --this->end()) //Inserting at the end
+					{
+						cout << " at the end\n";
+						tmp->parent = this->_end.parent;
+						tmp->next = &this->_end;
+						tmp->parent->next = tmp;
+						tmp->next = &this->_end;
+					}
+					else //Inserting in the middle
+					{
+						cout << " in the middle\n";
+						tmp->parent = position.getPointer();
+						tmp->next = position.getPointer()->next;
+						tmp->parent->next = tmp;
+						tmp->next->parent = tmp;
+					}
 					this->_size++;
 					return (iterator(tmp));
 				}
-				pair<iterator, bool>	inserted = this->insert(val);
+				cout << " at a wrong position\n";
+				pair<iterator, bool>	inserted = this->insert(val); //position is wrong, need to find the right one
 				return inserted.first;
 			}
 
@@ -430,7 +469,7 @@ namespace ft
 				return this->root;
 			}
 
-		private:
+		// private:
 			node_type*		_root;
 			node_type		_end;
 			node_type		_begin;
@@ -453,7 +492,7 @@ namespace ft
 			void					insert_first_elem(const value_type& val)
 			{
 				if (PRINT)
-					cout << "insert_first_elen\n";
+					cout << "insert_first_elem : " << val.first << ", " << val.second << "\n";
 				this->_root = new node_type(val, &this->_end, &this->_begin);
 
 				this->_end.parent = this->_root;

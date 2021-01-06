@@ -46,8 +46,8 @@ namespace ft
 				MapNodeIterator(pointer ptr) : _ptr(ptr) {}
 				MapNodeIterator(const MapNodeIterator& vec): _ptr(vec.getPointer())
 				{
-					if (PRINT)
-						std::cout << "NodeIter copy ctor\n";
+					// if (PRINT)
+					// 	std::cout << "NodeIter copy ctor\n";
 				}
 				~MapNodeIterator() {}
 
@@ -61,8 +61,8 @@ namespace ft
 
 				pointer			getPointer() const
 				{
-					if (PRINT)
-						std::cout << "NodeIter getPointer()\n";
+					// if (PRINT)
+					// 	std::cout << "NodeIter getPointer()\n";
 					return this->_ptr;
 				}
 
@@ -75,8 +75,8 @@ namespace ft
 
 				value_type*		operator->()
 				{
-					if (PRINT)
-						std::cout << "NodeIter operator ->\n";
+					// if (PRINT)
+					// 	std::cout << "NodeIter operator ->\n";
 					return (&this->_ptr->getMember());
 				}
 

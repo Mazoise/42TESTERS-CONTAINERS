@@ -1,0 +1,189 @@
+Node default ctor
+Node default ctor
+Empty map ctor
+insert single : -4, salut
+insert_first_elem : -4, salut
+Node pair ctor : -4, salut
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter operator =
+NodeIter getPointer()
+
+NodeIter getPointer()
+NodeIter operator ->
+Node getMember() : -4, salut
+-4, NodeIter operator ->
+Node getMember() : -4, salut
+salut
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+insert single : 1, truc
+Node getMember() : -4, salut
+NodeIter getPointer()
+NodeIter copy ctor
+insert position : 1, truc
+Node getMember() : -4, salut
+Node getMember() : -4, salut
+NodeIter getPointer()
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+NodeIter operator ->
+Node getMember() : -4, salut
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+NodeIter operator ->
+Node getMember() : 0, 
+Node pair ctor : 1, truc
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter operator =
+NodeIter getPointer()
+
+NodeIter getPointer()
+NodeIter operator ->
+Node getMember() : 1, truc
+1, NodeIter operator ->
+Node getMember() : 1, truc
+truc
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+insert single : 2, machin
+Node getMember() : -4, salut
+NodeIter getPointer()
+NodeIter copy ctor
+insert position : 2, machin
+Node getMember() : -4, salut
+Node getMember() : -4, salut
+NodeIter getPointer()
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+NodeIter operator ->
+Node getMember() : 1, truc
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+NodeIter operator ->
+Node getMember() : 0, 
+Node pair ctor : 2, machin
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter operator =
+NodeIter getPointer()
+
+NodeIter getPointer()
+NodeIter operator ->
+Node getMember() : 2, machin
+2, NodeIter operator ->
+Node getMember() : 2, machin
+machin
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+insert single : 3, foo
+Node getMember() : -4, salut
+NodeIter getPointer()
+NodeIter copy ctor
+insert position : 3, foo
+Node getMember() : -4, salut
+Node getMember() : -4, salut
+NodeIter getPointer()
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+NodeIter operator ->
+Node getMember() : 2, machin
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+NodeIter operator ->
+Node getMember() : 0, 
+Node pair ctor : 3, foo
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter operator =
+NodeIter getPointer()
+
+NodeIter getPointer()
+NodeIter operator ->
+Node getMember() : 3, foo
+3, NodeIter operator ->
+Node getMember() : 3, foo
+foo
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+insert single : 8, bar
+Node getMember() : -4, salut
+NodeIter getPointer()
+NodeIter copy ctor
+insert position : 8, bar
+Node getMember() : -4, salut
+Node getMember() : -4, salut
+NodeIter getPointer()
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+NodeIter operator ->
+Node getMember() : 3, foo
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+NodeIter operator ->
+Node getMember() : 0, 
+Node pair ctor : 8, bar
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter operator =
+NodeIter getPointer()
+
+NodeIter getPointer()
+NodeIter operator ->
+Node getMember() : 8, bar
+8, NodeIter operator ->
+Node getMember() : 8, bar
+bar
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+insert single : 746, Marcel
+Node getMember() : -4, salut
+NodeIter getPointer()
+NodeIter copy ctor
+insert position : 746, Marcel
+Node getMember() : -4, salut
+Node getMember() : -4, salut
+NodeIter getPointer()
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+NodeIter operator ->
+Node getMember() : 8, bar
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+NodeIter operator ->
+Node getMember() : 0, 
+Node pair ctor : 746, Marcel
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIter getPointer()
+NodeIter getPointer()
+NodeIter copy ctor
+NodeIt

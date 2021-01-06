@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:35:37 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/06 13:25:54 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:54:55 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +70,24 @@ template<class K, class V>
 ft::node_pair<K, V>::node_pair():
 	next(NULL), prev(NULL), parent(NULL)
 {
-	if (PRINT)
-		std::cout << "Node default ctor\n";
+	// if (PRINT)
+	// 	std::cout << "Node default ctor\n";
 }
 
 template<class K, class V>
 ft::node_pair<K, V>::node_pair(const node_pair& el):
 	m(el.getMember()), next(el.next), prev(el.prev), parent(el.parent)
 {
-	if (PRINT)
-		std::cout << "Node copy ctor\n";
+	// if (PRINT)
+	// 	std::cout << "Node copy ctor\n";
 }
 
 template<class K, class V>
 ft::node_pair<K, V>::node_pair(const pair<K, V>& pair, node_pair* n, node_pair* p, node_pair* par):
 	m(pair), next(n), prev(p), parent(par)
 {
-	if (PRINT)
-		std::cout << "Node T ctor\n";
+	// if (PRINT)
+	// 	std::cout << "Node pair ctor : " << pair.first << ", " << pair.second << "\n";
 }
 
 template<class K, class V>
@@ -112,8 +112,8 @@ ft::node_pair<K, V>&	ft::node_pair<K, V>::operator=(const ft::node_pair<K, V>& e
 template<class K, class V>
 ft::pair<K, V>&	ft::node_pair<K, V>::getMember()
 {
-	if (PRINT)
-		std::cout << "Node getMember()\n";
+	// if (PRINT)
+	// 	std::cout << "Node getMember() : " << this->m.first << ", " << this->m.second << "\n";
 	return this->m;
 }
 
@@ -121,7 +121,7 @@ template<class K, class V>
 const ft::pair<K, V>&	ft::node_pair<K, V>::getMember() const
 {
 	if (PRINT)
-		std::cout << "Node const getMember()\n";
+		std::cout << "Node const getMember()" << this->m.first << ", " << this->m.second << "\n";
 	return this->m;
 }
 
