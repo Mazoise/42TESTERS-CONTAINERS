@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/06 17:53:44 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/07 17:51:28 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ namespace ft
 						if (tmp->prev)
 							tmp = tmp->prev;
 						else
-							return pair<iterator, bool>(this->insert(--tmp, val), true);
+							return pair<iterator, bool>(this->insert(tmp->parent, val), true);
 					}
 					else
 					{
@@ -221,7 +221,14 @@ namespace ft
 						return pair<iterator, bool>(tmp, false);
 					}
 				}
-				return pair<iterator, bool>(this->insert(--(this->begin()), val), true);
+				if (tmp == beg)
+				{
+					return pair<iterator, bool>(this->insert(iterator(&this->_begin), val), true);
+				}
+				else
+				{
+					return pair<iterator, bool>(this->insert(iterator(this->_end.parent), val), true);
+				}
 			}
 
 			iterator				insert(iterator position, const value_type& val)
@@ -238,35 +245,24 @@ namespace ft
 				if (ret != this->end()) //case where key already exists
 				{
 					ret->second = val.second;
-					cout << " but key exists\n";
 					return ret;
 				}
 				// Checking if position is relevant
-				if (((position == --this->begin()) && (this->key_comp()(val.first, this->begin()->first)))
-					|| ((position == --this->end()) && (this->key_comp()(position->first, val.first)))
+				if (((position == iterator(&this->_begin)) && (this->key_comp()(val.first, this->begin()->first)))
+					|| ((position == iterator(this->_end.parent)) && (this->key_comp()(position->first, val.first)))
 					|| (this->key_comp()(position->first, val.first)
 							&& (this->key_comp()(val.first, position.getPointer()->next->getMember().first))) )
 				{
 					node_type*	tmp = new node_type(val);
-					if (position == --this->begin()) //Inserting BEFORE beginning (used by insert(val) whn all keys > val.first)
+					if (position == iterator(&this->_begin)) //Inserting BEFORE beginning (used by insert(val) when all keys > val.first)
 					{
-						cout << " at the begining\n";
 						tmp->parent = this->_begin.parent;
 						tmp->prev =&this->_begin;
 						tmp->parent->prev = tmp;
 						this->_begin.parent = tmp;
 					}
-					else if (position == --this->end()) //Inserting at the end
-					{
-						cout << " at the end\n";
-						tmp->parent = this->_end.parent;
-						tmp->next = &this->_end;
-						tmp->parent->next = tmp;
-						tmp->next = &this->_end;
-					}
 					else //Inserting in the middle
 					{
-						cout << " in the middle\n";
 						tmp->parent = position.getPointer();
 						tmp->next = position.getPointer()->next;
 						tmp->parent->next = tmp;
@@ -275,7 +271,6 @@ namespace ft
 					this->_size++;
 					return (iterator(tmp));
 				}
-				cout << " at a wrong position\n";
 				pair<iterator, bool>	inserted = this->insert(val); //position is wrong, need to find the right one
 				return inserted.first;
 			}
@@ -497,6 +492,7 @@ namespace ft
 
 				this->_end.parent = this->_root;
 				this->_begin.parent = this->_root;
+				this->_end.prev = NULL;
 				this->_size = 1;
 			}
 

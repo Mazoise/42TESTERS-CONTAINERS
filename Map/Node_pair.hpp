@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:35:37 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/06 17:54:55 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/07 17:03:20 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ ft::node_pair<K, V>*	ft::node_pair<K, V>::getPrev(const node_pair<K, V>* source)
 	if (source != this->prev && this->prev)
 		return (this->prev);
 	if (this->parent)
-		return (this->parent->getNext(this));
+		return (this->parent->getPrev(this));
 	return (NULL);
 }
 
