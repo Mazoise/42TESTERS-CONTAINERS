@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/08 11:38:43 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/08 16:12:26 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ namespace ft
 				if (PRINT)
 					cout << "Map dtor\n";
 				this->clear();
+				cout << "end of map dtor\n";
 			}
 
 			map&	operator=(const map& x)
@@ -291,31 +292,62 @@ namespace ft
 
 			void					erase(iterator position)
 			{
+				cout << "deleting : " << position->first << '\n';
 				if (this->_size == 1)
 				{
-					delete this->_root->next;
+					delete this->_root;
 					this->reset_map();
 					return ;
 				}
 				
 				node_type*	ptr(position.getPointer());
 				node_type*	next(ptr->prev);
-				node_type*	prev(ptr);
-				this->_size--;
+				node_type*	prev(ptr->prev);
+				node_type*	parent(ptr->parent);
 
-				if (ptr->next == &this->_end)
-					ptr->parent->next = &this->_end;
-				else if (ptr->prev == &this->_begin)
-					ptr->parent->prev = &this->_begin;
-				else
+				if (prev != &this->_begin)
 				{
-					ptr->parent->next = prev;
-					prev->parent = ptr->parent;
+					if (parent)
+					{
+						if (parent->next == ptr)
+							parent->next = prev;
+						else
+							parent->prev = next;
+					}
+					else
+						this->_root = prev;
 					while(next->next)
 						next = next->next;
 					next->next = ptr->next;
-					next->next->parent = next;
 				}
+				else
+				{
+					if (parent)
+					{
+						if (ptr->next)
+						{
+							parent->prev = ptr->next;
+							next = ptr->next;
+							while(next->prev)
+								next = next->prev;
+							next->prev = &this->_begin;
+						}
+						else
+						{
+							parent->prev = &this->_begin;
+						}
+					}
+					else
+					{
+						next = ptr->next;
+						this->_root = next;
+						next->parent = NULL;
+						while (next->prev)
+							next = next->prev;
+						next->prev = &this->_begin;
+					}
+				}
+				this->_size--;
 				delete position.getPointer();
 				return ;
 			}
@@ -334,12 +366,15 @@ namespace ft
 			{
 				iterator tmp(first);
 
+				cout << "erase from :" << first->first <<" to : " << last.getPointer()->parent->getMember().first << '\n';
+
 				while (first != last)
 				{
 					tmp++;
 					erase(first);
 					first = tmp;
 				}
+				cout << "end of erase range\n";
 			}
 
 			iterator				find(const key_type& k)
@@ -406,6 +441,7 @@ namespace ft
 			void					clear()
 			{
 				this->erase(this->begin(), this->end());
+				cout << "end of clear\n";
 			}
 
 			void					setSize(size_type size)
@@ -475,14 +511,23 @@ namespace ft
 
 			void					reset_map()
 			{
+				cout << "test\n";
 				this->_size = 0;
+				cout << "test1\n";
 				this->_root = &this->_end;
+				cout << "test2\n";
 				this->_begin.parent = &this->_end;
+				cout << "test3\n";
 				this->_begin.next = NULL;
+				cout << "test4\n";
 				this->_begin.prev = NULL;
+				cout << "test5\n";
 				this->_end.parent = NULL;
+				cout << "test6\n";
 				this->_end.next = NULL;
+				cout << "test7\n";
 				this->_end.prev = &this->_begin;
+				cout << "test8\n";
 			}
 
 			void					insert_first_elem(const value_type& val)

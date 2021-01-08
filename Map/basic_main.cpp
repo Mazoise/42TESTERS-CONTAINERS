@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 13:07:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/08 11:29:54 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/08 16:13:35 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ int main()
 
 	my_pair.pair<int, string>::~pair();
 	test.map<int, string>::~map();
-//	cout << "\n\nWhile(1)\ntest leaks\n";
-//	while(1);
+	cout << "\n\nWhile(1)\ntest leaks\n";
+	while(1);
 }
