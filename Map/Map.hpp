@@ -6,13 +6,14 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/07 17:51:28 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/08 11:38:43 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
 #include <string>
+#include <limits>
 #include "../utils.hpp"
 #include "MapNodeIterator.hpp"
 #include "Node_pair.hpp"
@@ -92,7 +93,7 @@ namespace ft
 			{
 				if (PRINT)
 					cout << "Map dtor\n";
-				// this->clear();
+				this->clear();
 			}
 
 			map&	operator=(const map& x)
