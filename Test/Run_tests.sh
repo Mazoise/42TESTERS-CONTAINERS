@@ -4,7 +4,7 @@ DIR=($(ls))
 CLEAN=""
 COUNT=$#
 
-mkdir -p .INCLUDES/EMPTY/JUST_IN_CASE
+mkdir -p .INCLUDES/EMPTY/JUST_IN_CASE 2> /dev/null
 
 for ARG in "$@"
 do
@@ -37,7 +37,7 @@ then
 	for file in .INCLUDES/*.hpp
 	do
 		NAME="${file%.*}"
-		mkdir -p tmp/.INCLUDES
+		mkdir -p tmp/.INCLUDES 2> /dev/null
 		cp $file tmp/${NAME:u}_UC.HPP 2> /dev/null
 	done
 	mv tmp/.INCLUDES/* .INCLUDES/
