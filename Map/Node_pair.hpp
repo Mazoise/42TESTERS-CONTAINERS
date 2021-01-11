@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:35:37 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/11 15:45:24 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/11 17:32:20 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,21 +128,43 @@ const ft::pair<K, V>&	ft::node_pair<K, V>::getMember() const
 template<class K, class V>
 ft::node_pair<K, V>*	ft::node_pair<K, V>::getNext(const node_pair<K, V>* source) const
 {
-	if (source == this->prev && source)
+	node_pair<K, V>*	tmp;
+
+	if (!this->next || source == this->next)	//end of branch, looking recursively for next elem
+		return this->parent->getNext(this);
+	if (source == this->prev) // prev branch ended
 		return source->parent;
-	if (source != this->next && this->next)
+	if (!source) //only case left : return lowest node from next branch
 	{
-		// cout << "after " << this->getMember().first << "comes : " << this->next->getMember().first << "\n";
-		return (this->next);
+		if (!(tmp = this->next)) // if next == NULL, go one node up
+			return this->parent->getNext(this);
+		while(tmp->prev)
+			tmp = tmp->prev;
+		return tmp;
 	}
-	if (this->parent)
-	{
-		// cout << "after " << this->getMember().first << "comes : " << this->parent->getMember().first << "(or what comes after)\n";
-		return (this->parent->getNext(this));
-	}
-	std::cerr << "this should not be seen\n";
-	return (NULL);
+	std::cerr << "There was an error finding next node\n";
+	return this->next; //should not come to this
 }
+
+
+// 	if (source == this->prev && source)
+// 		return source->parent;
+// 	if (source != this->next && this->next)
+// 	{
+// 		tmp = this->next;
+// 		while(tmp->prev)
+// 			tmp = tmp->prev;
+// 		cout << "after " << this->getMember().first << "comes : " << tmp->getMember().first << "\n";
+// 		return (tmp);
+// 	}
+// 	if (this->parent)
+// 	{
+// 		cout << "after " << this->getMember().first << "comes : " << this->parent->getMember().first << "(or what comes after)\n";
+// 		return (this->parent->getNext(this));
+// 	}
+// 	std::cerr << "this should not be seen\n";
+// 	return (NULL);
+// }
 
 template<class K, class V>
 ft::node_pair<K, V>*	ft::node_pair<K, V>::getPrev(const node_pair<K, V>* source) const

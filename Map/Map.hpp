@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/11 15:47:08 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/11 17:22:35 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,10 @@ namespace ft
 						if (tmp->prev)
 							tmp = tmp->prev;
 						else
-							return pair<iterator, bool>(this->insert(iterator(tmp->parent), val), true);
+						{
+							// cout << "inserting before a node somewhere\n";
+							return pair<iterator, bool>(this->insert(iterator(tmp), val), true);
+						}
 					}
 					else
 					{
@@ -225,7 +228,10 @@ namespace ft
 				if (tmp == beg)
 					return pair<iterator, bool>(this->insert(iterator(&this->_begin), val), true);
 				else
+				{
+					// cout << "insert after last node\n";
 					return pair<iterator, bool>(this->insert(iterator(this->_end.parent), val), true);
+				}
 			}
 
 			iterator				insert(iterator position, const value_type& val)
@@ -271,15 +277,23 @@ namespace ft
 					else //Inserting in the middle
 					{
 						tmp->parent = position.getPointer();
-						tmp->next = tmp->parent->next;
 						if (this->key_comp()(val.first, position->first))
+						{
+							cout << "inserting " << val.first << " before " << position->first << '\n';
 							tmp->parent->prev = tmp; //before position
+						}
 						else
+						{
+							cout << "inserting " << val.first << " after " << position->first << '\n';
+							if (tmp->parent->next == &this->_end)
+								tmp->next = &this->_end;
 							tmp->parent->next = tmp; //after position
+						}
 					}
 					this->_size++;
 					return (iterator(tmp));
 				}
+				cout << "insert(position) position invalid\n";
 				pair<iterator, bool>	inserted = this->insert(val); //position is wrong, need to find the right one
 				return inserted.first;
 			}
