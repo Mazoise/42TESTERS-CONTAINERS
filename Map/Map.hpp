@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/11 17:22:35 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/11 17:51:08 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,9 +285,10 @@ namespace ft
 						else
 						{
 							cout << "inserting " << val.first << " after " << position->first << '\n';
-							if (tmp->parent->next == &this->_end)
-								tmp->next = &this->_end;
+							tmp->next = tmp->parent->next;
 							tmp->parent->next = tmp; //after position
+							cout << "end is : " << &this->_end << '\n';
+							cout << "last pointer is : " << tmp->next << '\n';
 						}
 					}
 					this->_size++;

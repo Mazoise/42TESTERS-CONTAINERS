@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:35:37 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/11 17:40:00 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/11 17:55:21 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,15 +130,22 @@ ft::node_pair<K, V>*	ft::node_pair<K, V>::getNext(const node_pair<K, V>* source)
 {
 	node_pair<K, V>*	tmp;
 
+	if (sourcce)
+		cout << "source ; "<<
+	cout << "Hellot there1\n";
 	if (!this->next || source == this->next)	//end of branch, looking recursively for next elem
 		return this->parent->getNext(this);
-	if (source == this->prev) // prev branch ended
+	cout << "Hellot there2\n";
+	if (source == this->prev) // prev branch ended, return this
 		return source->parent;
+	cout << "Hellot there3\n";
 	if (!source) //only case left : return lowest node from next branch
 	{
 		tmp = this->next;
+	cout << "Hellot there4\n";
 		while(tmp->prev)
 			tmp = tmp->prev;
+	cout << "Hellot there5\n";
 		return tmp;
 	}
 	std::cerr << "There was an error finding next node\n";

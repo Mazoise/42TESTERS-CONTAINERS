@@ -6,11 +6,11 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 13:07:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/11 17:45:08 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/11 17:53:04 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "MAP_UC.HPP"
+// #include "MAP_UC.HPP"
 #include "Map.hpp"
 #include <map>
 
@@ -48,9 +48,10 @@ int main()
 	while (it != test.end())
 	{
 		cout << it->first << ", " << it->second << '\n';
+		it++;
+		cout << "iterator incremented\n";
 		cout << it.getPointer() << '\n';
 		cout << test.end().getPointer() << '\n';
-		it++;
 	}
 	cout << "End of display loop\n";
 }

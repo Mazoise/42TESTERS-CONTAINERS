@@ -1,0 +1,7 @@
+mains/basic_main.cpp:51:14: error: no member named 'getPointer' in 'std::__1::__map_iterator<std::__1::__tree_iterator<std::__1::__value_type<int, std::__1::basic_string<char> >, std::__1::__tree_node<std::__1::__value_type<int, std::__1::basic_string<char> >, void *> *, long> >'
+                cout << it.getPointer() << '\n';
+                        ~~ ^
+mains/basic_main.cpp:52:22: error: no member named 'getPointer' in 'std::__1::__map_iterator<std::__1::__tree_iterator<std::__1::__value_type<int, std::__1::basic_string<char> >, std::__1::__tree_node<std::__1::__value_type<int, std::__1::basic_string<char> >, void *> *, long> >'
+                cout << test.end().getPointer() << '\n';
+                        ~~~~~~~~~~ ^
+2 errors generated.
