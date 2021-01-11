@@ -38,7 +38,6 @@ run_tests ()
 			then
 				if [[ "$OSTYPE" == "linux-gnu"* ]]
 				then
-					echo "NOT ON MAC OS"
 					valgrind ./bin/"$1"_ft > /dev/null 2> leak/"$1"_leak
 					if [ "$(grep "All heap blocks were freed -- no leaks are possible" leak/"$1"_leak)" = "" ]
 					then
