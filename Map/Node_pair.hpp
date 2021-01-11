@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:35:37 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/11 17:32:20 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/11 17:40:00 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,7 @@ ft::node_pair<K, V>*	ft::node_pair<K, V>::getNext(const node_pair<K, V>* source)
 		return source->parent;
 	if (!source) //only case left : return lowest node from next branch
 	{
-		if (!(tmp = this->next)) // if next == NULL, go one node up
-			return this->parent->getNext(this);
+		tmp = this->next;
 		while(tmp->prev)
 			tmp = tmp->prev;
 		return tmp;
@@ -145,26 +144,6 @@ ft::node_pair<K, V>*	ft::node_pair<K, V>::getNext(const node_pair<K, V>* source)
 	std::cerr << "There was an error finding next node\n";
 	return this->next; //should not come to this
 }
-
-
-// 	if (source == this->prev && source)
-// 		return source->parent;
-// 	if (source != this->next && this->next)
-// 	{
-// 		tmp = this->next;
-// 		while(tmp->prev)
-// 			tmp = tmp->prev;
-// 		cout << "after " << this->getMember().first << "comes : " << tmp->getMember().first << "\n";
-// 		return (tmp);
-// 	}
-// 	if (this->parent)
-// 	{
-// 		cout << "after " << this->getMember().first << "comes : " << this->parent->getMember().first << "(or what comes after)\n";
-// 		return (this->parent->getNext(this));
-// 	}
-// 	std::cerr << "this should not be seen\n";
-// 	return (NULL);
-// }
 
 template<class K, class V>
 ft::node_pair<K, V>*	ft::node_pair<K, V>::getPrev(const node_pair<K, V>* source) const
