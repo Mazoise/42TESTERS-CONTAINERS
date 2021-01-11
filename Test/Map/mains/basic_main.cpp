@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 13:07:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/11 15:04:30 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/11 17:31:26 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ int main()
 	test.insert(my_pair);
 	test.insert(pair<int, string>(-4, "bar"));
 	test.insert(pair<int, string>(2, "machin"));
-	// test.insert(pair<int, string>(3, "foo"));
-	// test.insert(pair<int, string>(746, "Marcel"));
-	// test.insert(pair<int, string>(1, "truc"));
+	test.insert(pair<int, string>(3, "foo"));
+	test.insert(pair<int, string>(746, "Marcel"));
+	test.insert(pair<int, string>(1, "truc"));
 	it = test.begin();
 	cout << '\n';
+
 	while (it != test.end())
 	{
 		cout << it->first << ", " << it->second << '\n';
 		it++;
 	}
-
 }
