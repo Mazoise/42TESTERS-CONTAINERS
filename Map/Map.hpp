@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/08 16:12:26 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/11 13:52:25 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ namespace ft
 				if (PRINT)
 					cout << "Map dtor\n";
 				this->clear();
-				cout << "end of map dtor\n";
 			}
 
 			map&	operator=(const map& x)
@@ -185,7 +184,7 @@ namespace ft
 
 				pair<iterator, bool>	ret(this->insert(value_type(k)));
 
-				return ret->first->second;
+				return ret.first->second;
 			}
 
 			pair<iterator, bool>		insert(const value_type& val)
@@ -225,10 +224,12 @@ namespace ft
 				}
 				if (tmp == beg)
 				{
+					cout << "elem to insert is smaller than every other elements\n";
 					return pair<iterator, bool>(this->insert(iterator(&this->_begin), val), true);
 				}
 				else
 				{
+					cout << "elem to insert is somewhere in the middle\n";
 					return pair<iterator, bool>(this->insert(iterator(this->_end.parent), val), true);
 				}
 			}
@@ -258,6 +259,7 @@ namespace ft
 					node_type*	tmp = new node_type(val);
 					if (position == iterator(&this->_begin)) //Inserting BEFORE beginning (used by insert(val) when all keys > val.first)
 					{
+						cout << "insert(position) where position is before start\n";
 						tmp->parent = this->_begin.parent;
 						tmp->prev =&this->_begin;
 						tmp->parent->prev = tmp;
@@ -266,11 +268,13 @@ namespace ft
 					else //Inserting in the middle
 					{
 						tmp->parent = position.getPointer();
-						tmp->next = position.getPointer()->next;
-						tmp->parent->next = tmp;
-						tmp->next->parent = tmp;
+						if (this->key_comp()(val.first, position->first))
+							tmp->parent->prev = tmp;
+						else
+							tmp->parent->next = tmp;
 					}
 					this->_size++;
+					cout << "end of insert\n";
 					return (iterator(tmp));
 				}
 				pair<iterator, bool>	inserted = this->insert(val); //position is wrong, need to find the right one
@@ -292,7 +296,8 @@ namespace ft
 
 			void					erase(iterator position)
 			{
-				cout << "deleting : " << position->first << '\n';
+				if (PRINT)
+					cout << "deleting : " << position->first << '\n';
 				if (this->_size == 1)
 				{
 					delete this->_root;
@@ -366,7 +371,8 @@ namespace ft
 			{
 				iterator tmp(first);
 
-				cout << "erase from :" << first->first <<" to : " << last.getPointer()->parent->getMember().first << '\n';
+				if (PRINT)
+					cout << "erase from :" << first->first <<" to : " << last.getPointer()->parent->getMember().first << '\n';
 
 				while (first != last)
 				{
@@ -374,7 +380,6 @@ namespace ft
 					erase(first);
 					first = tmp;
 				}
-				cout << "end of erase range\n";
 			}
 
 			iterator				find(const key_type& k)
@@ -441,7 +446,6 @@ namespace ft
 			void					clear()
 			{
 				this->erase(this->begin(), this->end());
-				cout << "end of clear\n";
 			}
 
 			void					setSize(size_type size)
@@ -511,23 +515,14 @@ namespace ft
 
 			void					reset_map()
 			{
-				cout << "test\n";
 				this->_size = 0;
-				cout << "test1\n";
 				this->_root = &this->_end;
-				cout << "test2\n";
 				this->_begin.parent = &this->_end;
-				cout << "test3\n";
 				this->_begin.next = NULL;
-				cout << "test4\n";
 				this->_begin.prev = NULL;
-				cout << "test5\n";
 				this->_end.parent = NULL;
-				cout << "test6\n";
 				this->_end.next = NULL;
-				cout << "test7\n";
 				this->_end.prev = &this->_begin;
-				cout << "test8\n";
 			}
 
 			void					insert_first_elem(const value_type& val)
