@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 13:07:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/11 13:42:59 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/11 15:04:30 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	print(map<Key, T>& lst)
 
 int main()
 {
-	pair<int, string>	my_pair(8, "salut");
-	map<int, string>	test;
+	pair<int, string>			my_pair(8, "salut");
+	map<int, string>			test;
 	map<int, string>::iterator	it;
 
 	test.insert(my_pair);

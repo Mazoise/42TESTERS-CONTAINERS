@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/11 13:35:37 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/11 15:03:02 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int main ()
   mymap['a'] = 200;
   mymap['c'] = 300;
 
+	if (mymap.begin() == mymap.end())
+		cout << "This is wrong\n";
   // show content:
   for (map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); it++)
     cout << it->first << " => " << it->second << '\n';

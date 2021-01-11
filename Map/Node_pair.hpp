@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:35:37 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/07 17:03:20 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/11 15:45:24 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,19 @@ const ft::pair<K, V>&	ft::node_pair<K, V>::getMember() const
 template<class K, class V>
 ft::node_pair<K, V>*	ft::node_pair<K, V>::getNext(const node_pair<K, V>* source) const
 {
+	if (source == this->prev && source)
+		return source->parent;
 	if (source != this->next && this->next)
+	{
+		// cout << "after " << this->getMember().first << "comes : " << this->next->getMember().first << "\n";
 		return (this->next);
+	}
 	if (this->parent)
+	{
+		// cout << "after " << this->getMember().first << "comes : " << this->parent->getMember().first << "(or what comes after)\n";
 		return (this->parent->getNext(this));
+	}
+	std::cerr << "this should not be seen\n";
 	return (NULL);
 }
 
