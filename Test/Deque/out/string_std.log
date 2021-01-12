@@ -1,0 +1,124 @@
+BOB(5, 8) : Hello Hello Hello Hello Hello 
+
+CTORS
+Empty is empty ? true
+BOB is empty? false
+Size of JOHN 0
+Size of BOB 5
+Size of MIKE 5
+Hello Hello Hello Hello Hello 
+
+Hello Hello Hello Hello Hello 
+
+RESIZE
+Size of JOHN 0
+Size of BOB 2
+Size of MIKE 5
+BOB is empty now ? true
+Hello Hello Hello Hello Hello 
+
+
+Size of JOHN 0
+Size of BOB 0
+Size of MIKE 9
+Hello Hello Hello Hello Hello juste some random string juste some random string juste some random string juste some random string 
+
+
+
+FRONT / BACK
+front() of MIKE : Hello
+back() of MIKE : juste some random string
+
+ASSIGN
+Hello Hello Hello Hello Hello juste some random string juste some random string juste some random string juste some random string 
+
+James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND 
+
+ASSIGN RANGE
+Hello Hello Hello Hello Hello juste some random string juste some random string juste some random string juste some random string 
+
+James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND 
+
+EMPTY
+BOB is empty ? false
+Hello Hello Hello Hello Hello juste some random string juste some random string juste some random string juste some random string 
+
+James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND 
+
+PUSH/POP_BACK
+last elem of BOB : My name is Bond
+last elem of BOB : James BOND
+Hello Hello Hello Hello Hello juste some random string juste some random string juste some random string juste some random string 
+
+James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND 
+
+INSERT
+after push_back, before at
+Norminet Norminet Norminet Norminet Norminet Norminet Norminet Norminet 0 I love hbaudet
+ 1 I love hbaudet
+ 2 I love hbaudet
+ 3 I love hbaudet
+ 4 I love hbaudet
+ 5 I love hbaudet
+ 6 I love hbaudet
+ 7 I love hbaudet
+ 8 I love hbaudet
+ 9 I love hbaudet
+ 10 I love hbaudet
+ 11 I love hbaudet
+ 12 I love hbaudet
+ 13 I love hbaudet
+ 14 I love hbaudet
+ 
+Const it : 
+Norminet
+
+INSERT
+0 42  1 42  2 42  3 42  4 42  5 42  6 42  7 42  8 42  9 42  10 42  11 42  12 42  13 42  14 42  
+Why are you reading this!? Why are you reading this!? Why are you reading this!? Why are you reading this!? Why are you reading this!? Why are you reading this!? Why are you reading this!? Why are you reading this!? 0 42  1 42  2 42  3 42  4 42  5 42  6 42  7 42  8 42  9 42  10 42  11 42  12 42  13 42  14 42  
+
+INSERT RANGE
+0 3 6 9 12 15 18 
+
+ERASE
+
+
+
+SWAP
+Size of JOHN 0
+Size of BOB 9
+Size of MIKE 42
+James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND 
+
+Hello Hello Hello Hello Hello juste some random string juste some random string juste some random string juste some random string 
+Size of JOHN 42
+Size of BOB 9
+Size of MIKE 0
+
+James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND James BOND 
+Hello Hello Hello Hello Hello juste some random string juste some random string juste some random string juste some random string 
+
+CLEAR
+Size of JOHN 0
+Size of BOB 9
+Size of MIKE 0
+
+
+Hello Hello Hello Hello Hello juste some random string juste some random string juste some random string juste some random string 
+
+NON MEMBER functions
+Size of JOHN 0
+Size of BOB 0
+Size of MIKE 9
+Hello Hello Hello Hello Hello juste some random string juste some random string juste some random string juste some random string 
+
+
+
+RELATIONAL OPERATORS
+MIKE and BOB are equal ? false
+MIKE and MIKE_2 are equal ? true
+Hello Hello Hello Hello Hello juste some random string juste some random string juste some random string juste some random string 
+
+
+foo foo foo foo foo 
+

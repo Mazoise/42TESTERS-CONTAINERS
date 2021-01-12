@@ -1,0 +1,31 @@
+mains/rbegin_main.cpp:51:35: error: invalid operands to binary expression ('deque<int>::reverse_iterator' (aka 'ReverseIterator<NodeIterator<int> >') and 'ft::deque<int>::reverse_iterator' (aka 'ReverseIterator<NodeIterator<int> >'))
+  for (rit = mydeque.rbegin(); rit!= mydeque.rend(); ++rit)
+                               ~~~^  ~~~~~~~~~~~~~~
+../.INCLUDES/EMPTY/../utils.hpp:155:8: note: candidate function [with Iterator = ft::NodeIterator<int>] not viable: expects an l-value for 2nd argument
+                bool    operator!=(ReverseIterator<Iterator>& l, ReverseIterator<Iterator>& r)
+                        ^
+../.INCLUDES/const_NodeIterator.hpp:132:8: note: candidate template ignored: could not match 'const_NodeIterator' against 'ReverseIterator'
+                bool operator!=(const const_NodeIterator<T>& lhs,
+                     ^
+../.INCLUDES/NodeIterator.hpp:124:8: note: candidate template ignored: could not match 'NodeIterator' against 'ReverseIterator'
+                bool operator!=(const NodeIterator<T>& lhs, const NodeIterator<T>& rhs)
+                     ^
+../.INCLUDES/DEQUE_UC.HPP:474:8: note: candidate template ignored: could not match 'deque' against 'ReverseIterator'
+                bool operator!=(deque<T>& left, deque<T>& right)
+                     ^
+../.INCLUDES/DEQUE_UC.HPP:156:22: error: no matching constructor for initialization of 'ft::deque<int>::reverse_iterator' (aka 'ReverseIterator<NodeIterator<int> >')
+                                reverse_iterator ret(this->_head);
+                                                 ^   ~~~~~~~~~~~
+mains/rbegin_main.cpp:51:46: note: in instantiation of member function 'ft::deque<int>::rend' requested here
+  for (rit = mydeque.rbegin(); rit!= mydeque.rend(); ++rit)
+                                             ^
+../.INCLUDES/EMPTY/../utils.hpp:61:5: note: candidate constructor not viable: no known conversion from 'ft::deque<int>::node_type' (aka 'node<int>') to 'const ReverseIterator<ft::ReverseIterator<ft::NodeIterator<int> >::iterator_type>' (aka 'const ReverseIterator<ft::NodeIterator<int> >') for 1st argument
+                                ReverseIterator(const ReverseIterator<iterator_type>& rev):
+                                ^
+../.INCLUDES/EMPTY/../utils.hpp:63:5: note: candidate constructor not viable: no known conversion from 'ft::deque<int>::node_type' (aka 'node<int>') to 'ft::ReverseIterator<ft::NodeIterator<int> >::iterator_type' (aka 'ft::NodeIterator<int>') for 1st argument
+                                ReverseIterator(iterator_type it): input_iter(it.input_iter), _base(it) {}
+                                ^
+../.INCLUDES/EMPTY/../utils.hpp:60:5: note: candidate constructor not viable: requires 0 arguments, but 1 was provided
+                                ReverseIterator(): input_iter(false), _base(NULL) {}
+                                ^
+2 errors generated.

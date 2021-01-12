@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/11 15:03:02 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/12 15:36:36 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,36 @@ int main ()
   // show content:
   for (map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); it++)
     cout << it->first << " => " << it->second << '\n';
+
+	cout << "Hello there\n";
+	for (map<char,int>::const_iterator it=mymap.begin(); it!=mymap.end(); it++)
+    cout << it->first << " => " << it->second << '\n';
+	cout << "General Kenobi\n";
+
+	map<char, int>::const_iterator it = mymap.begin();
+	map<char, int>::const_iterator ti = mymap.end();
+	cout << "Wupwup\n";
+
+	it++;
+	++it;
+	it--;
+	--it;
+	cout << "marker1\n";
+
+	ti--;
+	--ti;
+	++ti;
+	ti++;
+
+	ti = it;
+
+	cout << "Trump is a kiddo\n";
+	map<char, int>::iterator end = mymap.end();
+	while(it != end)
+	{
+    	cout << it->first << " => " << it->second << '\n';
+		it++;
+	}
 
   return 0;
 }

@@ -50,8 +50,18 @@ Test will be considered succesfull if outputs do not differ and
 
 If you have any question or suggestion, please feel free to PM me on slack @hbaudet ;)
 
+##  Notes :
+
+- Some tests come from cplusplus.com
+- Some were written by myself
+- Some were submitted by other users
+
+
 ## Thanks :
 - oroberts
 - [...]
 
 // THIS IS WIP, CHECK REGULARLY FOR UPDATES
+
+## Incomimg :
+- Detection (and kill) of infinite loops during tests

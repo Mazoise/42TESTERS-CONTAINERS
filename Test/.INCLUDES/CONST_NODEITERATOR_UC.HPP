@@ -6,14 +6,13 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 17:54:49 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/16 17:30:41 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/04 11:45:49 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONST_NODEITERATOR_HPP
 # define CONST_NODEITERATOR_HPP
 # include "NodeIterator.hpp"
-# include "Node.hpp"
 # include <iostream>
 
 # ifdef DEBUG
@@ -24,9 +23,6 @@
 
 namespace ft
 {
-	template<class T>
-		class node;
-
 	template<class T>
 		class NodeIterator;
 

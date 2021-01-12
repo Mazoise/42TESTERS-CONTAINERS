@@ -18,9 +18,9 @@ run_tests ()
 {
 	rm logs/"$1"_ft.error.log
 	rm logs/"$1"_std.error.log
-	clang++ -Werror -Wextra -Werror -I "$INCLUDES" -I "$INCLUDES"/EMPTY -I ../"$2" -I "$INCLUDES"/EMPTY/JUST_IN_CASE \
+	clang++ -Werror -Wextra -Werror -std=c++98 -I "$INCLUDES" -I "$INCLUDES"/EMPTY -I ../"$2" -I "$INCLUDES"/EMPTY/JUST_IN_CASE \
 			mains/"$1"_main.cpp -o bin/"$1"_ft 2> logs/"$1"_ft.error.log
-	clang++ -Werror -Wextra -Werror -D STD -I "$INCLUDES" -I "$INCLUDES"/EMPTY \
+	clang++ -Werror -Wextra -Werror -std=c++98 -D STD -I "$INCLUDES" -I "$INCLUDES"/EMPTY \
 			-I "$INCLUDES/EMPTY/JUST_IN_CASE" -I ../"$2" mains/"$1"_main.cpp -o bin/"$1"_std 2> logs/"$1"_std.error.log
 
 	if [ $(cat logs/"$1"_std.error.log | wc -c) != "0" ]
@@ -29,7 +29,7 @@ run_tests ()
 	else
 		if [ "$(cat logs/"$1"_ft.error.log | wc -c | rev | cut -f1 -d' ')" != "0" ]
 		then
-			echo -e "\033[1m\033[31m\033[25m""$DEAD""\t""$1" "test does not compile!\033[0m"
+			echo -e "\033[1m\033[31m\033[25m""$NOPE""\t""$1" "test does not compile!\033[0m"
 		else
 			./bin/"$1"_std > out/"$1"_std.log 2> /dev/null
 			./bin/"$1"_ft > out/"$1"_ft.log 2> /dev/null

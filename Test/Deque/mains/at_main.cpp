@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/04 11:22:18 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/12 14:26:24 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,39 @@ void	print(deque<T>& lst)
 
 int main()
 {
-	deque<float>	one;
+	{
+		deque<float>	one;
 
-	for (float i = 0.0f; i < 15.f; i++)
-		one.push_back(i * 42.0f / 37.0f);
-	
-	print(one);
+		for (float i = 0.0f; i < 15.f; i++)
+			one.push_back(i * 42.0f / 37.0f);
+		
+		print(one);
 
-	cout << one[4] << '\n';
-	cout << one[0] << '\n';
-	cout << one[6] << '\n';
-	cout << one[9] << '\n';
-//	cout << one[155555] << '\n'; // will crash
+		cout << one[4] << '\n';
+		cout << one[0] << '\n';
+		cout << one[6] << '\n';
+		cout << one[9] << '\n';
+	//	cout << one[155555] << '\n'; // will crash
 
-	try {
-		cout << one.at(15) << '\n';
+		try {
+			cout << one.at(15) << '\n';
+		}
+		catch(std::exception e) { e.what(); }
+
 	}
-	catch(std::exception e) { e.what(); }
+	{
+		deque<unsigned> mydeque (10);   // 10 zero-initialized unsigneds
 
-	return (0);
+		// assign some values:
+		for (unsigned i=0; i<mydeque.size(); i++)
+			mydeque.at(i)=i;
+
+		cout << "mydeque contains:";
+		for (unsigned i=0; i<mydeque.size(); i++)
+			cout << ' ' << mydeque.at(i);
+
+		cout << '\n';
+
+		return 0;
+	}
 }
