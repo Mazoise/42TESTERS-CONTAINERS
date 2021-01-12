@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 13:07:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/11 17:53:04 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/12 11:55:52 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,16 @@ int main()
 
 	while (it != test.end())
 	{
+		// cout << "start of while\n";
 		cout << it->first << ", " << it->second << '\n';
 		it++;
-		cout << "iterator incremented\n";
-		cout << it.getPointer() << '\n';
-		cout << test.end().getPointer() << '\n';
+// 		cout << "iterator incremented\n";
+
+// #ifndef STD
+// 		cout << it.getPointer() << '\n';
+// 		cout << test.end().getPointer() << '\n';
+// #endif
+
 	}
 	cout << "End of display loop\n";
 }

@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/11 17:51:08 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/12 12:24:46 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,10 @@ namespace ft
 
 			~map()
 			{
-				if (PRINT)
+				// if (PRINT)
 					cout << "Map dtor\n";
 				this->clear();
+				cout << "end of map dtor\n";
 			}
 
 			map&	operator=(const map& x)
@@ -286,6 +287,8 @@ namespace ft
 						{
 							cout << "inserting " << val.first << " after " << position->first << '\n';
 							tmp->next = tmp->parent->next;
+							if (tmp->next)
+								tmp->next->parent = tmp;
 							tmp->parent->next = tmp; //after position
 							cout << "end is : " << &this->_end << '\n';
 							cout << "last pointer is : " << tmp->next << '\n';
@@ -318,6 +321,7 @@ namespace ft
 					cout << "deleting : " << position->first << '\n';
 				if (this->_size == 1)
 				{
+					cout << "deleting last elem\n";
 					delete this->_root;
 					this->reset_map();
 					return ;
@@ -330,38 +334,47 @@ namespace ft
 
 				if (prev != &this->_begin)
 				{
-					if (parent)
+					if (parent) //Is the node to delete the root  node ? No
 					{
 						if (parent->next == ptr)
 							parent->next = prev;
 						else
-							parent->prev = next;
+							parent->prev = prev;
+						prev->parent = parent;
 					}
-					else
+					else // yes
 						this->_root = prev;
 					while(next->next)
 						next = next->next;
 					next->next = ptr->next;
+					ptr->next->parent = next;
 				}
 				else
 				{
-					if (parent)
+					if (parent) //check if root node
 					{
+						//deleting first node, it is NOT ROOT node
+						cout << "deleting first node, but it's not root\n";
 						if (ptr->next)
 						{
 							parent->prev = ptr->next;
+							ptr->next->parent = parent;
 							next = ptr->next;
 							while(next->prev)
 								next = next->prev;
 							next->prev = &this->_begin;
+							this->_begin.parent = next;
 						}
 						else
 						{
+							cout << "it has no next node, parent node becomes first node\n";
 							parent->prev = &this->_begin;
+							this->_begin.parent = parent;
 						}
 					}
-					else
+					else // deleting root node and no node is lower
 					{
+						cout << "deleting root node and no node is lower\n";
 						next = ptr->next;
 						this->_root = next;
 						next->parent = NULL;
@@ -389,13 +402,15 @@ namespace ft
 			{
 				iterator tmp(first);
 
-				if (PRINT)
+				// if (PRINT)
 					cout << "erase from :" << first->first <<" to : " << last.getPointer()->parent->getMember().first << '\n';
 
 				while (first != last)
 				{
-					tmp++;
+					++tmp;
+					cout << "erasing : " << first->first << '\n';
 					erase(first);
+					cout << "erasing done, size : " << this->size() << " next to erase " << tmp->first << "\n";
 					first = tmp;
 				}
 			}

@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:35:37 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/11 17:55:21 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/12 11:55:59 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,26 +130,27 @@ ft::node_pair<K, V>*	ft::node_pair<K, V>::getNext(const node_pair<K, V>* source)
 {
 	node_pair<K, V>*	tmp;
 
-	if (sourcce)
-		cout << "source ; "<<
-	cout << "Hellot there1\n";
+	// if (source)
+	// 	cout << "source : " << sourcce << '\n';
+	// cout << "Hello there1\n";
 	if (!this->next || source == this->next)	//end of branch, looking recursively for next elem
 		return this->parent->getNext(this);
-	cout << "Hellot there2\n";
-	if (source == this->prev) // prev branch ended, return this
+	// cout << "Hello there2\n";
+	// cout << "source : " << source << '\n';
+	// cout << "prev : " << this->prev << '\n';
+	// cout << "parent : " << this->parent << '\n';
+	else if (source == this->prev && this->prev)// prev branch ended, return this
 		return source->parent;
-	cout << "Hellot there3\n";
-	if (!source) //only case left : return lowest node from next branch
+	// cout << "Hello there3\n";
+	else //only case left : return lowest node from next branch
 	{
 		tmp = this->next;
-	cout << "Hellot there4\n";
+	// cout << "Hello there4\n";
 		while(tmp->prev)
 			tmp = tmp->prev;
-	cout << "Hellot there5\n";
+	// cout << "Hello there5\n";
 		return tmp;
 	}
-	std::cerr << "There was an error finding next node\n";
-	return this->next; //should not come to this
 }
 
 template<class K, class V>

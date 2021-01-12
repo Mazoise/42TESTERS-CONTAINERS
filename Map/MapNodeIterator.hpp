@@ -82,10 +82,7 @@ namespace ft
 
 				MapNodeIterator	operator++()
 				{
-					// cout << "++iterator\n";
-					// cout << this->_ptr->getMember().first << '\n';
 					this->_ptr = this->_ptr->getNext();
-					// cout << this->_ptr->getMember().first << '\n';
 					return *this;
 				}
 
@@ -93,10 +90,7 @@ namespace ft
 				{
 					MapNodeIterator	tmp(*this);
 
-					// cout << "iterator++\n";
-					// cout << this->_ptr->getMember().first << '\n';
 					this->_ptr = this->_ptr->getNext();
-					// cout << this->_ptr->getMember().first << '\n';
 					return tmp;
 				}
 
