@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/12 13:56:27 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/12 16:46:46 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,16 @@ int main ()
   mymap['f']=60;
 
   it=mymap.find('b');
+  cout << "found b\n";
   mymap.erase (it);                   // erasing by iterator
-
+  cout << "erase iterator to b\n";
   mymap.erase ('c');                  // erasing by key
-
+  cout << "erase by key 'c'\n";
   it=mymap.find ('e');
+  cout << "erase by range 'e' to end\n";
   mymap.erase ( it, mymap.end() );    // erasing by range
 
+  cout << " display :\n";
   // show content:
   for (it=mymap.begin(); it!=mymap.end(); ++it)
     cout << it->first << " => " << it->second << '\n';

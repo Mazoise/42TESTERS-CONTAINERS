@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/12 16:20:21 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/12 17:56:19 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ namespace ft
 			pair<iterator, bool>		insert(const value_type& val)
 			{
 				if (PRINT)
-					ft::cout << "insert single : " << val.first << ", " << val.second << "\n";
+					cout << "insert single : " << val.first << ", " << val.second << "\n";
 				if (!this->size())
 				{
 					insert_first_elem(val);
@@ -218,7 +218,6 @@ namespace ft
 					}
 					else
 					{
-						tmp->getMember().second = val.second;
 						return pair<iterator, bool>(tmp, false);
 					}
 				}
@@ -246,10 +245,7 @@ namespace ft
 				iterator	ret = find(val.first);
 
 				if (ret != this->end()) //case where key already exists
-				{
-					ret->second = val.second;
 					return ret;
-				}
 				// Checking if position is relevant
 				if (((position == iterator(&this->_begin)) && (this->key_comp()(val.first, this->begin()->first))) //before begin
 					|| ((position == iterator(this->_end.parent)) && (this->key_comp()(position->first, val.first))) //after end
@@ -321,18 +317,35 @@ namespace ft
 				{
 					if (parent) //Is the node to delete the root  node ? No
 					{
-						if (parent->next == ptr)
-							parent->next = prev;
+						if (prev)
+						{
+							if (parent->next == ptr)
+								parent->next = prev;
+							else
+								parent->prev = prev;
+							prev->parent = parent;
+							while(next->next)
+								next = next->next;
+							next->next = ptr->next;
+							ptr->next->parent = next;
+						}
 						else
-							parent->prev = prev;
-						prev->parent = parent;
+						{
+							if (parent->next == ptr)
+								parent->next = ptr->next;
+							else
+								parent->prev = ptr->next;
+							ptr->next->parent = parent;
+						}
 					}
 					else // yes
+					{
 						this->_root = prev;
-					while(next->next)
-						next = next->next;
-					next->next = ptr->next;
-					ptr->next->parent = next;
+						while(next->next)
+							next = next->next;
+						next->next = ptr->next;
+						ptr->next->parent = next;
+					}
 				}
 				else // deleting first node
 				{
@@ -362,6 +375,7 @@ namespace ft
 						while (next->prev)
 							next = next->prev;
 						next->prev = &this->_begin;
+						this->_begin.parent = next;
 					}
 				}
 				this->_size--;
@@ -384,7 +398,7 @@ namespace ft
 				iterator tmp(first);
 
 				if (PRINT)
-					cout << "erase from :" << first->first <<" to : " << last.getPointer()->parent->getMember().first << '\n';
+					cout << "erase from :" << first->first <<" to : " << last->first << '\n';
 
 				while (first != last)
 				{
@@ -414,7 +428,7 @@ namespace ft
 			{
 				node_type*		ptr(this->_root);
 
-				while(ptr != &this->_begin && ptr != &this->_end)
+				while(ptr && ptr != &this->_begin && ptr != &this->_end)
 				{
 					if (this->_comp(k, ptr->getMember().first))
 						ptr = ptr->prev;

@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/12 13:57:27 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/12 16:53:21 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int main ()
   pair<map<char,int>::iterator,bool> ret;
   ret = mymap.insert ( pair<char,int>('z',500) );
   if (ret.second==false) {
-    cout << "element 'z' already existed";
+    cout << "element 'z' already exists";
     cout << " with a value of " << ret.first->second << '\n';
   }
 

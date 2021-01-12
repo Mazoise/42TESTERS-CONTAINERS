@@ -39,14 +39,14 @@ namespace ft
 			public:
 				typedef const pair<K, V>		value_type;
 				typedef	const node_pair<K, V>	node_type;
-				typedef	const node_pair<K, V>*	pointer;
+				typedef	value_type*				pointer;
 				typedef value_type&				reference;
 				typedef	::std::ptrdiff_t		difference_type;
 
 				static const bool			input_iter;
 				
 				const_MapNodeIterator(): _ptr(NULL) {}
-				const_MapNodeIterator(const pointer ptr) : _ptr(ptr) {}
+				const_MapNodeIterator(const node_type* ptr) : _ptr(ptr) {}
 				const_MapNodeIterator(const const_MapNodeIterator& vec): _ptr(vec.getPointer())
 				{
 					if (PRINT)
@@ -69,7 +69,7 @@ namespace ft
 					return *this;
 				}
 
-				pointer			getPointer() const
+				node_type*			getPointer() const
 				{
 					if (PRINT)
 						std::cout << "NodeIter getPointer()\n";
@@ -87,7 +87,7 @@ namespace ft
 				{
 					if (PRINT)
 						std::cout << "NodeIter operator ->\n";
-					return (&this->_ptr->getMember());
+					return &(this->operator*());
 				}
 
 				const_MapNodeIterator	operator++()
@@ -131,7 +131,7 @@ namespace ft
 				}
 
 			private:
-				pointer			_ptr;
+				node_type*			_ptr;
 		};
 
 	template<class K, class V>

@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/12 13:55:50 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/12 16:34:20 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,13 @@ int main ()
   char c;
 
   mymap ['a']=101;
+  cout << "assigned 'a'\n";
   mymap ['c']=202;
+  cout << "assiged 'c'\n";
   mymap ['f']=303;
+  cout << "assigned 'f'\n";
 
+	cout << "end of assignations\n";
   for (c='a'; c<'h'; c++)
   {
     cout << c;

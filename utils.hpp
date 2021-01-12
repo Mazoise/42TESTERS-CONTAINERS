@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 14:20:31 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/30 11:21:38 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/12 17:50:09 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,16 @@ namespace ft
 					return (*(--tmp));
 				}
 
+				pointer				operator->() const
+				{
+					iterator_type	tmp(this->_base);
+					tmp--;
+
+					pointer		ret = tmp.operator->();
+					
+					return ret;
+				}
+
 				ReverseIterator		operator+(difference_type n) const
 				{
 					ReverseIterator	ret(this->_base - n);
@@ -129,11 +139,6 @@ namespace ft
 				{
 					this->_base += n;
 					return *this;
-				}
-
-				pointer				operator->() const
-				{
-					return &(operator*());
 				}
 
 				reference			operator[](difference_type n) const
