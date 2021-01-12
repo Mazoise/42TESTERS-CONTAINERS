@@ -6,7 +6,9 @@ The whole project is c++98 compliant.
 
 ##	How to run tester:
 
-`Run_test.sh` will look for all your containers and run every test it has for each
+- You must be in `Test/` folder to run the script
+
+- `Run_test.sh` will look for all your containers and run every test it has for each
 - If one or more container name is specified, then only listed containers will be tested
 - tests are stored in each `Test/container_name/mains` folder
 - You can pass arguments to the tester :
