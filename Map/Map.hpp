@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/12 12:24:46 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/12 12:31:25 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ namespace ft
 
 			~map()
 			{
-				// if (PRINT)
+				if (PRINT)
 					cout << "Map dtor\n";
 				this->clear();
-				cout << "end of map dtor\n";
+				// cout << "end of map dtor\n";
 			}
 
 			map&	operator=(const map& x)
@@ -280,24 +280,24 @@ namespace ft
 						tmp->parent = position.getPointer();
 						if (this->key_comp()(val.first, position->first))
 						{
-							cout << "inserting " << val.first << " before " << position->first << '\n';
+							// cout << "inserting " << val.first << " before " << position->first << '\n';
 							tmp->parent->prev = tmp; //before position
 						}
 						else
 						{
-							cout << "inserting " << val.first << " after " << position->first << '\n';
+							// cout << "inserting " << val.first << " after " << position->first << '\n';
 							tmp->next = tmp->parent->next;
 							if (tmp->next)
 								tmp->next->parent = tmp;
 							tmp->parent->next = tmp; //after position
-							cout << "end is : " << &this->_end << '\n';
-							cout << "last pointer is : " << tmp->next << '\n';
+							// cout << "end is : " << &this->_end << '\n';
+							// cout << "last pointer is : " << tmp->next << '\n';
 						}
 					}
 					this->_size++;
 					return (iterator(tmp));
 				}
-				cout << "insert(position) position invalid\n";
+				// cout << "insert(position) position invalid\n";
 				pair<iterator, bool>	inserted = this->insert(val); //position is wrong, need to find the right one
 				return inserted.first;
 			}
@@ -321,7 +321,7 @@ namespace ft
 					cout << "deleting : " << position->first << '\n';
 				if (this->_size == 1)
 				{
-					cout << "deleting last elem\n";
+					// cout << "deleting last elem\n";
 					delete this->_root;
 					this->reset_map();
 					return ;
@@ -354,7 +354,7 @@ namespace ft
 					if (parent) //check if root node
 					{
 						//deleting first node, it is NOT ROOT node
-						cout << "deleting first node, but it's not root\n";
+						// cout << "deleting first node, but it's not root\n";
 						if (ptr->next)
 						{
 							parent->prev = ptr->next;
@@ -367,14 +367,14 @@ namespace ft
 						}
 						else
 						{
-							cout << "it has no next node, parent node becomes first node\n";
+							// cout << "it has no next node, parent node becomes first node\n";
 							parent->prev = &this->_begin;
 							this->_begin.parent = parent;
 						}
 					}
 					else // deleting root node and no node is lower
 					{
-						cout << "deleting root node and no node is lower\n";
+						// cout << "deleting root node and no node is lower\n";
 						next = ptr->next;
 						this->_root = next;
 						next->parent = NULL;
@@ -402,15 +402,15 @@ namespace ft
 			{
 				iterator tmp(first);
 
-				// if (PRINT)
+				if (PRINT)
 					cout << "erase from :" << first->first <<" to : " << last.getPointer()->parent->getMember().first << '\n';
 
 				while (first != last)
 				{
 					++tmp;
-					cout << "erasing : " << first->first << '\n';
+					// cout << "erasing : " << first->first << '\n';
 					erase(first);
-					cout << "erasing done, size : " << this->size() << " next to erase " << tmp->first << "\n";
+					// cout << "erasing done, size : " << this->size() << " next to erase " << tmp->first << "\n";
 					first = tmp;
 				}
 			}
