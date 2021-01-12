@@ -8,10 +8,15 @@ The whole project is c++98 compliant.
 
 `Run_test.sh` will look for all your containers and run every test it has for each
 - If one or more container name is specified, then only listed containers will be tested
-- test are stored in each `Test/container_name/mains` folder
+- tests are stored in each `Test/container_name/mains` folder
 - You can pass arguments to the tester :
 	- `clean` will clean your directory and exit
 	- [...]
+- You can execute binaries again after running the tester. They are stored in `container_name/bin`
+- You can see compile logs in `container_name/logs
+- You can see valgrind output (not available on mac os) in `container_name/leaks`
+- You can see test outputs in `container_name/out`
+- You can see output diff in `container_name/diff`
 
 - You can add your own tests as long as you respect these conditions:
 	- Tests must be named as : `name_main.cpp` and placed in `container_name/mains/`
@@ -22,15 +27,24 @@ The whole project is c++98 compliant.
 		# define NAMESPACE std
 		#endif
 	
-		using namespace NAMESPACE;```
+		using namespace NAMESPACE;
 
 - Test will be run once normally and once with `-D STD` option.
 Test will be considered succesfull if outputs do not differ and
  if valgrind finds no leaks or errors.
 
-- Tests must use `#include "Container.hpp"`. Include path will be set as a variable in the bash script
+- Tests must use `#include "Container.hpp"`. With no path prior to the file name. Include path will be set as a variable in the bash script
 
 - There is a main template named `.empty_main.cpp` in `container_name/mains/`
+
+## OUTPUTS :
+
+- *some_main.cpp* seems to be invalid : *some_main.cpp* does not compile, even with the std container
+- *some test* does not compile : *some_main.cpp* does not compile with YOUR container, it compiles normally with std containers
+- *some test* seems to leak : valgrind (if available) did not find "No leaks are possible" in the output :
+	- Either program did not exit normally
+	- Or it leaks
+- *some test* valgrind detected some errors : did not find "ERROR SUMMARY: 0 errors from 0 contexts" in valgrind output
 
 If you have any question or suggestion, please feel free to PM me on slack @hbaudet ;)
 
