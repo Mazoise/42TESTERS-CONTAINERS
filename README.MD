@@ -13,7 +13,7 @@ The whole project is c++98 compliant.
 	- `clean` will clean your directory and exit
 	- [...]
 - You can execute binaries again after running the tester. They are stored in `container_name/bin`
-- You can see compile logs in `container_name/logs
+- You can see compile logs in `container_name/logs`
 - You can see valgrind output (not available on mac os) in `container_name/leaks`
 - You can see test outputs in `container_name/out`
 - You can see output diff in `container_name/diff`
@@ -39,12 +39,12 @@ Test will be considered succesfull if outputs do not differ and
 
 ## OUTPUTS :
 
-- *some_main.cpp* seems to be invalid : *some_main.cpp* does not compile, even with the std container
-- *some test* does not compile : *some_main.cpp* does not compile with YOUR container, it compiles normally with std containers
-- *some test* seems to leak : valgrind (if available) did not find "No leaks are possible" in the output :
+- `*some_main.cpp*` seems to be invalid : *some_main.cpp* does not compile, even with the std container
+- `*some test*` does not compile : *some_main.cpp* does not compile with YOUR container, it compiles normally with std containers
+- `*some test*` seems to leak : valgrind (if available) did not find "No leaks are possible" in the output :
 	- Either program did not exit normally
 	- Or it leaks
-- *some test* valgrind detected some errors : did not find "ERROR SUMMARY: 0 errors from 0 contexts" in valgrind output
+- `*some test*` : valgrind detected some errors : did not find "ERROR SUMMARY: 0 errors from 0 contexts" in valgrind output
 
 If you have any question or suggestion, please feel free to PM me on slack @hbaudet ;)
 
