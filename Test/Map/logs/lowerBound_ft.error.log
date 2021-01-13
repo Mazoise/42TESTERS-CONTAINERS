@@ -1,0 +1,21 @@
+mains/lowerBound_main.cpp:43:14: error: no member named 'upper_bound' in 'ft::map<char, int, std::__1::less<char> >'; did you mean 'lower_bound'?
+  itup=mymap.upper_bound ('d');   // itup points to e (not d!)
+             ^~~~~~~~~~~
+             lower_bound
+../.INCLUDES/MAP_UC.HPP:500:16: note: 'lower_bound' declared here
+                        iterator                                lower_bound(const key_type& k)
+                                                                ^
+../.INCLUDES/MAP_UC.HPP:572:34: error: no member named 'first' in 'ft::node_pair<char, int>'
+                                        cout << "node : (" << node->first << ", " << node->second << ") // " << k << "\n";
+                                                              ~~~~  ^
+../.INCLUDES/MAP_UC.HPP:502:27: note: in instantiation of member function 'ft::map<char, int, std::__1::less<char> >::lower_node' requested here
+                                return iterator(this->lower_node(this->_root, k));
+                                                      ^
+mains/lowerBound_main.cpp:42:15: note: in instantiation of member function 'ft::map<char, int, std::__1::less<char> >::lower_bound' requested here
+  itlow=mymap.lower_bound ('b');  // itlow points to b
+              ^
+In file included from mains/lowerBound_main.cpp:13:
+../.INCLUDES/MAP_UC.HPP:576:27: error: no member named 'first' in 'ft::node_pair<char, int>'
+                                if (this->_comp(node->first, k))
+                                                ~~~~  ^
+3 errors generated.

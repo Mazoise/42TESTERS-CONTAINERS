@@ -12,7 +12,7 @@
 
 #ifndef MAPNODEITERATOR_HPP
 # define MAPNODEITERATOR_HPP
-// # include "const_MapNodeIterator.hpp"
+# include "const_MapNodeIterator.hpp"
 # include "Node_pair.hpp"
 # include <iostream>
 
@@ -30,8 +30,8 @@ namespace ft
 	template<class K, class V>
 		class	pair;
 
-	// template<class K, class V>
-	// 	class const_MapNodeIterator;
+	template<class K, class V>
+		class const_MapNodeIterator;
 
 	template<class K, class V>
 		class MapNodeIterator
@@ -39,12 +39,10 @@ namespace ft
 			public:
 				typedef pair<K, V>					value_type;
 				typedef	node_pair<K, V>				node_type;
-				// typedef	value_type*					pointer;
-				// typedef value_type&					reference;
-				typedef typename choose<is_const, const T &, T &>::type reference;
-				typedef typename choose<is_const, const T *, T *>::type pointer;
+				typedef	value_type*					pointer;
+				typedef value_type&					reference;
 				typedef	::std::ptrdiff_t			difference_type;
-				// typedef	const_MapNodeIterator<K, V>	const_iterator;
+				typedef	const_MapNodeIterator<K, V>	const_iterator;
 
 				static const bool			input_iter;
 				static const bool			is_not_const;

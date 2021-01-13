@@ -1,0 +1,36 @@
+In file included from mains/rbegin_main.cpp:13:
+In file included from ../.INCLUDES/MAP_UC.HPP:17:
+../.INCLUDES/EMPTY/../utils.hpp:64:62: error: failed requirement 'const_MapNodeIterator<char, int>::is_not_const'; 'enable_if' cannot be used to disable this declaration
+                                ReverseIterator(const ReverseIterator<typename enable_if<Iterator::is_not_const, typename Iterator::const_iterator>::type>& rev):
+                                                                                         ^~~~~~~~~~~~~~~~~~~~~~
+mains/rbegin_main.cpp:45:45: note: in instantiation of template class 'ft::ReverseIterator<ft::const_MapNodeIterator<char, int> >' requested here
+        for (map<char,int>::const_reverse_iterator it=mymap.rbegin(); it!=mymap.rend(); it++)
+                                                   ^
+mains/rbegin_main.cpp:45:45: error: no viable conversion from 'ReverseIterator<ft::map<char, int, std::__1::less<char> >::iterator>' to 'ReverseIterator<ft::map<char, int, std::__1::less<char> >::const_iterator>'
+        for (map<char,int>::const_reverse_iterator it=mymap.rbegin(); it!=mymap.rend(); it++)
+                                                   ^  ~~~~~~~~~~~~~~
+../.INCLUDES/EMPTY/../utils.hpp:62:5: note: candidate constructor not viable: no known conversion from 'ft::map<char, int, std::__1::less<char> >::reverse_iterator' (aka 'ReverseIterator<MapNodeIterator<char, int> >') to 'const ReverseIterator<ft::ReverseIterator<ft::const_MapNodeIterator<char, int> >::iterator_type> &' (aka 'const ReverseIterator<ft::const_MapNodeIterator<char, int> > &') for 1st argument
+                                ReverseIterator(const ReverseIterator<iterator_type>& rev):
+                                ^
+../.INCLUDES/EMPTY/../utils.hpp:66:5: note: candidate constructor not viable: no known conversion from 'ft::map<char, int, std::__1::less<char> >::reverse_iterator' (aka 'ReverseIterator<MapNodeIterator<char, int> >') to 'ft::ReverseIterator<ft::const_MapNodeIterator<char, int> >::iterator_type' (aka 'ft::const_MapNodeIterator<char, int>') for 1st argument
+                                ReverseIterator(iterator_type it): input_iter(it.input_iter), _base(it) {}
+                                ^
+mains/rbegin_main.cpp:48:41: error: no viable conversion from 'ReverseIterator<ft::map<char, int, std::__1::less<char> >::iterator>' to 'ReverseIterator<ft::map<char, int, std::__1::less<char> >::const_iterator>'
+        map<char, int>::const_reverse_iterator it = mymap.rbegin();
+                                               ^    ~~~~~~~~~~~~~~
+../.INCLUDES/EMPTY/../utils.hpp:62:5: note: candidate constructor not viable: no known conversion from 'ft::map<char, int, std::__1::less<char> >::reverse_iterator' (aka 'ReverseIterator<MapNodeIterator<char, int> >') to 'const ReverseIterator<ft::ReverseIterator<ft::const_MapNodeIterator<char, int> >::iterator_type> &' (aka 'const ReverseIterator<ft::const_MapNodeIterator<char, int> > &') for 1st argument
+                                ReverseIterator(const ReverseIterator<iterator_type>& rev):
+                                ^
+../.INCLUDES/EMPTY/../utils.hpp:66:5: note: candidate constructor not viable: no known conversion from 'ft::map<char, int, std::__1::less<char> >::reverse_iterator' (aka 'ReverseIterator<MapNodeIterator<char, int> >') to 'ft::ReverseIterator<ft::const_MapNodeIterator<char, int> >::iterator_type' (aka 'ft::const_MapNodeIterator<char, int>') for 1st argument
+                                ReverseIterator(iterator_type it): input_iter(it.input_iter), _base(it) {}
+                                ^
+mains/rbegin_main.cpp:49:41: error: no viable conversion from 'ReverseIterator<ft::map<char, int, std::__1::less<char> >::iterator>' to 'ReverseIterator<ft::map<char, int, std::__1::less<char> >::const_iterator>'
+        map<char, int>::const_reverse_iterator ti = mymap.rend();
+                                               ^    ~~~~~~~~~~~~
+../.INCLUDES/EMPTY/../utils.hpp:62:5: note: candidate constructor not viable: no known conversion from 'ft::map<char, int, std::__1::less<char> >::reverse_iterator' (aka 'ReverseIterator<MapNodeIterator<char, int> >') to 'const ReverseIterator<ft::ReverseIterator<ft::const_MapNodeIterator<char, int> >::iterator_type> &' (aka 'const ReverseIterator<ft::const_MapNodeIterator<char, int> > &') for 1st argument
+                                ReverseIterator(const ReverseIterator<iterator_type>& rev):
+                                ^
+../.INCLUDES/EMPTY/../utils.hpp:66:5: note: candidate constructor not viable: no known conversion from 'ft::map<char, int, std::__1::less<char> >::reverse_iterator' (aka 'ReverseIterator<MapNodeIterator<char, int> >') to 'ft::ReverseIterator<ft::const_MapNodeIterator<char, int> >::iterator_type' (aka 'ft::const_MapNodeIterator<char, int>') for 1st argument
+                                ReverseIterator(iterator_type it): input_iter(it.input_iter), _base(it) {}
+                                ^
+4 errors generated.

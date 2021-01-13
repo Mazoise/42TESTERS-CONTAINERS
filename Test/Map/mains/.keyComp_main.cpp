@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/12 17:46:01 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/13 15:57:58 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ int main ()
   mymap['b']=200;
   mymap['c']=300;
 
-  cout << "mymap contains:\n";
 
   char highest = mymap.rbegin()->first;     // key value of last element
 
+
+  cout << "mymap contains:\n";
   map<char,int>::iterator it = mymap.begin();
   do {
     cout << it->first << " => " << it->second << '\n';

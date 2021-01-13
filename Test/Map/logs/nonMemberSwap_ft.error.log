@@ -1,0 +1,27 @@
+In file included from mains/nonMemberSwap_main.cpp:13:
+../.INCLUDES/MAP_UC.HPP:105:14: error: no viable conversion from 'ft::map<char, int, std::__1::less<char> >::const_iterator' (aka 'const_MapNodeIterator<char, int>') to 'ft::map<char, int, std::__1::less<char> >::iterator' (aka 'MapNodeIterator<char, int>')
+                                iterator        beg = x.begin();
+                                                ^     ~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/type_traits:4527:9: note: in instantiation of member function 'ft::map<char, int, std::__1::less<char> >::operator=' requested here
+    __x = _VSTD::move(__y);
+        ^
+mains/nonMemberSwap_main.cpp:42:3: note: in instantiation of function template specialization 'std::__1::swap<ft::map<char, int, std::__1::less<char> > >' requested here
+  swap(foo,bar);
+  ^
+../.INCLUDES/MapNodeIterator.hpp:51:5: note: candidate constructor not viable: no known conversion from 'ft::map<char, int, std::__1::less<char> >::const_iterator' (aka 'const_MapNodeIterator<char, int>') to 'ft::MapNodeIterator<char, int>::node_type *' (aka 'node_pair<char, int> *') for 1st argument
+                                MapNodeIterator(node_type* ptr) : _ptr(ptr) {}
+                                ^
+../.INCLUDES/MapNodeIterator.hpp:52:5: note: candidate constructor not viable: no known conversion from 'ft::map<char, int, std::__1::less<char> >::const_iterator' (aka 'const_MapNodeIterator<char, int>') to 'const ft::MapNodeIterator<char, int> &' for 1st argument
+                                MapNodeIterator(const MapNodeIterator& vec): _ptr(vec.getPointer())
+                                ^
+In file included from mains/nonMemberSwap_main.cpp:13:
+../.INCLUDES/MAP_UC.HPP:106:14: error: no viable conversion from 'ft::map<char, int, std::__1::less<char> >::const_iterator' (aka 'const_MapNodeIterator<char, int>') to 'ft::map<char, int, std::__1::less<char> >::iterator' (aka 'MapNodeIterator<char, int>')
+                                iterator        end = x.end();
+                                                ^     ~~~~~~~
+../.INCLUDES/MapNodeIterator.hpp:51:5: note: candidate constructor not viable: no known conversion from 'ft::map<char, int, std::__1::less<char> >::const_iterator' (aka 'const_MapNodeIterator<char, int>') to 'ft::MapNodeIterator<char, int>::node_type *' (aka 'node_pair<char, int> *') for 1st argument
+                                MapNodeIterator(node_type* ptr) : _ptr(ptr) {}
+                                ^
+../.INCLUDES/MapNodeIterator.hpp:52:5: note: candidate constructor not viable: no known conversion from 'ft::map<char, int, std::__1::less<char> >::const_iterator' (aka 'const_MapNodeIterator<char, int>') to 'const ft::MapNodeIterator<char, int> &' for 1st argument
+                                MapNodeIterator(const MapNodeIterator& vec): _ptr(vec.getPointer())
+                                ^
+2 errors generated.

@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 14:20:31 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/13 17:58:58 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/13 17:29:52 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,6 @@ namespace ft
 
 		return tmp.str();
 	}
-
-	template <bool flag, class IsTrue, class IsFalse>
-		struct choose;
-
-	template <class IsTrue, class IsFalse>
-		struct choose<true, IsTrue, IsFalse>
-		{
-			typedef IsTrue type;
-		};
-
-	template <class IsTrue, class IsFalse>
-		struct choose<false, IsTrue, IsFalse>
-		{
-			typedef IsFalse type;
-		};
 
 	template<bool B, class T = void>
 		struct enable_if {};

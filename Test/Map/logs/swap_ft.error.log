@@ -1,0 +1,35 @@
+In file included from mains/swap_main.cpp:13:
+../.INCLUDES/MAP_UC.HPP:462:21: error: assigning to 'ft::map<char, int, std::__1::less<char> >::node_type *' (aka 'node_pair<char, int> *') from incompatible type 'ft::map<char, int, std::__1::less<char> >::node_type' (aka 'node_pair<char, int>'); take the address with &
+                                this->_root = x.getRoot();
+                                              ~~^~~~~~~~~
+                                              &
+mains/swap_main.cpp:42:7: note: in instantiation of member function 'ft::map<char, int, std::__1::less<char> >::swap' requested here
+  foo.swap(bar);
+      ^
+In file included from mains/swap_main.cpp:13:
+../.INCLUDES/MAP_UC.HPP:465:15: error: reference to type 'const ft::map<char, int, std::__1::less<char> >::node_type' (aka 'const node_pair<char, int>') could not bind to an lvalue of type 'ft::map<char, int, std::__1::less<char> >::node_type *' (aka 'node_pair<char, int> *')
+                                x.setRoot(root);
+                                          ^~~~
+../.INCLUDES/MAP_UC.HPP:520:38: note: passing argument to parameter 'r' here
+                        void                                    setRoot(const node_type& r)
+                                                                                         ^
+../.INCLUDES/MAP_UC.HPP:512:12: error: non-const lvalue reference to type 'ft::map<char, int, std::__1::less<char> >::node_type' (aka 'node_pair<char, int>') cannot bind to a value of unrelated type 'ft::map<char, int, std::__1::less<char> >::node_type *' (aka 'node_pair<char, int> *')
+                                return this->_root;
+                                       ^~~~~~~~~~~
+../.INCLUDES/MAP_UC.HPP:462:21: note: in instantiation of member function 'ft::map<char, int, std::__1::less<char> >::getRoot' requested here
+                                this->_root = x.getRoot();
+                                                ^
+mains/swap_main.cpp:42:7: note: in instantiation of member function 'ft::map<char, int, std::__1::less<char> >::swap' requested here
+  foo.swap(bar);
+      ^
+In file included from mains/swap_main.cpp:13:
+../.INCLUDES/MAP_UC.HPP:522:19: error: assigning to 'ft::map<char, int, std::__1::less<char> >::node_type *' (aka 'node_pair<char, int> *') from incompatible type 'const ft::map<char, int, std::__1::less<char> >::node_type' (aka 'const node_pair<char, int>')
+                                this->_root = r;
+                                              ^
+../.INCLUDES/MAP_UC.HPP:465:7: note: in instantiation of member function 'ft::map<char, int, std::__1::less<char> >::setRoot' requested here
+                                x.setRoot(root);
+                                  ^
+mains/swap_main.cpp:42:7: note: in instantiation of member function 'ft::map<char, int, std::__1::less<char> >::swap' requested here
+  foo.swap(bar);
+      ^
+4 errors generated.
