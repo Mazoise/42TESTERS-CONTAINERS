@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   List.hpp                                           :+:      :+:    :+:   */
+/*   list.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/18 17:06:51 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/15 14:07:08 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -618,6 +618,10 @@ namespace ft
 			typename list<T>::iterator	i = left.begin();
 
 			while (it != right.end() && i != left.end() && *it == *i)
+			{
+				i++;
+				it++;
+			}
 			if (it == right.end() && i != left.end())
 				return false;
 			if (i == left.end() && it != right.end())

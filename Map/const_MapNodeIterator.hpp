@@ -37,12 +37,13 @@ namespace ft
 		class const_MapNodeIterator
 		{
 			public:
+				typedef	MapNodeIterator<K, V>	iterator_not_const;
 				typedef const pair<K, V>		value_type;
 				typedef	const node_pair<K, V>	node_type;
 				typedef	value_type*				pointer;
 				typedef value_type&				reference;
 				typedef	::std::ptrdiff_t		difference_type;
-				typedef	const_MapNodeIterator	const_iterator;
+				// typedef	const_MapNodeIterator	const_iterator;
 
 				static const bool			input_iter;
 				static const bool			is_not_const;

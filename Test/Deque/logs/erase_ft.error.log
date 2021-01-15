@@ -1,0 +1,13 @@
+mains/erase_main.cpp:51:33: error: invalid operands to binary expression ('ft::deque<int>::iterator' (aka 'NodeIterator<int>') and 'int')
+  mydeque.erase (mydeque.begin()+5);
+                 ~~~~~~~~~~~~~~~^~
+../.INCLUDES/EMPTY/../utils.hpp:216:31: note: candidate template ignored: could not match 'ReverseIterator<type-parameter-0-0>' against 'int'
+                ReverseIterator<Iterator> operator+
+                                          ^
+mains/erase_main.cpp:54:49: error: invalid operands to binary expression ('ft::deque<int>::iterator' (aka 'NodeIterator<int>') and 'int')
+  mydeque.erase (mydeque.begin(),mydeque.begin()+3);
+                                 ~~~~~~~~~~~~~~~^~
+../.INCLUDES/EMPTY/../utils.hpp:216:31: note: candidate template ignored: could not match 'ReverseIterator<type-parameter-0-0>' against 'int'
+                ReverseIterator<Iterator> operator+
+                                          ^
+2 errors generated.

@@ -1,0 +1,11 @@
+assigned 'a'
+assiged 'c'
+assigned 'f'
+end of assignations
+a is an element of mymap.
+b is not an element of mymap.
+c is an element of mymap.
+d is not an element of mymap.
+e is not an element of mymap.
+f is an element of mymap.
+g is not an element of mymap.

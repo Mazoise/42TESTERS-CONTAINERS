@@ -1,0 +1,9 @@
+element 'z' already exists with a value of 200
+mymap contains:
+a => 100
+b => 300
+c => 400
+z => 200
+anothermap contains:
+a => 100
+b => 300

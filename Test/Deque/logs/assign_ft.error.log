@@ -1,0 +1,22 @@
+mains/assign_main.cpp:52:19: error: invalid operands to binary expression ('ft::deque<int>::iterator' (aka 'NodeIterator<int>') and 'int')
+  it=first.begin()+1;
+     ~~~~~~~~~~~~~^~
+../.INCLUDES/EMPTY/../utils.hpp:216:31: note: candidate template ignored: could not match 'ReverseIterator<type-parameter-0-0>' against 'int'
+                ReverseIterator<Iterator> operator+
+                                          ^
+mains/assign_main.cpp:54:32: error: invalid operands to binary expression ('ft::deque<int>::iterator' (aka 'NodeIterator<int>') and 'int')
+  second.assign (it,first.end()-1); // the 5 central values of first
+                    ~~~~~~~~~~~^~
+../.INCLUDES/EMPTY/../utils.hpp:224:57: note: candidate template ignored: could not match 'ReverseIterator' against 'NodeIterator'
+                typename ReverseIterator<Iterator>::difference_type operator-
+                                                                    ^
+mains/assign_main.cpp:57:9: error: no matching member function for call to 'assign'
+  third.assign (myints,myints+3);   // assigning from array.
+  ~~~~~~^~~~~~
+../.INCLUDES/DEQUE_UC.HPP:252:10: note: candidate function not viable: no known conversion from 'int [3]' to 'ft::deque::size_type' (aka 'unsigned long') for 1st argument
+                        void            assign(size_type n, const value_type& val)
+                                        ^
+../.INCLUDES/DEQUE_UC.HPP:245:12: note: candidate template ignored: substitution failure [with InputIter = int *]: type 'int *' cannot be used prior to '::' because it has no members
+                                void    assign(InputIter first,
+                                        ^
+3 errors generated.

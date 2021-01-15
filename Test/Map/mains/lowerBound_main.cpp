@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/12 13:59:40 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/15 13:18:26 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ int main ()
 
   itlow=mymap.lower_bound ('b');  // itlow points to b
   itup=mymap.upper_bound ('d');   // itup points to e (not d!)
+
+  cout << "low : " << itlow->first << '\n';
+  cout << "up : " << itup->first << '\n';
 
   mymap.erase(itlow,itup);        // erases [itlow,itup)
 

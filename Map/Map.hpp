@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/13 15:55:11 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/15 16:19:48 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@ namespace ft
 	class map
 	{
 		public:
-			typedef Key									key_type;
-			typedef T									mapped_type;
-			typedef pair<key_type, mapped_type>			value_type;
-			typedef node_pair<key_type, mapped_type>	node_type;
-			typedef Compare								key_compare;
-			typedef value_type&							reference;
-			typedef const value_type&					const_reference;
-			typedef value_type*							pointer;
-			typedef const value_type*					const_pointer;
-			typedef MapNodeIterator<Key, T>				iterator;
-			typedef const_MapNodeIterator<Key, T>		const_iterator;
-			typedef ReverseIterator<iterator>			reverse_iterator;
-			typedef ReverseIterator<const_iterator>		const_reverse_iterator;
-			typedef std::ptrdiff_t						difference_type;
-			typedef size_t								size_type;
+			typedef Key										key_type;
+			typedef T										mapped_type;
+			typedef ft::pair<key_type, mapped_type>			value_type;
+			typedef node_pair<key_type, mapped_type>		node_type;
+			typedef Compare									key_compare;
+			typedef value_type&								reference;
+			typedef const value_type&						const_reference;
+			typedef value_type*								pointer;
+			typedef const value_type*						const_pointer;
+			typedef MapNodeIterator<Key, T>					iterator;
+			typedef const_MapNodeIterator<Key, T>			const_iterator;
+			typedef ReverseIterator<iterator>				reverse_iterator;
+			typedef const_ReverseIterator<const_iterator>	const_reverse_iterator;
+			typedef std::ptrdiff_t							difference_type;
+			typedef size_t									size_type;
 
 			class value_compare
 				{
@@ -102,10 +102,11 @@ namespace ft
 				if (PRINT)
 					cout << "map::operator=\n";
 				
-				iterator	beg = x.begin();
-				iterator	end = x.end();
+				const_iterator	beg = x.begin();
+				const_iterator	end = x.end();
 
 				this->insert(beg, end);
+				return *this;
 			}
 
 			iterator				begin()
@@ -487,7 +488,7 @@ namespace ft
 
 			value_compare			value_comp() const
 			{
-				return value_comp(this->_comp);
+				return value_compare(this->_comp);
 			}
 			
 			size_type				count(const key_type& k) const
@@ -499,38 +500,56 @@ namespace ft
 
 			iterator				lower_bound(const key_type& k)
 			{
-				return iterator(this->lower_node(this->_root, k));
+				return iterator(this->lower_node(k));
 			}
 
 			const_iterator			lower_bound(const key_type& k) const
 			{
-				return const_iterator(this->lower_node(this->_root, k));
+				return const_iterator(this->lower_node(k));
 			}
 
-			node_type&				getRoot()
+			iterator				upper_bound(const key_type& k)
+			{
+				iterator	ret(lower_bound(k));
+
+				if (ret->first == k)
+					return ++ret;
+				return ret;
+			}
+
+			const_iterator			upper_bound(const key_type& k) const
+			{
+				const_iterator	ret(lower_bound(k));
+
+				if (ret->first == k)
+					return ++ret;
+				return ret;
+			}
+
+			node_type*				getRoot()
 			{
 				return this->_root;
 			}
 
-			const node_type&		getRoot() const
+			const node_type*		getRoot() const
 			{
 				return this->_root;
 			}
 
-			void					setRoot(const node_type& r)
+			void					setRoot(node_type* r)
 			{
 				this->_root = r;
 			}
 
-			node_type&				getMember()
-			{
-				return this->root;
-			}
+			// node_type&				getMember()
+			// {
+			// 	return this->_root;
+			// }
 
-			const node_type&		getMember() const
-			{
-				return this->root;
-			}
+			// const node_type&		getMember() const
+			// {
+			// 	return this->root;
+			// }
 
 		private:
 			node_type*		_root;
@@ -564,31 +583,104 @@ namespace ft
 				this->_size = 1;
 			}
 
-			node_type*				lower_node(node_type* node, const key_type& k)
+			node_type*				lower_node(const key_type& k)
 			{
-				node_type*	ret;
+				node_type*	tmp;
+				node_type* lowest;
 
-				if (PRINT)
-					cout << "node : (" << node->first << ", " << node->second << ") // " << k << "\n";
-
-				if (!node)
-					return NULL;
-				if (this->_comp(node->first, k))
+				tmp = this->_root;
+				lowest = (--(this->end())).getPointer();
+				while(tmp && tmp != &this->_begin && tmp != &this->_end)
 				{
-					ret = this->lower_node(node->next, k);
-					if (!ret)
-						return &this->_end;
-					return ret;
+					if (!(this->key_comp()(lowest->getMember().first, tmp->getMember().first))
+						&& !(this->key_comp()(tmp->getMember().first, k)))
+						lowest = tmp;
+					if (this->key_comp()(tmp->getMember().first, k))
+						tmp = tmp->next;
+					else
+						tmp = tmp->prev;
 				}
-				else if (this->_comp(k, node->first))
-				{
-					ret = this->lower_node(node->prev, k);
-					if (!ret)
-						return &this->_begin;
-					return ret;
-				}
-				else
-					return node->next;
+				return (lowest);
 			}
 	};
+
+	template<class Key, class T, class Compare >
+		void	swap(map<Key, T, Compare>& x, map<Key, T, Compare>& y)
+		{
+			x.swap(y);
+		}
+
+	template <class Key, class T, class Compare>
+		bool operator==(const map<Key, T, Compare>& left, const map<Key, T, Compare>& right)
+		{
+			typename map<Key, T, Compare>::iterator it = right.begin();
+
+			if (left.size() != right.size())
+				return false;
+			for (typename map<Key, T, Compare>::iterator i = left.begin(); i != left.end(); i++)
+			{
+				if (*i != *it)
+					return false;
+				it++;
+			}
+			return true;
+		}
+	
+	template <class Key, class T, class Compare>
+		bool operator==(map<Key, T, Compare>& left, map<Key, T, Compare>& right)
+		{
+			typename map<Key, T, Compare>::iterator it = right.begin();
+
+			if (left.size() != right.size())
+				return false;
+			for (typename map<Key, T, Compare>::iterator i = left.begin(); i != left.end(); i++)
+			{
+				if (*i != *it)
+					return false;
+				it++;
+			}
+			return true;
+		}
+	
+	template <class Key, class T, class Compare>
+		bool operator<(map<Key, T, Compare>& left, map<Key, T, Compare>& right)
+		{
+			typename map<Key, T, Compare>::iterator	it = right.begin();
+			typename map<Key, T, Compare>::iterator	i = left.begin();
+
+			while (it != right.end() && i != left.end() && *it == *i)
+			{
+				it++;
+				i++;
+			}
+			if (it == right.end() && i != left.end())
+				return false;
+			if (i == left.end() && it != right.end())
+				return true;
+			return (*i < *it);
+		}
+
+	template <class Key, class T, class Compare>
+		bool operator!=(map<Key, T, Compare>& left, map<Key, T, Compare>& right)
+		{
+			return (!(left == right));
+		}
+
+	template <class Key, class T, class Compare>
+		bool operator>(map<Key, T, Compare>& left, map<Key, T, Compare>& right)
+		{
+			return (right < left);
+		}
+
+	template <class Key, class T, class Compare>
+		bool operator<=(map<Key, T, Compare>& left, map<Key, T, Compare>& right)
+		{
+			return (!(right < left));
+		}
+
+	template <class Key, class T, class Compare>
+		bool operator>=(map<Key, T, Compare>& left, map<Key, T, Compare>& right)
+		{
+			return (!(left < right));
+		}
 }

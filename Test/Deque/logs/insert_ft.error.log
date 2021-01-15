@@ -1,0 +1,26 @@
+mains/insert_main.cpp:60:23: error: invalid operands to binary expression ('ft::deque<int>::iterator' (aka 'NodeIterator<int>') and 'int')
+  it = mydeque.begin()+2;
+       ~~~~~~~~~~~~~~~^~
+../.INCLUDES/EMPTY/../utils.hpp:216:31: note: candidate template ignored: could not match 'ReverseIterator<type-parameter-0-0>' against 'int'
+                ReverseIterator<Iterator> operator+
+                                          ^
+mains/insert_main.cpp:62:3: error: no template named 'vector'; did you mean 'std::vector'?
+  vector<int> myvector (2,30);
+  ^~~~~~
+  std::vector
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:470:28: note: 'std::vector' declared here
+class _LIBCPP_TEMPLATE_VIS vector
+                           ^
+mains/insert_main.cpp:63:11: error: no matching member function for call to 'insert'
+  mydeque.insert (it,myvector.begin(),myvector.end());
+  ~~~~~~~~^~~~~~
+../.INCLUDES/DEQUE_UC.HPP:293:14: note: candidate function not viable: no known conversion from 'std::__1::vector<int, std::__1::allocator<int> >::iterator' (aka '__wrap_iter<int *>') to 'ft::deque::size_type' (aka 'unsigned long') for 2nd argument
+                void            insert(iterator position, size_type n, const value_type& val)
+                                ^
+../.INCLUDES/DEQUE_UC.HPP:300:13: note: candidate template ignored: substitution failure [with InputIter = std::__1::__wrap_iter<int *>]: no member named 'input_iter' in 'std::__1::__wrap_iter<int *>'
+                        void    insert(iterator position, InputIter first,
+                                ^
+../.INCLUDES/DEQUE_UC.HPP:277:14: note: candidate function not viable: requires 2 arguments, but 3 were provided
+                        iterator        insert(iterator position, const value_type& val)
+                                        ^
+3 errors generated.
