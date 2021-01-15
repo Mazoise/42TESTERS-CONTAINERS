@@ -1,7 +1,0 @@
-found b
-erase iterator to b
-erase by key 'c'
-erase by range 'e' to end
- display :
-a => 10
-d => 40
