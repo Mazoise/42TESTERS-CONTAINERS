@@ -32,12 +32,9 @@ The whole project is c++98 compliant.
 		using namespace NAMESPACE;
 
 - Test will be run once normally and once with `-D STD` option.
-Test will be considered succesfull if outputs do not differ and
- if valgrind finds no leaks or errors.
-
-- Tests must use `#include "Container.hpp"`. With no path prior to the file name. Include path will be set as a variable in the bash script
-
+- Test will be considered succesfull if outputs do not differ and if valgrind finds no leaks or errors.
 - There is a main template named `.empty_main.cpp` in `container_name/mains/`
+- Tests must use `#include "CONTAINER_UC.HPP"`. With no path prior to the file name. Include path will be set as a variable in the bash script
 
 ## OUTPUTS :
 
@@ -58,6 +55,7 @@ If you have any question or suggestion, please feel free to PM me on slack @hbau
 
 
 ## Thanks :
+
 - Oroberts
 - [Rofernan](http://github.com/rofernan42)
 - Lmartin
