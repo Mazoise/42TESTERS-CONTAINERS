@@ -44,7 +44,7 @@ run_tests ()
 						echo -e "\033[31m""$NOPE""\t""$1" "test seems to leak (shame!), or it crashed (shame shame!)"
 					elif [ "$(grep "ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)" leak/"$1"_leak)" = "" ]
 					then
-						echo -e "\033[31m""$NOPE""\t""$1" "Valgrind detected some errors"
+						echo -e "\033[31m""$NOPE""\t""$1" ": Valgrind detected some errors"
 					else
 						echo -e "$OK""\033[1m\033[32m""\t""$1" 'test passed!'"\033[0m"
 					fi

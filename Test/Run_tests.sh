@@ -53,6 +53,7 @@ do
 		CHECK="no"
 		for ARG in "$@"
 		do
+			ARG=${ARG:u}
 			if [ "$ARG" = "$I" ]
 			then
 				CHECK="yes"
@@ -64,7 +65,11 @@ do
 			continue
 		fi
 	fi
-	if [[ -d "$I" ]] && [[ -f .INCLUDES/"$I".hpp ]]
+	if [[ -f .INCLUDES/"$I"_UC.hpp ]]
+	then
+		echo "$I"_UC.HPP exists in .INCLDUES/
+	fi
+	if [[ -d "$I" ]] && [[ -f .INCLUDES/"$I"_UC.HPP ]]
 	then
 		cd "$I"
 		../.container_tester.sh "$INCLUDE_PATH" "$CLEAN" #2> /dev/null
