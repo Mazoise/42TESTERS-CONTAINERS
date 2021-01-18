@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   .empty_main.cpp                                    :+:      :+:    :+:   */
+/*   reverse_main.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/15 17:00:32 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/15 17:37:57 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,19 @@ void	print(list<T>& lst)
 	cout << '\n';
 }
 
-int main()
+int main ()
 {
-	/* THIS IS A TEMPLATE MAIN
-	** WRITE ANY TEST YOU WANT TO PERFORM
-	** SAVE IT UNDER 'something_main.cpp'
-	** IT WILL BE RUN WITH FT::LIST AND STD::LIST
-	** BOTH OUTPUTS WILL BE COMPARED
-	*/
+  list<int> mylist;
 
-	return (0);
+  for (int i=1; i<10; ++i) mylist.push_back(i);
+
+  mylist.reverse();
+
+  cout << "mylist contains:";
+  for (list<int>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
+    cout << ' ' << *it;
+
+  cout << '\n';
+
+  return 0;
 }

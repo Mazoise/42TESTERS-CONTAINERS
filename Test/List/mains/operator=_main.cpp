@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   .empty_main.cpp                                    :+:      :+:    :+:   */
+/*   operator=_main.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/15 17:00:32 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/15 17:33:15 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,15 @@ void	print(list<T>& lst)
 	cout << '\n';
 }
 
-int main()
+int main ()
 {
-	/* THIS IS A TEMPLATE MAIN
-	** WRITE ANY TEST YOU WANT TO PERFORM
-	** SAVE IT UNDER 'something_main.cpp'
-	** IT WILL BE RUN WITH FT::LIST AND STD::LIST
-	** BOTH OUTPUTS WILL BE COMPARED
-	*/
+  list<int> first (3);      // list of 3 zero-initialized ints
+  list<int> second (5);     // list of 5 zero-initialized ints
 
-	return (0);
+  second = first;
+  first = list<int>();
+
+  cout << "Size of first: " << int (first.size()) << '\n';
+  cout << "Size of second: " << int (second.size()) << '\n';
+  return 0;
 }

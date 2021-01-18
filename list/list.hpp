@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/15 14:07:08 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/15 17:56:34 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ namespace ft
 			typedef NodeIterator<T>								iterator;
 			typedef const_NodeIterator<T>						const_iterator;
 			typedef ReverseIterator< iterator>					reverse_iterator;
-			typedef ReverseIterator< const_iterator>			const_reverse_iterator;
+			typedef const_ReverseIterator<const_iterator>		const_reverse_iterator;
 			typedef std::ptrdiff_t								difference_type;
 			typedef std::size_t									size_type;
 			typedef node<value_type>							node_type;
@@ -157,14 +157,14 @@ namespace ft
 
 			reverse_iterator		rend()
 			{
-				reverse_iterator ret(this->_head);
+				reverse_iterator ret(&this->_head);
 
 				return ret;
 			}
 
 			const_reverse_iterator	rend() const
 			{
-				reverse_iterator ret(this->_head);
+				reverse_iterator ret(&this->_head);
 
 				return ret;
 			}

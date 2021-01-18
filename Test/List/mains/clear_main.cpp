@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   .empty_main.cpp                                    :+:      :+:    :+:   */
+/*   clear_main.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/15 17:00:32 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/15 17:28:22 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,28 @@ void	print(list<T>& lst)
 	cout << '\n';
 }
 
-int main()
+int main ()
 {
-	/* THIS IS A TEMPLATE MAIN
-	** WRITE ANY TEST YOU WANT TO PERFORM
-	** SAVE IT UNDER 'something_main.cpp'
-	** IT WILL BE RUN WITH FT::LIST AND STD::LIST
-	** BOTH OUTPUTS WILL BE COMPARED
-	*/
+  list<int> mylist;
+  list<int>::iterator it;
 
-	return (0);
+  mylist.push_back (100);
+  mylist.push_back (200);
+  mylist.push_back (300);
+
+  cout << "mylist contains:";
+  for (it=mylist.begin(); it!=mylist.end(); ++it)
+    cout << ' ' << *it;
+  cout << '\n';
+
+  mylist.clear();
+  mylist.push_back (1101);
+  mylist.push_back (2202);
+
+  cout << "mylist contains:";
+  for (it=mylist.begin(); it!=mylist.end(); ++it)
+    cout << ' ' << *it;
+  cout << '\n';
+
+  return 0;
 }

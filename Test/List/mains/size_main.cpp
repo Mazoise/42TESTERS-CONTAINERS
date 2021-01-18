@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   .empty_main.cpp                                    :+:      :+:    :+:   */
+/*   size_main.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/15 17:00:32 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/15 17:38:18 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,19 @@ void	print(list<T>& lst)
 	cout << '\n';
 }
 
-int main()
+int main ()
 {
-	/* THIS IS A TEMPLATE MAIN
-	** WRITE ANY TEST YOU WANT TO PERFORM
-	** SAVE IT UNDER 'something_main.cpp'
-	** IT WILL BE RUN WITH FT::LIST AND STD::LIST
-	** BOTH OUTPUTS WILL BE COMPARED
-	*/
+  list<int> myints;
+  cout << "0. size: " << myints.size() << '\n';
 
-	return (0);
+  for (int i=0; i<10; i++) myints.push_back(i);
+  cout << "1. size: " << myints.size() << '\n';
+
+  myints.insert (myints.begin(),10,100);
+  cout << "2. size: " << myints.size() << '\n';
+
+  myints.pop_back();
+  cout << "3. size: " << myints.size() << '\n';
+
+  return 0;
 }

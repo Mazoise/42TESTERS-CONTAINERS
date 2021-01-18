@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   .empty_main.cpp                                    :+:      :+:    :+:   */
+/*   relationalOperators_main.cpp                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/15 17:00:32 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/15 17:53:57 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,27 @@ void	print(list<T>& lst)
 	cout << '\n';
 }
 
-int main()
+int main ()
 {
-	/* THIS IS A TEMPLATE MAIN
-	** WRITE ANY TEST YOU WANT TO PERFORM
-	** SAVE IT UNDER 'something_main.cpp'
-	** IT WILL BE RUN WITH FT::LIST AND STD::LIST
-	** BOTH OUTPUTS WILL BE COMPARED
-	*/
+  list<int> a, b, c;
+  a.push_back(10);
+  a.push_back(20);
+  a.push_back(30);
 
-	return (0);
+  b.push_back(10);
+  b.push_back(20);
+  b.push_back(30);
+
+  c.push_back(30);
+  c.push_back(20);
+  c.push_back(10);
+
+  if (a==b) cout << "a and b are equal\n";
+  if (b!=c) cout << "b and c are not equal\n";
+  if (b<c) cout << "b is less than c\n";
+  if (c>b) cout << "c is greater than b\n";
+  if (a<=b) cout << "a is less than or equal to b\n";
+  if (a>=b) cout << "a is greater than or equal to b\n";
+
+  return 0;
 }

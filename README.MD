@@ -58,7 +58,10 @@ If you have any question or suggestion, please feel free to PM me on slack @hbau
 
 
 ## Thanks :
-- oroberts
+- Oroberts
+- [Rofernan](http://github.com/rofernan42)
+- Lmartin
+- Thgermai
 - [...]
 
 // THIS IS WIP, CHECK REGULARLY FOR UPDATES
