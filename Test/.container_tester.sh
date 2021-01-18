@@ -18,9 +18,9 @@ run_tests ()
 {
 	rm logs/"$1"_ft.error.log
 	rm logs/"$1"_std.error.log
-	clang++ -Werror -Wextra -Werror -std=c++98 -I "$INCLUDES" -I "$INCLUDES"/EMPTY -I ../"$2" -I "$INCLUDES"/EMPTY/JUST_IN_CASE \
+	clang++ -Werror -Wextra -Werror -std=c++98 -I . -I "$INCLUDES" -I "$INCLUDES"/EMPTY -I ../"$2" -I "$INCLUDES"/EMPTY/JUST_IN_CASE \
 			mains/"$1"_main.cpp -o bin/"$1"_ft 2> logs/"$1"_ft.error.log
-	clang++ -Werror -Wextra -Werror -std=c++98 -D STD -I "$INCLUDES" -I "$INCLUDES"/EMPTY \
+	clang++ -Werror -Wextra -Werror -std=c++98 -D STD -I . -I "$INCLUDES" -I "$INCLUDES"/EMPTY \
 			-I "$INCLUDES/EMPTY/JUST_IN_CASE" -I ../"$2" mains/"$1"_main.cpp -o bin/"$1"_std 2> logs/"$1"_std.error.log
 
 	if [ $(cat logs/"$1"_std.error.log | wc -c) != "0" ]
