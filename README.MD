@@ -62,6 +62,7 @@ If you have any question or suggestion, please feel free to PM me on slack @hbau
 - [Rofernan](http://github.com/rofernan42)
 - Lmartin
 - Thgermai
+- Bbrunet
 - [...]
 
 // THIS IS WIP, CHECK REGULARLY FOR UPDATES
