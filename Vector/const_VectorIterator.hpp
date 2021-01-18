@@ -6,12 +6,12 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 16:30:45 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/11 11:28:55 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/18 16:15:36 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include "../utils.hpp"
+#include "../ReverseIterator.hpp"
 #include "VectorIterator.hpp"
 #include <limits>
 #include <iostream>
@@ -81,7 +81,7 @@ namespace ft
 				const_VectorIterator	operator++()
 				{
 					++(this->_ptr);
-					return this;
+					return *this;
 				}
 
 				const_VectorIterator	operator++(int)

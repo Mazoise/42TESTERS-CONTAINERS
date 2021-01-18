@@ -1,65 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.hpp                                          :+:      :+:    :+:   */
+/*   ReverseIterator.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/03 14:20:31 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/15 16:39:29 by hbaudet          ###   ########.fr       */
+/*   Created: 2021/01/18 15:53:14 by hbaudet           #+#    #+#             */
+/*   Updated: 2021/01/18 15:56:25 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_HPP
-# define UTILS_HPP
+#ifndef REVERSEITERATOR_HPP
+# define REVERSEITERATOR_HPP
 
+# include "hbaudet_utils.hpp"
 # include <iostream>
 # include <string>
 # include <sstream>
 
-# ifdef DEBUG
-#  define PRINT 1
-#  else
-#  define PRINT 0
-# endif
-
-
 namespace ft
 {
-	static std::ostream& 									cout = std::cout;
-	typedef std::string										string;
-
-
-	string	to_string(size_t n)
-	{
-		std::stringstream tmp;
-
-		tmp << n;
-
-		return tmp.str();
-	}
-
-	template <bool flag, class IsTrue, class IsFalse>
-		struct choose;
-
-	template <class IsTrue, class IsFalse>
-		struct choose<true, IsTrue, IsFalse>
-		{
-			typedef IsTrue type;
-		};
-
-	template <class IsTrue, class IsFalse>
-		struct choose<false, IsTrue, IsFalse>
-		{
-			typedef IsFalse type;
-		};
-
-	template<bool B, class T = void>
-		struct enable_if {};
-
-	template<class T>
-		struct enable_if<true, T> { typedef T type; };
-
 	template <class Iterator>
 		class ReverseIterator
 		{

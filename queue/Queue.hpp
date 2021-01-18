@@ -6,13 +6,14 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:50 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/30 12:04:00 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/18 15:52:21 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
 #include <string>
+#include "../ReverseIterator.hpp"
 #include "Deque.hpp"
 
 #ifdef DEBUG

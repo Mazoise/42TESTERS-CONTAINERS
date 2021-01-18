@@ -6,12 +6,12 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 16:30:45 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/11 11:28:34 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/18 16:13:57 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include "../utils.hpp"
+#include "../ReverseIterator.hpp"
 #include "const_VectorIterator.hpp"
 #include <limits>
 #include <iostream>
@@ -73,7 +73,7 @@ template < class T>
 				VectorIterator	operator++()
 				{
 					++(this->_ptr);
-					return this;
+					return *this;
 				}
 
 				VectorIterator	operator++(int)

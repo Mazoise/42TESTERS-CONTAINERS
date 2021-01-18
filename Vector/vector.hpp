@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Vector.hpp                                         :+:      :+:    :+:   */
+/*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2020/12/14 14:27:24 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/18 15:56:23 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include "../utils.hpp"
+#include "../ReverseIterator.hpp"
 #include "VectorIterator.hpp"
 #include "const_VectorIterator.hpp"
 #include <limits>
@@ -136,26 +136,26 @@ namespace ft
 
 				reverse_iterator	rbegin()
 				{
-					reverse_iterator	ret(this->end() - 1);
+					reverse_iterator	ret(this->end());
 
 					return ret;
 				}
 
 				const_reverse_iterator	rbegin() const
 				{
-					return const_reverse_iterator(this->end() - 1);
+					return const_reverse_iterator(this->end());
 				}
 
 				reverse_iterator	rend()
 				{
-					reverse_iterator	ret(this->begin() - 1);
+					reverse_iterator	ret(this->begin());
 
 					return ret;
 				}
 
 				const_reverse_iterator	rend() const
 				{
-					return const_reverse_iterator(this->end() - 1);
+					return const_reverse_iterator(this->end());
 				}
 
 				// Capacity
@@ -196,6 +196,8 @@ namespace ft
 				{
 					if (n > this->_capacity)
 					{
+						if (n > this->max_size())
+							throw std::length_error("vector::reserve");
 						size_type	size;
 
 						size = this->size();
@@ -226,8 +228,8 @@ namespace ft
 				{
 					if (i >= this->_size)
 						throw std::out_of_range("vector::_M_range_check: __n (which is "
-						+ to_string(i) + ") >= this->size() (which is "
-						+ to_string(this->size()) + ")");
+						+ ft::to_string(i) + ") >= this->size() (which is "
+						+ ft::to_string(this->size()) + ")");
 					return this->_tab[i];
 				}
 
@@ -235,8 +237,8 @@ namespace ft
 				{
 					if (i >= this->_size)
 						throw std::out_of_range("vector::_M_range_check: __n (which is "
-						+ to_string(i) + ") >= this->size() (which is "
-						+ to_string(this->size()) + ")");
+						+ ft::to_string(i) + ") >= this->size() (which is "
+						+ ft::to_string(this->size()) + ")");
 					return this->_tab[i];
 				}
 
@@ -282,17 +284,17 @@ namespace ft
 				void	assign(size_type n, const value_type& val)
 				{
 					this->clear();
-					this->reserve(n);
-					for (size_type i = 0; i < n; i++)
-						this->_tab[i] = val;
-					this->_size = n;
+					this->insert(this->begin(), n, val);
+				}
+
+				void	assign(pointer first, pointer last)
+				{
+					assign(iterator(first), iterator(last));
 				}
 
 				void	push_back(const value_type& val)
 				{
-					this->reserve(this->_size + 1);
-					this->_tab[this->_size] = val;
-					this->_size++;
+					this->insert(this->end(), val);
 				}
 
 				void	pop_back()
@@ -313,10 +315,14 @@ namespace ft
 				void		insert(iterator position, size_type n, const value_type& val)
 				{
 					difference_type tmp;
+					size_type	capa;
 
 					tmp = position - this->begin();
-
-					this->reserve(this->_size + n);
+					capa = 1;
+					while(this->_capacity < this->_size + n && capa < n + this->_size)
+						capa *= 2;
+					
+					this->reserve(capa);
 					position = this->begin() + tmp;
 
 					this->_size += n;
@@ -324,6 +330,11 @@ namespace ft
 						*it = *(it - n);
 					for (iterator it = position; it != position + n; it++)
 						*it = val;
+				}
+
+				void	insert(iterator position, pointer first, pointer last)
+				{
+					this->insert(position, iterator(first), iterator(last));
 				}
 
 				template < class InputIter>
@@ -402,6 +413,20 @@ namespace ft
 		};
 
 // NON MEMBER functions
+
+// class vector<bool>::reference
+// {
+// 	private:
+// 		friend class vector;
+// 		reference();                                          // no public constructor
+// 	public:
+// 		~reference();
+// 		operator bool () const;                               // convert to bool
+// 		reference& operator= (const bool x);                  // assign from bool
+// 		reference& operator= (const reference& x);            // assign from bit
+// 		void flip();                                          // flip bit value.
+// };
+
 
 	template <class T>
 		void	swap(vector<T>& x, vector<T>& y)

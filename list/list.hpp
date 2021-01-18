@@ -6,14 +6,14 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/15 17:56:34 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/18 15:56:21 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include "Node.hpp"
 #include "NodeIterator.hpp"
-#include "../utils.hpp"
+#include "../ReverseIterator.hpp"
 #include <iostream>
 #include <string>
 #include <limits>
@@ -157,14 +157,14 @@ namespace ft
 
 			reverse_iterator		rend()
 			{
-				reverse_iterator ret(&this->_head);
+				reverse_iterator ret(this->begin());
 
 				return ret;
 			}
 
 			const_reverse_iterator	rend() const
 			{
-				reverse_iterator ret(&this->_head);
+				reverse_iterator ret(this->begin());
 
 				return ret;
 			}
