@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/18 16:01:08 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/20 12:22:54 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int main()
 	cout << "\nINSERT\n";
 	deque<string>	insert_in_me;
 	for (size_t i = 0; i < 15; i++)
-		insert_in_me.push_back(to_string(i) + " I love hbaudet\n");
+		insert_in_me.push_back(ft::to_string(i) + " I love hbaudet\n");
 	cout << "after push_back, before at\n";
 
 	deque<string>::iterator	tmp;
@@ -135,7 +135,7 @@ int main()
 	cout << "\nINSERT\n";
 	deque<string>	std_insert_in_me;
 	for (size_t i = 0; i < 15; i++)
-		std_insert_in_me.push_back(to_string(i) + " 42 ");
+		std_insert_in_me.push_back(ft::to_string(i) + " 42 ");
 
 	print(std_insert_in_me);
 	deque<string>::iterator	std_tmp;
@@ -148,7 +148,7 @@ int main()
 	cout << "\nINSERT RANGE\n";
 	deque<string>	insert_bis;
 	for (size_t i = 0; i < 7; i++)
-		insert_bis.push_back(to_string(3 * i));
+		insert_bis.push_back(ft::to_string(3 * i));
 	print(insert_bis);
 
 	insert_bis.insert(insert_bis.begin(), insert_in_me.begin(), insert_in_me.end());
@@ -158,7 +158,7 @@ int main()
 	cout << "\nERASE\n";
 	deque<string>	erase_in_me;
 	for (size_t i = 0; i < 15; i++)
-		erase_in_me.push_back(to_string(2 * i));
+		erase_in_me.push_back(ft::to_string(2 * i));
 	cout << '\n';
 
 	erase_in_me.erase(erase_in_me.begin());

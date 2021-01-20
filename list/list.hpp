@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/18 15:56:21 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/20 13:02:00 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -495,6 +495,8 @@ namespace ft
 			template <class Compare>
 				void	sort(Compare comp)
 				{
+					if (this->size() < 2)
+						return ;
 					iterator	it = this->begin();
 					iterator	it2 = it;
 

@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 17:54:49 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/04 11:45:51 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/20 11:09:26 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,20 @@ namespace ft
 
 					this->_ptr = this->_ptr->next;
 					return tmp;
+				}
+
+				NodeIterator	operator+(size_t i)
+				{
+					while(i--)
+						this->_ptr = this->_ptr->next;
+					return *this;
+				}
+
+				NodeIterator	operator-(size_t i)
+				{
+					while(i--)
+						this->_ptr = this->_ptr->prev;
+					return *this;
 				}
 
 				NodeIterator	operator--()

@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/18 16:04:40 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/20 11:06:29 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int main ()
   first.assign (7,100);                      // 7 ints with value 100
   print(first);
 
-  second.assign (first.begin(),first.end()); // a copy of first
+  second.assign (first.begin(), first.end()); // a copy of first
   print(second);
 
   int myints[]={1776,7,4};

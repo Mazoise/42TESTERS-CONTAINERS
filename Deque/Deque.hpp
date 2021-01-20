@@ -6,13 +6,14 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/18 15:56:34 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/20 12:44:09 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include "Node.hpp"
 #include "NodeIterator.hpp"
+#include "const_NodeIterator.hpp"
 #include "../ReverseIterator.hpp"
 #include <iostream>
 #include <string>
@@ -40,7 +41,7 @@ namespace ft
 			typedef NodeIterator<T>								iterator;
 			typedef const_NodeIterator<T>						const_iterator;
 			typedef ReverseIterator< iterator>					reverse_iterator;
-			typedef ReverseIterator< const_iterator>			const_reverse_iterator;
+			typedef const_ReverseIterator< const_iterator>		const_reverse_iterator;
 			typedef std::ptrdiff_t								difference_type;
 			typedef std::size_t									size_type;
 
@@ -153,14 +154,14 @@ namespace ft
 
 			reverse_iterator		rend()
 			{
-				reverse_iterator ret(this->_head);
+				reverse_iterator ret(this->begin());
 
 				return ret;
 			}
 
 			const_reverse_iterator	rend() const
 			{
-				reverse_iterator ret(this->_head);
+				reverse_iterator ret(this->begin());
 
 				return ret;
 			}
@@ -246,13 +247,24 @@ namespace ft
 					typename enable_if<InputIter::input_iter, InputIter>::type last)
 				{
 					this->clear();
-					this->insert(this->begin(), first, last);
+					if (first != last)
+						this->insert(this->begin(), first, last);
 				}
 			
 			void		assign(size_type n, const value_type& val)
 			{
 				this->clear();
 				this->insert(this->begin(), n, val);
+			}
+
+			void		assign(pointer first, pointer last)
+			{
+				this->clear();
+				while(first != last)
+				{
+					this->push_back(*first);
+					first++;
+				}
 			}
 
 			void		push_front(const value_type& val)
@@ -300,13 +312,15 @@ namespace ft
     			void	insert(iterator position, InputIter first,
 					typename enable_if<InputIter::input_iter, InputIter>::type last)
 				{
-					iterator	tmp(last.getPointer()->prev);
+					if (first == last)
+						return ;
+					last--;
 					while (first != last)
 					{
-						position = insert(position, *tmp);
-						tmp--;
+						position = insert(position, *last);
 						last--;
 					}
+					insert(position, *last);
 				}
 
 			iterator	erase(iterator position)
@@ -423,14 +437,31 @@ namespace ft
 			x.swap(y);
 		}
 
+	// template <class T>
+	// 	bool operator==(const deque<T>& left, const deque<T>& right)
+	// 	{
+	// 		typename deque<T>::iterator it = right.begin();
+
+	// 		if (left.size() != right.size())
+	// 			return false;
+	// 		for (typename deque<T>::iterator i = left.begin(); i != left.end(); i++)
+	// 		{
+	// 			if (*i != *it)
+	// 				return false;
+	// 			it++;
+	// 		}
+	// 		return true;
+	// 	}
+	
 	template <class T>
 		bool operator==(const deque<T>& left, const deque<T>& right)
 		{
-			typename deque<T>::iterator it = right.begin();
+			typename deque<T>::const_iterator	it = right.begin();
 
 			if (left.size() != right.size())
 				return false;
-			for (typename deque<T>::iterator i = left.begin(); i != left.end(); i++)
+
+			for (typename deque<T>::const_iterator i = left.begin(); i != left.end(); i++)
 			{
 				if (*i != *it)
 					return false;
@@ -440,29 +471,16 @@ namespace ft
 		}
 	
 	template <class T>
-		bool operator==(deque<T>& left, deque<T>& right)
+		bool operator<(const deque<T>& left, const deque<T>& right)
 		{
-			typename deque<T>::iterator	it = right.begin();
-
-			if (left.size() != right.size())
-				return false;
-
-			for (typename deque<T>::iterator i = left.begin(); i != left.end(); i++)
-			{
-				if (*i != *it)
-					return false;
-				it++;
-			}
-			return true;
-		}
-	
-	template <class T>
-		bool operator<(deque<T>& left, deque<T>& right)
-		{
-			typename deque<T>::iterator	it = right.begin();
-			typename deque<T>::iterator	i = left.begin();
+			typename deque<T>::const_iterator	it = right.begin();
+			typename deque<T>::const_iterator	i = left.begin();
 
 			while (it != right.end() && i != left.end() && *it == *i)
+			{
+				it++;
+				i++;
+			}
 			if (it == right.end() && i != left.end())
 				return false;
 			if (i == left.end() && it != right.end())
@@ -471,25 +489,25 @@ namespace ft
 		}
 
 	template <class T>
-		bool operator!=(deque<T>& left, deque<T>& right)
+		bool operator!=(const deque<T>& left, const deque<T>& right)
 		{
 			return (!(left == right));
 		}
 
 	template <class T>
-		bool operator>(deque<T>& left, deque<T>& right)
+		bool operator>(const deque<T>& left, const deque<T>& right)
 		{
 			return (right < left);
 		}
 
 	template <class T>
-		bool operator<=(deque<T>& left, deque<T>& right)
+		bool operator<=(const deque<T>& left, const deque<T>& right)
 		{
-			return (!(right < left));
+			return (!(left > right));
 		}
 
 	template <class T>
-		bool operator>=(deque<T>& left, deque<T>& right)
+		bool operator>=(const deque<T>& left, const deque<T>& right)
 		{
 			return (!(left < right));
 		}

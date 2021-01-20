@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/18 16:01:57 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/20 12:08:10 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "DEQUE_UC.HPP"
 #include <deque>
 #include <vector>
+#include "VECTOR_UC.HPP"
 
 #ifndef STD
 # define NAMESPACE ft

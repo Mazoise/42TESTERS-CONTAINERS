@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/18 16:42:39 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/20 12:31:26 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ void	print(queue<T>& lst)
 int main ()
 {
   queue<int> myqueue;
-  int myint;
-
-  cout << "Please enter some integers (enter 0 to end):\n";
+  int myint = 42;
 
   do {
-    cin >> myint;
+    myint += 76;
+	myint /= 3;
+	myint *= 4;
     myqueue.push (myint);
-  } while (myint);
+  } while (myint < 10000);
 
   cout << "myqueue contains: ";
   while (!myqueue.empty())
