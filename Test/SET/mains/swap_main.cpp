@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_main.cpp                                       :+:      :+:    :+:   */
+/*   swap_main.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/19 10:56:59 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/20 10:26:04 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,20 @@ void	print(set<T>& lst)
 
 int main ()
 {
-  int myints[] = {75,23,65,42,13};
-  set<int> myset (myints,myints+5);
+  int myints[]={12,75,10,32,20,25};
+  set<int> first (myints,myints+3);     // 10,12,75
+  set<int> second (myints+3,myints+6);  // 20,25,32
 
-  cout << "myset contains:";
-  for (set<int>::iterator it=myset.begin(); it!=myset.end(); ++it)
+  first.swap(second);
+
+  cout << "first contains:";
+  for (set<int>::iterator it=first.begin(); it!=first.end(); ++it)
     cout << ' ' << *it;
+  cout << '\n';
 
+  cout << "second contains:";
+  for (set<int>::iterator it=second.begin(); it!=second.end(); ++it)
+    cout << ' ' << *it;
   cout << '\n';
 
   return 0;

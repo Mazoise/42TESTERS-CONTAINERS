@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_main.cpp                                       :+:      :+:    :+:   */
+/*   operator=_main.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/19 10:56:59 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/20 10:24:27 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	print(set<T>& lst)
 
 int main ()
 {
-  int myints[] = {75,23,65,42,13};
-  set<int> myset (myints,myints+5);
+  int myints[]={ 12,82,37,64,15 };
+  set<int> first (myints,myints+5);   // set with 5 ints
+  set<int> second;                    // empty set
 
-  cout << "myset contains:";
-  for (set<int>::iterator it=myset.begin(); it!=myset.end(); ++it)
-    cout << ' ' << *it;
+  second = first;                          // now second contains the 5 ints
+  first = set<int>();                 // and first is empty
 
-  cout << '\n';
-
+  cout << "Size of first: " << int (first.size()) << '\n';
+  cout << "Size of second: " << int (second.size()) << '\n';
   return 0;
 }

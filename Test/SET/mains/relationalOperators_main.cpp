@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_main.cpp                                       :+:      :+:    :+:   */
+/*   relationalOperators_main.cpp                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/19 10:56:59 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/20 10:27:19 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,19 @@ void	print(set<T>& lst)
 
 int main ()
 {
-  int myints[] = {75,23,65,42,13};
-  set<int> myset (myints,myints+5);
+  set<int> foo,bar;
+  foo.insert(10);
+  bar.insert(20);
+  bar.insert(30);
+  foo.insert(40);
 
-  cout << "myset contains:";
-  for (set<int>::iterator it=myset.begin(); it!=myset.end(); ++it)
-    cout << ' ' << *it;
-
-  cout << '\n';
+  // foo ({10,40}) vs bar ({20,30}):
+  if (foo==bar) cout << "foo and bar are equal\n";
+  if (foo!=bar) cout << "foo and bar are not equal\n";
+  if (foo< bar) cout << "foo is less than bar\n";
+  if (foo> bar) cout << "foo is greater than bar\n";
+  if (foo<=bar) cout << "foo is less than or equal to bar\n";
+  if (foo>=bar) cout << "foo is greater than or equal to bar\n";
 
   return 0;
 }

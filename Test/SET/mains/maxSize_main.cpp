@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_main.cpp                                       :+:      :+:    :+:   */
+/*   maxSize_main.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/19 10:56:59 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/20 10:23:36 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,15 @@ void	print(set<T>& lst)
 
 int main ()
 {
-  int myints[] = {75,23,65,42,13};
-  set<int> myset (myints,myints+5);
+  int i;
+  set<int> myset;
 
-  cout << "myset contains:";
-  for (set<int>::iterator it=myset.begin(); it!=myset.end(); ++it)
-    cout << ' ' << *it;
-
-  cout << '\n';
+  if (myset.max_size()>1000)
+  {
+    for (i=0; i<1000; i++) myset.insert(i);
+    cout << "The set contains 1000 elements.\n";
+  }
+  else cout << "The set could not hold 1000 elements.\n";
 
   return 0;
 }

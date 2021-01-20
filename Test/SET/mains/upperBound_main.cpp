@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_main.cpp                                       :+:      :+:    :+:   */
+/*   upperBound_main.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/19 10:56:59 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/20 10:26:29 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,19 @@ void	print(set<T>& lst)
 
 int main ()
 {
-  int myints[] = {75,23,65,42,13};
-  set<int> myset (myints,myints+5);
+  set<int> myset;
+  set<int>::iterator itlow,itup;
+
+  for (int i=1; i<10; i++) myset.insert(i*10); // 10 20 30 40 50 60 70 80 90
+
+  itlow=myset.lower_bound (30);                //       ^
+  itup=myset.upper_bound (60);                 //                   ^
+
+  myset.erase(itlow,itup);                     // 10 20 70 80 90
 
   cout << "myset contains:";
   for (set<int>::iterator it=myset.begin(); it!=myset.end(); ++it)
     cout << ' ' << *it;
-
   cout << '\n';
 
   return 0;

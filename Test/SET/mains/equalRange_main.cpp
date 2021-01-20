@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_main.cpp                                       :+:      :+:    :+:   */
+/*   equalRange_main.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/19 10:56:59 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/20 10:20:47 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,15 @@ void	print(set<T>& lst)
 
 int main ()
 {
-  int myints[] = {75,23,65,42,13};
-  set<int> myset (myints,myints+5);
+  set<int> myset;
 
-  cout << "myset contains:";
-  for (set<int>::iterator it=myset.begin(); it!=myset.end(); ++it)
-    cout << ' ' << *it;
+  for (int i=1; i<=5; i++) myset.insert(i*10);   // myset: 10 20 30 40 50
 
-  cout << '\n';
+  pair<set<int>::const_iterator,set<int>::const_iterator> ret;
+  ret = myset.equal_range(30);
+
+  cout << "the lower bound points to: " << *ret.first << '\n';
+  cout << "the upper bound points to: " << *ret.second << '\n';
 
   return 0;
 }
