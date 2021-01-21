@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/18 15:56:22 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/20 21:35:39 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,11 @@ namespace ft
 						this->_begin.parent = tmp;
 					}
 					else if (position == iterator(&this->_end))
-						std::cerr << "this should NEVER happen\n";
+					{
+						position--;
+						delete tmp;
+						return(this->insert(position, val));
+					}
 					else //Inserting in the middle
 					{
 						tmp->parent = position.getPointer();
@@ -456,19 +460,30 @@ namespace ft
 				xbeg = x.begin().getPointer()->prev;
 				size = this->size();
 
-				this->_end.parent = x.end().getPointer()->parent;
-				this->_end.parent->next = &this->_end;
-				this->_begin.parent = x.begin().getPointer();
-				this->_begin.parent->prev = &this->_begin;
-				this->_root = x.getRoot();
-				this->_size = x.size();
-
-				x.setRoot(root);
-				x.end().getPointer()->parent = end;
-				x.end().getPointer()->parent->next = x.end().getPointer();
-				begin->prev = xbeg;
-				xbeg->parent = begin;
-				x.setSize(size);
+				if (!x.empty())
+				{
+					this->_end.parent = x.end().getPointer()->parent;
+					this->_end.parent->next = &this->_end;
+					this->_begin.parent = x.begin().getPointer();
+					this->_begin.parent->prev = &this->_begin;
+					this->_root = x.getRoot();
+					this->_size = x.size();
+				}
+				else
+					this->reset_map();
+				if (size)
+				{
+					x.setRoot(root);
+					x.end().getPointer()->parent = end;
+					x.end().getPointer()->prev = NULL;
+					x.end().getPointer()->next = NULL;
+					end->next = x.end().getPointer();
+					begin->prev = xbeg;
+					xbeg->parent = begin;
+					x.setSize(size);
+				}
+				else
+					x.reset_map();
 			}
 
 			void					clear()
@@ -539,6 +554,7 @@ namespace ft
 			void					setRoot(node_type* r)
 			{
 				this->_root = r;
+				r->parent = NULL;
 			}
 
 			// node_type&				getMember()
@@ -551,14 +567,6 @@ namespace ft
 			// 	return this->root;
 			// }
 
-		private:
-			node_type*		_root;
-			node_type		_end;
-			node_type		_begin;
-			key_compare		_comp;
-			size_type		_size;
-
-
 			void					reset_map()
 			{
 				this->_size = 0;
@@ -570,6 +578,14 @@ namespace ft
 				this->_end.next = NULL;
 				this->_end.prev = &this->_begin;
 			}
+
+		private:
+			node_type*		_root;
+			node_type		_end;
+			node_type		_begin;
+			key_compare		_comp;
+			size_type		_size;
+
 
 			void					insert_first_elem(const value_type& val)
 			{
@@ -600,6 +616,9 @@ namespace ft
 					else
 						tmp = tmp->prev;
 				}
+				if ((lowest == this->_end.parent)
+					&& (this->key_comp()(lowest->getMember().first, k)))
+					return &this->_end;
 				return (lowest);
 			}
 	};
