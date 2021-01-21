@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/18 15:56:23 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/21 14:31:59 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -405,27 +405,56 @@ namespace ft
 					erase(this->begin(), this->end());
 				}
 
+
 				pointer					_tab;
+
 			private:
 
 				size_type				_size;
 				size_type				_capacity;
 		};
+		
+		// SPECIALIZATION
+
+		// template<>
+		// 	class vector<bool>
+		// 	{
+		// 		// void swap(vector& x)
+		// 		// {
+
+		// 		// }
+		// 		private:
+		// 			typedef bool										value_type;
+		// 			typedef	bool&										reference;
+		// 			typedef const reference								const_reference;
+		// 			typedef value_type*									pointer;
+		// 			typedef const value_type*							const_pointer;
+		// 			typedef VectorIterator<value_type>					iterator;
+		// 			typedef const_VectorIterator<value_type>			const_iterator;
+		// 			typedef ReverseIterator<iterator>					reverse_iterator;
+		// 			typedef ReverseIterator<const_iterator>				const_reverse_iterator;
+		// 			typedef std::ptrdiff_t								difference_type;
+		// 			typedef size_t										size_type;
+
+		// 		public:
+		// 			static void swap (reference ref1, reference ref2)
+		// 			{
+		// 				reference tmp;
+
+		// 				tmp = ref1;
+		// 				ref1 = ref2;
+		// 				ref1 = ref2;
+		// 			}
+
+		// 			void		flip()
+		// 			{
+		// 				vector<bool>::iterator = this->begin();
+		// 			}
+		// 	};
 
 // NON MEMBER functions
 
-// class vector<bool>::reference
-// {
-// 	private:
-// 		friend class vector;
-// 		reference();                                          // no public constructor
-// 	public:
-// 		~reference();
-// 		operator bool () const;                               // convert to bool
-// 		reference& operator= (const bool x);                  // assign from bool
-// 		reference& operator= (const reference& x);            // assign from bit
-// 		void flip();                                          // flip bit value.
-// };
+
 
 
 	template <class T>

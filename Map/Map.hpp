@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/20 21:35:39 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/21 14:39:06 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ namespace ft
 					InputIter>::type last, const key_compare& comp = key_compare()): _comp(comp)
 				{
 					if (PRINT)
-						cout << "Range map ctor\n";
+						cout << "Rangemap ctor\n";
 
 					this->reset_map();
 					this->insert(first, last);
@@ -413,6 +413,18 @@ namespace ft
 					first = tmp;
 				}
 			}
+
+			pair<const_iterator, const_iterator>	equal_range(const key_type& k) const
+			{
+				return pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k));
+			}
+			
+			pair<iterator, iterator>             equal_range(const key_type& k)
+			{
+				return pair<iterator, iterator>(lower_bound(k), upper_bound(k));
+			}
+
+
 
 			iterator				find(const key_type& k)
 			{

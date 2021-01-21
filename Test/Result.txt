@@ -1,0 +1,166 @@
+[34m[1m- DEQUE :
+[0m
+[33mFound 29 tests for DEQUE, running tests :
+[0m
+✅[1m[32m	assign test passed![0m
+✅[1m[32m	at test passed![0m
+✅[1m[32m	back test passed![0m
+✅[1m[32m	begin test passed![0m
+✅[1m[32m	clear test passed![0m
+✅[1m[32m	empty test passed![0m
+✅[1m[32m	end test passed![0m
+✅[1m[32m	erase test passed![0m
+✅[1m[32m	first test passed![0m
+✅[1m[32m	front test passed![0m
+✅[1m[32m	inception test passed![0m
+✅[1m[32m	insert test passed![0m
+✅[1m[32m	int test passed![0m
+✅[1m[32m	maxSize test passed![0m
+✅[1m[32m	nonMemberSwap test passed![0m
+✅[1m[32m	operator= test passed![0m
+✅[1m[32m	operator[] test passed![0m
+✅[1m[32m	other test passed![0m
+✅[1m[32m	popBack test passed![0m
+✅[1m[32m	popFront test passed![0m
+✅[1m[32m	pushFront test passed![0m
+✅[1m[32m	rbegin test passed![0m
+✅[1m[32m	relationalOperators test passed![0m
+✅[1m[32m	rend test passed![0m
+✅[1m[32m	resize test passed![0m
+✅[1m[32m	reverseIterator test passed![0m
+✅[1m[32m	size test passed![0m
+✅[1m[32m	string test passed![0m
+✅[1m[32m	swap test passed![0m
+
+[34m[1m- LIST :
+[0m
+[33mFound 37 tests for LIST, running tests :
+[0m
+✅[1m[32m	assign test passed![0m
+✅[1m[32m	back test passed![0m
+✅[1m[32m	begin test passed![0m
+✅[1m[32m	clear test passed![0m
+✅[1m[32m	easy test passed![0m
+✅[1m[32m	empty test passed![0m
+✅[1m[32m	end test passed![0m
+✅[1m[32m	erase test passed![0m
+✅[1m[32m	front test passed![0m
+✅[1m[32m	inception test passed![0m
+✅[1m[32m	insert test passed![0m
+✅[1m[32m	int test passed![0m
+✅[1m[32m	lmartin test passed![0m
+✅[1m[32m	maxSize test passed![0m
+✅[1m[32m	merge test passed![0m
+✅[1m[32m	nonMemberSwap test passed![0m
+✅[1m[32m	operator= test passed![0m
+✅[1m[32m	popBack test passed![0m
+✅[1m[32m	popFront test passed![0m
+✅[1m[32m	pushBack test passed![0m
+✅[1m[32m	pushFront test passed![0m
+✅[1m[32m	rbegin test passed![0m
+✅[1m[32m	relationalOperators test passed![0m
+✅[1m[32m	removeIf test passed![0m
+✅[1m[32m	remove test passed![0m
+✅[1m[32m	rend test passed![0m
+✅[1m[32m	resize test passed![0m
+✅[1m[32m	reverseIterator test passed![0m
+✅[1m[32m	reverse test passed![0m
+✅[1m[32m	short test passed![0m
+✅[1m[32m	size test passed![0m
+✅[1m[32m	sort test passed![0m
+✅[1m[32m	splice test passed![0m
+✅[1m[32m	string test passed![0m
+✅[1m[32m	swap test passed![0m
+✅[1m[32m	thgermai test passed![0m
+✅[1m[32m	unique test passed![0m
+
+[34m[1m- MAP :
+[0m
+[33mFound 24 tests for MAP, running tests :
+[0m
+✅[1m[32m	basic test passed![0m
+✅[1m[32m	begin test passed![0m
+✅[1m[32m	clear test passed![0m
+✅[1m[32m	count test passed![0m
+✅[1m[32m	empty test passed![0m
+✅[1m[32m	end test passed![0m
+✅[1m[32m	equalRange test passed![0m
+✅[1m[32m	erase test passed![0m
+✅[1m[32m	find test passed![0m
+✅[1m[32m	insert test passed![0m
+✅[1m[32m	keyComp test passed![0m
+✅[1m[32m	lmartin test passed![0m
+✅[1m[32m	lowerBound test passed![0m
+✅[1m[32m	maxSize test passed![0m
+✅[1m[32m	nonMemberSwap test passed![0m
+✅[1m[32m	operator= test passed![0m
+✅[1m[32m	operator[] test passed![0m
+✅[1m[32m	rbegin test passed![0m
+✅[1m[32m	relationalOperators test passed![0m
+✅[1m[32m	rend test passed![0m
+✅[1m[32m	size test passed![0m
+✅[1m[32m	swap test passed![0m
+✅[1m[32m	upperBound test passed![0m
+✅[1m[32m	valueComp test passed![0m
+
+[34m[1m- QUEUE :
+[0m
+[33mFound 9 tests for QUEUE, running tests :
+[0m
+✅[1m[32m	back test passed![0m
+✅[1m[32m	easy test passed![0m
+✅[1m[32m	empty test passed![0m
+✅[1m[32m	front test passed![0m
+✅[1m[32m	lmartin test passed![0m
+✅[1m[32m	pop test passed![0m
+✅[1m[32m	push test passed![0m
+✅[1m[32m	relationalOperators test passed![0m
+✅[1m[32m	size test passed![0m
+
+[34m[1m- STACK :
+[0m
+[33mFound 8 tests for STACK, running tests :
+[0m
+✅[1m[32m	easy test passed![0m
+✅[1m[32m	empty test passed![0m
+✅[1m[32m	lmartin test passed![0m
+✅[1m[32m	pop test passed![0m
+✅[1m[32m	push test passed![0m
+✅[1m[32m	relationalOperators test passed![0m
+✅[1m[32m	size test passed![0m
+✅[1m[32m	top test passed![0m
+
+[34m[1m- VECTOR :
+[0m
+[33mFound 29 tests for VECTOR, running tests :
+[0m
+✅[1m[32m	assign test passed![0m
+✅[1m[32m	at test passed![0m
+✅[1m[32m	back test passed![0m
+✅[1m[32m	begin test passed![0m
+✅[1m[32m	capacity test passed![0m
+✅[1m[32m	clear test passed![0m
+✅[1m[32m	empty test passed![0m
+✅[1m[32m	end test passed![0m
+✅[1m[32m	erase test passed![0m
+✅[1m[32m	front test passed![0m
+✅[1m[32m	inception test passed![0m
+✅[1m[32m	insert test passed![0m
+✅[1m[32m	int test passed![0m
+✅[1m[32m	lmartin test passed![0m
+✅[1m[32m	maxSize test passed![0m
+✅[1m[32m	nonMemberSwap test passed![0m
+✅[1m[32m	operator= test passed![0m
+✅[1m[32m	operator[] test passed![0m
+✅[1m[32m	other test passed![0m
+✅[1m[32m	popBack test passed![0m
+✅[1m[32m	pushBack test passed![0m
+✅[1m[32m	rbegin test passed![0m
+✅[1m[32m	relationalOperators test passed![0m
+✅[1m[32m	rend test passed![0m
+✅[1m[32m	reserve test passed![0m
+✅[1m[32m	resize test passed![0m
+✅[1m[32m	size test passed![0m
+✅[1m[32m	string test passed![0m
+✅[1m[32m	swap test passed![0m
+
