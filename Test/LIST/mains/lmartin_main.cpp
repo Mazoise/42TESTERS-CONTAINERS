@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 04:32:26 by lmartin           #+#    #+#             */
-/*   Updated: 2021/01/20 12:59:31 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/01/20 13:23:55 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(void)
 	cout << "list<" << _PURPLE << "int" << _END << "> mylist = list<" << _PURPLE << "int" << _END << ">();" << std::endl;
 	cout << std::endl;
 
-	cout << "mylist.max_size(): " << mylist.max_size() << std::endl;
+	cout << "mylist.max_size(): " << (mylist.max_size() > 10000) << std::endl;
 	cout << std::endl;
 
 	//list.pop_back(); --> if empty list segfault
