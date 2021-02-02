@@ -6,14 +6,16 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/20 13:02:00 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/02/02 13:12:33 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include "Node.hpp"
-#include "NodeIterator.hpp"
+#include "list_Node.hpp"
+#include "list_NodeIterator.hpp"
+#include "const_list_NodeIterator.hpp"
 #include "../ReverseIterator.hpp"
+#include "../hbaudet_utils.hpp"
 #include <iostream>
 #include <string>
 #include <limits>
@@ -37,13 +39,13 @@ namespace ft
 			typedef const value_type&							const_reference;
 			typedef value_type*									pointer;
 			typedef const value_type*							const_pointer;
-			typedef NodeIterator<T>								iterator;
-			typedef const_NodeIterator<T>						const_iterator;
+			typedef list_NodeIterator<T>						iterator;
+			typedef const_list_NodeIterator<T>					const_iterator;
 			typedef ReverseIterator< iterator>					reverse_iterator;
 			typedef const_ReverseIterator<const_iterator>		const_reverse_iterator;
 			typedef std::ptrdiff_t								difference_type;
 			typedef std::size_t									size_type;
-			typedef node<value_type>							node_type;
+			typedef list_node<value_type>						node_type;
 
 			node_type		_head;
 			node_type		_tail;

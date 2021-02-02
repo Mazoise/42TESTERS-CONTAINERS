@@ -14,6 +14,7 @@
 #include <iostream>
 #include <string>
 #include "../ReverseIterator.hpp"
+#include "../hbaudet_utils.hpp"
 #include "Deque.hpp"
 
 #ifdef DEBUG

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HBAUDET_UTILS_HPP
-# define HBAUDET_UTILS_HPP
+#ifndef TEST_UTILS_HPP
+# define TEST_UTILS_HPP
 
 # include <iostream>
 # include <string>
@@ -30,6 +30,8 @@ namespace ft
 	typedef std::string										string;
 
 
+# ifndef TO_STRING
+#  define TO_STRING
 	string	to_string(size_t n)
 	{
 		std::stringstream tmp;
@@ -38,29 +40,7 @@ namespace ft
 
 		return tmp.str();
 	}
-
-	template <bool flag, class IsTrue, class IsFalse>
-		struct choose;
-
-	template <class IsTrue, class IsFalse>
-		struct choose<true, IsTrue, IsFalse>
-		{
-			typedef IsTrue type;
-		};
-
-	template <class IsTrue, class IsFalse>
-		struct choose<false, IsTrue, IsFalse>
-		{
-			typedef IsFalse type;
-		};
-
-	template<bool B, class T = void>
-		struct enable_if {};
-
-	template<class T>
-		struct enable_if<true, T> { typedef T type; };
-
-	
+# endif
 }
 
 #endif

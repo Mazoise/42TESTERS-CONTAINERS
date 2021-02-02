@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   const_NodeIterator.hpp                             :+:      :+:    :+:   */
+/*   const_list_NodeIterator.hpp                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 17:54:49 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/04 11:45:49 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/02/02 13:31:00 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONST_NODEITERATOR_HPP
-# define CONST_NODEITERATOR_HPP
-# include "NodeIterator.hpp"
+#ifndef CONST_LIST_NODEITERATOR_HPP
+# define CONST_LIST_NODEITERATOR_HPP
+# include "list_NodeIterator.hpp"
 # include <iostream>
 
 # ifdef DEBUG
@@ -24,38 +24,38 @@
 namespace ft
 {
 	template<class T>
-		class NodeIterator;
+		class list_NodeIterator;
 
 	template<class T>
-		class const_NodeIterator
+		class const_list_NodeIterator
 		{
 			public:
-				typedef const T					value_type;
-				typedef	const node<value_type>	node_type;
-				typedef	const node<T>*			pointer;
-				typedef	const node_type*		const_pointer;
-				typedef value_type&				reference;
-				typedef	::std::ptrdiff_t		difference_type;
+				typedef const T						value_type;
+				typedef	const list_node<value_type>	node_type;
+				typedef	const list_node<T>*			pointer;
+				typedef	const node_type*			const_pointer;
+				typedef value_type&					reference;
+				typedef	::std::ptrdiff_t			difference_type;
 
 				static const bool			input_iter;
 				
-				const_NodeIterator(): _ptr(NULL) {}
-				const_NodeIterator(const pointer ptr) : _ptr(ptr) {}
-				const_NodeIterator(const const_pointer ptr) : _ptr(ptr) {}
-				const_NodeIterator(const const_NodeIterator& vec): _ptr(vec.getPointer())
+				const_list_NodeIterator(): _ptr(NULL) {}
+				const_list_NodeIterator(const pointer ptr) : _ptr(ptr) {}
+				const_list_NodeIterator(const const_pointer ptr) : _ptr(ptr) {}
+				const_list_NodeIterator(const const_list_NodeIterator& vec): _ptr(vec.getPointer())
 				{
 					if (PRINT)
 						std::cout << "const_NodeIter copy ctor\n";
 				}
-				const_NodeIterator(const NodeIterator<T>& vec):
+				const_list_NodeIterator(const list_NodeIterator<T>& vec):
 					_ptr(vec.getPointer())
 				{
 					if (PRINT)
 						std::cout << "const_NodeIter copy ctor\n";
 				}
-				~const_NodeIterator() {}
+				~const_list_NodeIterator() {}
 
-				const_NodeIterator& operator=(const const_NodeIterator& vec)
+				const_list_NodeIterator& operator=(const const_list_NodeIterator& vec)
 				{
 					if (PRINT)
 						std::cout << "const_NodeIter operator =\n";
@@ -84,40 +84,40 @@ namespace ft
 					return (&this->_ptr->getMember());
 				}
 
-				const_NodeIterator	operator++()
+				const_list_NodeIterator	operator++()
 				{
 					this->_ptr = this->_ptr->next;
 					return *this;
 				}
 
-				const_NodeIterator	operator++(int)
+				const_list_NodeIterator	operator++(int)
 				{
-					const_NodeIterator	tmp(*this);
+					const_list_NodeIterator	tmp(*this);
 
 					this->_ptr = this->_ptr->next;
 					return tmp;
 				}
 
-				const_NodeIterator	operator--()
+				const_list_NodeIterator	operator--()
 				{
 					this->_ptr = this->_ptr->prev;
 					return *this;
 				}
 
-				const_NodeIterator	operator--(int)
+				const_list_NodeIterator	operator--(int)
 				{
-					const_NodeIterator	tmp(*this);
+					const_list_NodeIterator	tmp(*this);
 
 					this->_ptr = this->_ptr->prev;
 					return tmp;
 				}
 
-				bool 			operator==(const const_NodeIterator& right) const 
+				bool 	operator==(const const_list_NodeIterator& right) const 
 				{
 					return (this->_ptr == right.getPointer());
 				}
 
-				bool 			operator!=(const const_NodeIterator& right) const 
+				bool 	operator!=(const const_list_NodeIterator& right) const 
 				{
 					bool ret = (*this == right);
 
@@ -129,8 +129,8 @@ namespace ft
 		};
 
 	template<class T>
-		bool operator!=(const const_NodeIterator<T>& lhs,
-			const const_NodeIterator<T>& rhs)
+		bool operator!=(const const_list_NodeIterator<T>& lhs,
+			const const_list_NodeIterator<T>& rhs)
 		{
 			if (PRINT)
 				std::cout << "Operator != (const_NodeIter, const_NodeIter)\n";
@@ -139,7 +139,7 @@ namespace ft
 	
 
 	template <class T>
-		const bool const_NodeIterator<T>::input_iter = true;
+		const bool const_list_NodeIterator<T>::input_iter = true;
 }
 
 #endif

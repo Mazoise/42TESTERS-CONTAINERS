@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONST_NODEITERATOR_HPP
-# define CONST_NODEITERATOR_HPP
-# include "MapNodeIterator.hpp"
+#ifndef CONST_MAP_NODEITERATOR_HPP
+# define CONST_MAP_NODEITERATOR_HPP
+# include "map_NodeIterator.hpp"
 # include "Node_pair.hpp"
 # include <iostream>
 

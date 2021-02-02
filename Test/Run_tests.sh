@@ -65,10 +65,6 @@ do
 			continue
 		fi
 	fi
-	if [[ -f .INCLUDES/"$I"_UC.hpp ]]
-	then
-		echo "$I"_UC.HPP exists in .INCLDUES/
-	fi
 	if [[ -d "$I" ]] && [[ -f .INCLUDES/"$I"_UC.HPP ]]
 	then
 		cd "$I"

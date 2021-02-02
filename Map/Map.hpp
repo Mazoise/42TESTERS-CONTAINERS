@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:48 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/21 14:39:06 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/02/02 12:49:52 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 #include <string>
 #include <limits>
 #include "../ReverseIterator.hpp"
-#include "MapNodeIterator.hpp"
+#include "../hbaudet_utils.hpp"
+#include "map_NodeIterator.hpp"
+#include "const_map_NodeIterator.hpp"
 #include "Node_pair.hpp"
 
 #ifdef DEBUG
@@ -64,7 +66,7 @@ namespace ft
 			explicit map(const key_compare& comp = key_compare()): _comp(comp)
 			{
 				if (PRINT)
-					cout << "Empty map ctor\n";
+					std::cout << "Empty map ctor\n";
 				
 				this->reset_map();
 			}
@@ -74,7 +76,7 @@ namespace ft
 					InputIter>::type last, const key_compare& comp = key_compare()): _comp(comp)
 				{
 					if (PRINT)
-						cout << "Rangemap ctor\n";
+						std::cout << "Rangemap ctor\n";
 
 					this->reset_map();
 					this->insert(first, last);
@@ -83,7 +85,7 @@ namespace ft
 			map (const map& x): _comp(x.key_comp())
 			{
 				if (PRINT)
-					cout << "Copy map ctor\n";
+					std::cout << "Copy map ctor\n";
 				
 				this->reset_map();
 				this->insert(x.begin(), x.end());
@@ -92,7 +94,7 @@ namespace ft
 			~map()
 			{
 				if (PRINT)
-					cout << "Map dtor\n";
+					std::cout << "Map dtor\n";
 				this->clear();
 			}
 
@@ -100,7 +102,7 @@ namespace ft
 			{
 				this->clear();
 				if (PRINT)
-					cout << "map::operator=\n";
+					std::cout << "map::operator=\n";
 				
 				const_iterator	beg = x.begin();
 				const_iterator	end = x.end();
@@ -191,7 +193,7 @@ namespace ft
 			pair<iterator, bool>		insert(const value_type& val)
 			{
 				if (PRINT)
-					cout << "insert single : " << val.first << ", " << val.second << "\n";
+					std::cout << "insert single : " << val.first << ", " << val.second << "\n";
 				if (!this->size())
 				{
 					insert_first_elem(val);
@@ -232,11 +234,11 @@ namespace ft
 			{
 				if (PRINT)
 				{
-					cout << "insert position : " << val.first << ", " << val.second << '\n';
+					std::cout << "insert position : " << val.first << ", " << val.second << '\n';
 					if (position != iterator(&this->_begin))
-						cout << "insert at : " << position->first << ", " << position->second << '\n';
+						std::cout << "insert at : " << position->first << ", " << position->second << '\n';
 					else
-						cout << "insert at start\n";
+						std::cout << "insert at start\n";
 				}
 				if (!this->size())
 				{
@@ -295,7 +297,7 @@ namespace ft
 					typename enable_if<InputIter::input_iter, InputIter>::type last)
 				{
 					if (PRINT)
-						cout << "insert range\n";
+						std::cout << "insert range\n";
 					while (first != last)
 					{
 						this->insert(*first);
@@ -306,7 +308,7 @@ namespace ft
 			void					erase(iterator position)
 			{
 				if (PRINT)
-					cout << "deleting : " << position->first << '\n';
+					std::cout << "deleting : " << position->first << '\n';
 				if (this->_size == 1) //special case of last elem
 				{
 					delete this->_root;
@@ -404,7 +406,7 @@ namespace ft
 				iterator tmp(first);
 
 				if (PRINT)
-					cout << "erase from :" << first->first <<" to : " << last->first << '\n';
+					std::cout << "erase from :" << first->first <<" to : " << last->first << '\n';
 
 				while (first != last)
 				{
@@ -602,7 +604,7 @@ namespace ft
 			void					insert_first_elem(const value_type& val)
 			{
 				if (PRINT)
-					cout << "insert_first_elem : " << val.first << ", " << val.second << "\n";
+					std::cout << "insert_first_elem : " << val.first << ", " << val.second << "\n";
 				this->_root = new node_type(val, &this->_end, &this->_begin);
 
 				this->_end.parent = this->_root;

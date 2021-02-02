@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   .pushBack_main.cpp                                 :+:      :+:    :+:   */
+/*   pushBack_main.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/18 16:01:01 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/02/02 13:20:32 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hbaudet_utils.hpp"
+#include "test_utils.hpp"
 #include "DEQUE_UC.HPP"
 #include <deque>
 #include <vector>
@@ -45,14 +45,16 @@ void	print(deque<T>& lst)
 int main ()
 {
   deque<int> mydeque;
-  int myint;
+  int myint = 42;
 
   do {
     myint += 4;
 	myint *= -7;
 	myint /= 2;
     mydeque.push_back (myint);
-  } while (myint);
+  } while (myint < 10000);
+
+  print (mydeque);
 
   cout << "mydeque stores " << (int) mydeque.size() << " numbers.\n";
 

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Node.hpp                                           :+:      :+:    :+:   */
+/*   deque_Node.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NODE_HPP
-# define NODE_HPP
+#ifndef DEQUE_NODE_HPP
+# define DEQUE_NODE_HPP
 # include <string>
 # include <iostream>
 
@@ -24,58 +24,58 @@
 namespace ft
 {
 	template<class T>
-	class node
+	class deque_node
 	{
 		private:
 			T	m;
 
 		public:
-			node(const node&);
-			node(const T& t, node<T>* n = NULL, node<T>* p = NULL);
-			node(node<T>* n = NULL, node<T>* p = NULL);
-			~node();
-			node&		operator=(const node&);
+			deque_node(const deque_node&);
+			deque_node(const T& t, deque_node<T>* n = NULL, deque_node<T>* p = NULL);
+			deque_node(deque_node<T>* n = NULL, deque_node<T>* p = NULL);
+			~deque_node();
+			deque_node&		operator=(const deque_node&);
 			T&			getMember();
 			const T&	getMember() const;
 
-			node*	next;
-			node*	prev;
+			deque_node*	next;
+			deque_node*	prev;
 	};
 }
 
 template<class T>
-ft::node<T>::node(const node& el) : m(el.getMember()), next(el.next), prev(el.prev)
+ft::deque_node<T>::deque_node(const deque_node& el) : m(el.getMember()), next(el.next), prev(el.prev)
 {
 	if (PRINT)
-		std::cout << "Node copy ctor\n";
+		std::cout << "deque_Node copy ctor\n";
 }
 
 template<class T>
-ft::node<T>::node(const T& t, node* n, node* p) : m(t), next(n), prev(p)
+ft::deque_node<T>::deque_node(const T& t, deque_node* n, deque_node* p) : m(t), next(n), prev(p)
 {
 	if (PRINT)
-		std::cout << "Node T ctor\n";
+		std::cout << "deque_Node T ctor\n";
 }
 
 template<class T>
-ft::node<T>::node(node* n, node* p) : m(T()), next(n), prev(p)
+ft::deque_node<T>::deque_node(deque_node* n, deque_node* p) : m(T()), next(n), prev(p)
 {
 	if (PRINT)
-		std::cout << "Node default ctor\n";
+		std::cout << "deque_Node default ctor\n";
 }
 
 template<class T>
-ft::node<T>::~node()
+ft::deque_node<T>::~deque_node()
 {
 	if (PRINT)
-		std::cout << "Node destructtor\n";
+		std::cout << "deque_Node destructtor\n";
 }
 
 template<class T>
-ft::node<T>&	ft::node<T>::operator=(const ft::node<T>& el)
+ft::deque_node<T>&	ft::deque_node<T>::operator=(const ft::deque_node<T>& el)
 {
 	if (PRINT)
-		std::cout << "Node operator =\n";
+		std::cout << "deque_Node operator =\n";
 	this->m = el.getMember();
 	this->next = el.next;
 	this->prev = el.prev;
@@ -83,18 +83,18 @@ ft::node<T>&	ft::node<T>::operator=(const ft::node<T>& el)
 }
 
 template<class T>
-T&	ft::node<T>::getMember()
+T&	ft::deque_node<T>::getMember()
 {
 	if (PRINT)
-		std::cout << "Node getMember()\n";
+		std::cout << "deque_Node getMember()\n";
 	return this->m;
 }
 
 template<class T>
-const T&	ft::node<T>::getMember() const
+const T&	ft::deque_node<T>::getMember() const
 {
 	if (PRINT)
-		std::cout << "Node const getMember()\n";
+		std::cout << "deque_Node const getMember()\n";
 	return this->m;
 }
 

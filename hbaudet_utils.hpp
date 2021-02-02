@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 14:20:31 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/18 15:54:58 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/02/02 12:53:19 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@
 
 namespace ft
 {
-	static std::ostream& 									cout = std::cout;
-	typedef std::string										string;
+	// static std::ostream& 									cout = std::cout;
+	// typedef std::string										string;
 
-
-	string	to_string(size_t n)
+# ifndef TO_STRING
+#  define TO_STRING
+	std::string	to_string(size_t n)
 	{
 		std::stringstream tmp;
 
@@ -38,6 +39,7 @@ namespace ft
 
 		return tmp.str();
 	}
+# endif
 
 	template <bool flag, class IsTrue, class IsFalse>
 		struct choose;
@@ -59,8 +61,6 @@ namespace ft
 
 	template<class T>
 		struct enable_if<true, T> { typedef T type; };
-
-	
 }
 
 #endif

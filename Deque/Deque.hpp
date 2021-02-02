@@ -6,15 +6,16 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:47 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/20 12:44:09 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/02/02 13:14:57 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include "Node.hpp"
-#include "NodeIterator.hpp"
-#include "const_NodeIterator.hpp"
+#include "deque_Node.hpp"
+#include "deque_NodeIterator.hpp"
+#include "const_deque_NodeIterator.hpp"
 #include "../ReverseIterator.hpp"
+#include "../hbaudet_utils.hpp"
 #include <iostream>
 #include <string>
 #include <limits>
@@ -38,8 +39,8 @@ namespace ft
 			typedef const value_type&							const_reference;
 			typedef value_type*									pointer;
 			typedef const value_type*							const_pointer;
-			typedef NodeIterator<T>								iterator;
-			typedef const_NodeIterator<T>						const_iterator;
+			typedef deque_NodeIterator<T>						iterator;
+			typedef const_deque_NodeIterator<T>					const_iterator;
 			typedef ReverseIterator< iterator>					reverse_iterator;
 			typedef const_ReverseIterator< const_iterator>		const_reverse_iterator;
 			typedef std::ptrdiff_t								difference_type;
@@ -424,7 +425,7 @@ namespace ft
 			}
 			
 		private:
-			typedef node<value_type>	node_type;
+			typedef deque_node<value_type>	node_type;
 
 			size_type					_n;
 			node_type					_head;

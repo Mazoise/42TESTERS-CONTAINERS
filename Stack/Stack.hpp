@@ -6,7 +6,7 @@
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:03:50 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/18 15:52:22 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/02/02 13:20:58 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <iostream>
 #include <string>
 #include "../ReverseIterator.hpp"
+#include "../hbaudet_utils.hpp"
 #include "Deque.hpp"
 
 #ifdef DEBUG
@@ -37,7 +38,7 @@ namespace ft
 		// MEMBER FCTS
 		explicit stack(const container_type& ctnr = container_type()):
 			c(ctnr) {}
-		/* Is is needed though?
+		/* Is it needed though?
 		~stack()
 		{
 			this->c::~c();

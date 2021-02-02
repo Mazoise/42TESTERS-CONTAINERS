@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #pragma once
+#include "../hbaudet_utils.hpp"
 #include "../ReverseIterator.hpp"
 #include "VectorIterator.hpp"
 #include "const_VectorIterator.hpp"
@@ -255,7 +256,7 @@ namespace ft
 				reference back()
 				{
 					if (PRINT)
-						cout << "Vector::back(), size = " << this->_size << '\n';
+						std::cout << "Vector::back(), size = " << this->_size << '\n';
 					if (!this->_size)
 						std::cerr << "Size == 0, expect to be "
 						<< "absorbed by a Black Hole, or something\n";
@@ -265,7 +266,7 @@ namespace ft
 				const_reference back() const
 				{
 					if (PRINT)
-						cout << "Vector::const_back(), size = " << this->_size << '\n';
+						std::cout << "Vector::const_back(), size = " << this->_size << '\n';
 					if (!this->_size)
 						std::cerr << "Size == 0, expect to be "
 						<< "absorbed by a Black Hole, or something\n";

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   NodeIterator.hpp                                   :+:      :+:    :+:   */
+/*   deque_NodeIterator.hpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 17:54:49 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/04 11:45:44 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/02/02 13:08:28 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NODEITERATOR_HPP
-# define NODEITERATOR_HPP
-# include "const_NodeIterator.hpp"
+#ifndef DEQUE_NODEITERATOR_HPP
+# define DEQUE_NODEITERATOR_HPP
+# include "deque_Node.hpp"
 # include <iostream>
 
 # ifdef DEBUG
@@ -24,30 +24,30 @@
 namespace ft
 {
 	template<class T>
-		class N;
-	
+		class deque_node;
+
 	template<class T>
-		class NodeIterator
+		class deque_NodeIterator
 		{
 			public:
 				typedef T					value_type;
-				typedef	node<T>				node_type;
+				typedef	deque_node<T>		node_type;
 				typedef	node_type*			pointer;
 				typedef value_type&			reference;
 				typedef	::std::ptrdiff_t	difference_type;
 
 				static const bool			input_iter;
 				
-				NodeIterator(): _ptr(NULL) {}
-				NodeIterator(pointer ptr) : _ptr(ptr) {}
-				NodeIterator(const NodeIterator& vec): _ptr(vec.getPointer())
+				deque_NodeIterator(): _ptr(NULL) {}
+				deque_NodeIterator(pointer ptr) : _ptr(ptr) {}
+				deque_NodeIterator(const deque_NodeIterator& vec): _ptr(vec.getPointer())
 				{
 					if (PRINT)
 						std::cout << "NodeIter copy ctor\n";
 				}
-				~NodeIterator() {}
+				~deque_NodeIterator() {}
 
-				NodeIterator& operator=(const NodeIterator& vec)
+				deque_NodeIterator& operator=(const deque_NodeIterator& vec)
 				{
 					if (PRINT)
 						std::cout << "NodeIter operator =\n";
@@ -76,40 +76,54 @@ namespace ft
 					return (&this->_ptr->getMember());
 				}
 
-				NodeIterator	operator++()
+				deque_NodeIterator	operator++()
 				{
 					this->_ptr = this->_ptr->next;
 					return *this;
 				}
 
-				NodeIterator	operator++(int)
+				deque_NodeIterator	operator++(int)
 				{
-					NodeIterator	tmp(*this);
+					deque_NodeIterator	tmp(*this);
 
 					this->_ptr = this->_ptr->next;
 					return tmp;
 				}
 
-				NodeIterator	operator--()
+				deque_NodeIterator	operator+(size_t i)
+				{
+					while(i--)
+						this->_ptr = this->_ptr->next;
+					return *this;
+				}
+
+				deque_NodeIterator	operator-(size_t i)
+				{
+					while(i--)
+						this->_ptr = this->_ptr->prev;
+					return *this;
+				}
+
+				deque_NodeIterator	operator--()
 				{
 					this->_ptr = this->_ptr->prev;
 					return *this;
 				}
 
-				NodeIterator	operator--(int)
+				deque_NodeIterator	operator--(int)
 				{
-					NodeIterator	tmp(*this);
+					deque_NodeIterator	tmp(*this);
 
 					this->_ptr = this->_ptr->prev;
 					return tmp;
 				}
 
-				bool 			operator==(const NodeIterator& right) const 
+				bool 			operator==(const deque_NodeIterator& right) const 
 				{
 					return (this->_ptr == right.getPointer());
 				}
 
-				bool 			operator!=(const NodeIterator& right) const 
+				bool 			operator!=(const deque_NodeIterator& right) const 
 				{
 					bool ret = (*this == right);
 
@@ -121,7 +135,7 @@ namespace ft
 		};
 
 	template<class T>
-		bool operator!=(const NodeIterator<T>& lhs, const NodeIterator<T>& rhs)
+		bool operator!=(const deque_NodeIterator<T>& lhs, const deque_NodeIterator<T>& rhs)
 		{
 			if (PRINT)
 				std::cout << "Operator != (NodeIter, NodeIter)\n";
@@ -130,7 +144,7 @@ namespace ft
 	
 
 	template < class T>
-		const bool NodeIterator<T>::input_iter = true;
+		const bool deque_NodeIterator<T>::input_iter = true;
 }
 
 #endif
