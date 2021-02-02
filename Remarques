@@ -1,0 +1,38 @@
+• Implement the following containers, and turn in the necessary files <container>.hpp
+• You must also provide a main.cpp which tests everything for your evaluations.
+• Ignore the Alloc template and associated functions. Non-member overloads are expected.
+• If the container has an iterator system, you must reimplement it, with your own system of traits to differenciate them. It has to behave like 
+ the std iterators but can be implemented in your own way. (Hint : SFINAE ...)
+• Reverse Iterators must be a template class.
+• You can use https://www.cplusplus.com/ as a reference of what to implement.
+• You cannot implement more public functions than the ones offered in the standard
+containers. Everything else must be private or protected. Each public function/-
+variable must be justified.
+• For non-member overloads, the keyword friend is allowed. Each use of friend
+must be justified and will be checked during evaluation.
+You must turn in the following containers and their associated functions:
+• List 
+• Vector
+• Map
+• Stack
+• Queue
+
+The underlying mechanism (arrays, doubly chained circular list, BST, vector<vector <> >, ... ) of each container of the stl must be reproduced thoroughly.
+
+Of course, STL is forbidden. You are however allowed to use the STD library.
+
+BONUS
+
+• Deque +2%
+• Set +2%
+• Multiset +2%
+• Multimap +2%
+• Vector<bool> specialization +2%
+• An iterator system using std::iterators_traits and iterator_tags that can be 
+    used with both the ft::containers and the std::containers alike () (cf Charmstr) +5%
+
+Notes en vrac:
+
+- Dans la grille de correction checker le fonctionnement de la capacity du ft::vector (toujours le double?)
+- Etre indulgent sur la sortie de max_size() => verifier que l'implement est legit, pas forcement le meme resultat ?
+- Assign_range et les pointers ? Les rendre compatible avec le template InputIter ou creer un overload de assign avecdes pointer ?

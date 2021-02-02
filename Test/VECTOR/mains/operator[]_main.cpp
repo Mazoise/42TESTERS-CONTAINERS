@@ -48,8 +48,11 @@ int main ()
 
   vector<int>::size_type sz = myvector.size();
 
+  print(myvector);
+
   // assign some values:
   for (unsigned i=0; i<sz; i++) myvector[i]=i;
+  print(myvector);
 
   // reverse vector using operator[]:
   for (unsigned i=0; i<sz/2; i++)
