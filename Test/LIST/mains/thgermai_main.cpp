@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aaathgermai_main.cpp                               :+:      :+:    :+:   */
+/*   thgermai_main.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/21 13:48:59 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/02/05 16:33:26 by hbaudet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,13 +238,14 @@ static void			splice_test()
 	list<int>		l;
 	list<int>		l2;
 	l.push_back(10);
+	l2.push_back(30);
 	while (l.back())
 	{
 		l.push_back(l.back() - 1);
 	}
 	while (l2.front())
 	{
-		l2.push_front(l2.front() - 1);
+		l2.push_front(l2.front() - 3);
 	}
 	list<int>::iterator			it = l.begin();
 	for (int i = 0; i < 3; ++i)
