@@ -1,24 +1,14 @@
-#	42 / FT_CONTAINERS #
-
-This project is a re-implementation of some of the STL containers.
-It includes Vector, List, Map, Queue, Deque and Stack.
-The whole project is c++98 compliant.
-
-##	How to run tester:
-
-- You must be in `Test/` folder to run the script
-
 - `Run_test.sh` will look for all your containers and run every test it has for each
 - If one or more container name is specified, then only listed containers will be tested
 - tests are stored in each `Test/container_name/mains` folder
 - You can pass arguments to the tester :
 	- `clean` will clean your directory and exit
 	- [...]
-- You can execute binaries again after running the tester. They are stored in `container_name/bin`
 - You can see compile logs in `container_name/logs`
 - You can see valgrind output (not available on mac os) in `container_name/leaks`
 - You can see test outputs in `container_name/out`
 - You can see output diff in `container_name/diff`
+- You can see error outputs in `container_name/stderror`
 
 - You can add your own tests as long as you respect these conditions:
 	- Tests must be named as : `name_main.cpp` and placed in `container_name/mains/`
@@ -50,9 +40,8 @@ If you have any question or suggestion, please feel free to PM me on slack @hbau
 ##  Notes :
 
 - Some tests come from cplusplus.com
-- Some were written by myself
+- Some were written by myself (hbaudet)
 - Some were submitted by other users
-
 
 ## Thanks :
 
