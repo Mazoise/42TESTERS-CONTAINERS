@@ -42,9 +42,20 @@ run_tests ()
 		else
 			rm logs/"$1"_ft.error.log
 			./bin/"$1"_std > out/"$1"_std.log 2> stderror/"$1"_std 
-			./bin/"$1"_ft > out/"$1"_ft.log 2> stderror/"$1"_ft
+			timeout 5 ./bin/"$1"_ft > out/"$1"_ft.log 2> stderror/"$1"_ft
+			RET=$?
 			diff out/"$1"_std.log out/"$1"_ft.log > diff/"$1".diff
-			if [ $(cat diff/"$1".diff | wc -l) -eq 0 ]
+			#echo "ret:$RET"
+			if [ $RET -eq 124 ]
+			then
+				echo -e "$RED$NOPE\t$1 timeout. No out provided.$RESET"
+			elif [ $RET -eq 134 ]
+			then
+				echo -e "$RED$NOPE\t$1 free() : invalid pointer. No out provided.$RESET"
+			elif [ $RET -eq 139 ]
+			then
+				echo -e "$RED$NOPE\t$1 Segfault detected. No out provided.$RESET"
+			elif [ $(cat diff/"$1".diff | wc -l) -eq 0 ]
 			then
 				if [[ "$OSTYPE" == "linux-gnu"* ]]
 				then
