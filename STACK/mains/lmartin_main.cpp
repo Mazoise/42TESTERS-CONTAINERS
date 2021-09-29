@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aaalmartin_main.cpp                                :+:      :+:    :+:   */
+/*   lmartin_main.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbaudet <hbaudet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/01/20 21:48:13 by hbaudet          ###   ########.fr       */
+/*   Updated: 2021/09/29 19:34:44 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "STACK_UC.HPP"
-#include <list>
-#include "LIST_UC.HPP"
+#include <vector>
 #include "test_utils.hpp"
+#include "VECTOR_UC.HPP"
 #include <stack>
 
 /*
@@ -90,9 +90,9 @@ int	main(void)
 	cout << "mystack.top(): " << mystack.top() << std::endl;
 	cout << std::endl;
 
-	stack<int, ft::list<int> > mystack2;
+	stack<int, ft::vector<int> > mystack2;
 
-	cout << "stack<" << _PURPLE << "int" << _END << ", " << _PURPLE << "ft::list" << _END << "> mystack2" << std::endl;
+	cout << "stack<" << _PURPLE << "int" << _END << ", " << _PURPLE << "ft::vector" << _END << "> mystack2" << std::endl;
 	cout << std::endl;
 
 
