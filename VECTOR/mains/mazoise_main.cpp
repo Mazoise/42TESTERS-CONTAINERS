@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 13:07:06 by hbaudet           #+#    #+#             */
-/*   Updated: 2021/09/24 15:08:16 by mchardin         ###   ########.fr       */
+/*   Updated: 2021/11/05 13:18:16 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ class Awesome {
 
 	public:
 
-		Awesome( void ) : _n( 42 ) { std::cout << "Default constructor" << std::endl; }
+		Awesome( void ) : _n( 42 ) { std::cout << "Default constructor" << std::endl; } //should not happen too often or else there is a wrong use of allocator (which calls the copy constructor)
 		Awesome( int n ) : _n( n ) { std::cout << "Int constructor" << std::endl; (void)n; }
-		Awesome( Awesome const &rhs ) : _n( 42 ) { *this = rhs; std::cout << "Copy constructor" << std::endl; }
-		virtual ~Awesome(void) { std::cout << "Destructor" << std::endl; }
+		Awesome( Awesome const &rhs ) : _n( 42 ) { *this = rhs;}
+		virtual ~Awesome(void) {}
 
 		Awesome &operator=( Awesome const & rhs ) { this->_n = rhs._n; return (*this); }
 		bool operator==( Awesome const & rhs ) const { return (this->_n == rhs._n); }
